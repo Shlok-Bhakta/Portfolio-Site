@@ -10,6 +10,6 @@
 </script>
 
 Total: {total}
-<button on:click={() => x++}> Increment X </button>
+<button on:click={() => x++} class="text-text"> Increment X </button>
 
 <button on:click={() => y++}> Increment Y </button>
