@@ -1,18 +1,5 @@
 <script>
-  import { onMount } from "svelte";
-
-  let width = 0;
-  let height = 0;
-
-  onMount(() => {
-    width = window.innerWidth;
-    height = window.innerHeight;
-
-    window.addEventListener("resize", () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-    });
-  });
+  import "../styles/global.css";
 </script>
 
 <link
@@ -23,7 +10,9 @@
   <ul class="flex items-center">
     <!-- Logo Area -->
     <li>
-      <button class="text-4xl mx-3 text-text ml-4"> SB~% </button>
+      <button class="text-4xl mx-3 text-text ml-4 font-display nerdfont">
+        SB~%
+      </button>
     </li>
     <!-- a spacer -->
     <li class="flex-auto"></li>
@@ -34,19 +23,23 @@
     <!-- the other 3 buttons -->
     <li>
       <div class="text-lg hidden sm:hidden md:flex">
-        <button class="bg-surface2 rounded-md py-1 px-3 mx-3 text-text">
+        <button
+          class="bg-surface2 rounded-md py-1 px-3 mx-3 text-text nerdfont"
+        >
           Blog
         </button>
-        <button class="bg-surface2 rounded-md py-1 px-3 mx-3 text-text">
+        <button
+          class="bg-surface2 rounded-md py-1 px-3 mx-3 text-text nerdfont"
+        >
           Projects
         </button>
-        <button class="bg-surface2 rounded-md py-1 px-3 mx-3 mr-4 text-text">
+        <a
+          href="/contact/"
+          class="bg-surface2 rounded-md py-1 px-3 mx-3 mr-4 text-text nerdfont"
+        >
           Contact
-        </button>
+        </a>
       </div>
     </li>
   </ul>
-</div>
-<div>
-  {width}, {height}
 </div>
