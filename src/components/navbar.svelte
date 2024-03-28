@@ -10,9 +10,9 @@
   <ul class="flex items-center">
     <!-- Logo Area -->
     <li>
-      <button class="text-4xl mx-3 text-text ml-4 font-display nerdfont">
+      <a href="/" class="text-4xl mx-3 text-text ml-4 font-display nerdfont">
         SB~%
-      </button>
+      </a>
     </li>
     <!-- a spacer -->
     <li class="flex-auto"></li>
@@ -23,16 +23,18 @@
     <!-- the other 3 buttons -->
     <li>
       <div class="text-lg hidden sm:hidden md:flex">
-        <button
+        <a
+          href="/blog/"
           class="bg-surface2 rounded-md py-1 px-3 mx-3 text-text nerdfont"
         >
           Blog
-        </button>
-        <button
+        </a>
+        <a
+          href="/projects/"
           class="bg-surface2 rounded-md py-1 px-3 mx-3 text-text nerdfont"
         >
           Projects
-        </button>
+        </a>
         <a
           href="/contact/"
           class="bg-surface2 rounded-md py-1 px-3 mx-3 mr-4 text-text nerdfont"
