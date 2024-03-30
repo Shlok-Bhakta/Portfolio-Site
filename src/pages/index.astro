@@ -2,6 +2,7 @@
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Navbar from "../components/navbar.svelte";
 import "../styles/global.css";
+import SkillCard from "../components/skillCard.svelte"
 ---
 <!doctype html>
 <html lang="en">
@@ -18,10 +19,10 @@ import "../styles/global.css";
   <body class="mocha bg-crust">
     <Navbar/>
     <section class="flex flex-col items-center pb-40 pt-14 sm:pt-20 lg:pt-32">
-      <div class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vh] nerdfont">
+      <div class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vw] nerdfont">
         &ltHowdy/&gt
       </div>
     </section>
-
+    <SkillCard/>
   </body>
 </html>
