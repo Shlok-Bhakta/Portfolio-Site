@@ -2,7 +2,7 @@
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Navbar from "../components/navbar.svelte";
 import "../styles/global.css";
-import SkillCard from "../components/skillCard.svelte"
+import SkillCard from "../components/skillCard.astro"
 ---
 <!doctype html>
 <html lang="en">
@@ -23,6 +23,7 @@ import SkillCard from "../components/skillCard.svelte"
         &ltHowdy/&gt
       </div>
     </section>
-    <SkillCard/>
+    <SkillCard title="Webpack" text="never again shall I use this trecherous tool" posts=0 image="https://raw.githubusercontent.com/webpack/media/master/logo/icon.svg"/>
+    <SkillCard  title="Astro" text="poggers metaframework with amazing docs and tools" posts=0 image="https://astro.build/favicon.svg"/>
   </body>
 </html>

@@ -1,0 +1,54 @@
+---
+  import "../styles/global.css";
+  import ColorThief from 'color-thief-node';
+
+
+  const {title, image, text, posts} = Astro.props;
+
+  // await getPaletteFromURL(imageURL);
+  const palette = await ColorThief.getPaletteFromURL(image, 2);
+  const col1 = "#" + palette[0][0].toString(16) + palette[0][1].toString(16) + palette[0][2].toString(16);
+  const col2 = "#" + palette[1][0].toString(16) + palette[1][1].toString(16) + palette[1][2].toString(16);
+---
+<div
+  class={"flex items-center justify-center w-dvw md:w-fit h-fit rounded-3xl"}
+  style={`background: linear-gradient(145deg, ${col1} 0%, ${col2} 100%);`}
+>
+  <div
+    class="
+        bg-mantle
+        shadow-md
+        m-0.5
+        rounded-3xl
+        flex
+        justify-around
+        items-center
+        overflow-hidden
+        flex-row w-dvw h-fit
+        place-items-start max-h-full
+        md:flex-col md:h-auto md:w-40
+        md:max-h-96
+      "
+  >
+    <img class="h-32 md:h-fit aspect-square mt-0 md:mt-4" src={image} alt={title} />
+
+    <div
+      class="
+          flex flex-col
+          items-baseline
+          justify-start
+          pl-0
+          md:pl-4
+          p-4
+          "
+    >
+      <div class="flex flex-col h-fit">
+        <h1 class="text-lg font-normal mb-0 text-text font-sans">
+          {title}
+        </h1>
+        <span class="text-xs text-indigo-300 mt-0">{posts} Posts</span>
+      </div>
+      <p class="text-xs text-subtext1 mb-3">{text}</p>
+    </div>
+  </div>
+</div>
