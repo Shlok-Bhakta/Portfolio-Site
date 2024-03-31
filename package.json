@@ -23,6 +23,7 @@
     "typescript": "^5.4.2"
   },
   "devDependencies": {
-    "@catppuccin/tailwindcss": "^0.1.6"
+    "@catppuccin/tailwindcss": "^0.1.6",
+    "@types/color-thief-node": "^1.0.4"
   }
 }

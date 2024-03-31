@@ -1,24 +1,35 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import Navbar from "../components/navbar.svelte";
+import Navbar from "../components/navbar.astro";
 
 import "../styles/global.css";
 ---
+
 <!doctype html>
 <html lang="en">
-  <head> 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
-    <meta name="author" content="Shlok Bhakta">
-    <meta name="keywords" content="HTML, CSS, JavaScript, Hire, Blog, Personal Site, ">
-    <meta name="description" content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="author" content="Shlok Bhakta" />
+    <meta
+      name="keywords"
+      content="HTML, CSS, JavaScript, Hire, Blog, Personal Site, "
+    />
+    <meta
+      name="description"
+      content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
+    />
   </head>
   <body class="mocha bg-crust">
-    <Navbar/>
-    <section class="flex justify-center bg-mantle w-vw h-[calc(100vh-56*2.5px)] m-10 rounded-md">
-      <div class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vh] nerdfont">
-      I build things
-    </div>
-  </section>
+    <Navbar />
+    <section
+      class="flex justify-center bg-mantle w-vw h-[calc(100vh-56*2.5px)] m-10 rounded-md"
+    >
+      <div
+        class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vh] nerdfont"
+      >
+        I build things
+      </div>
+    </section>
   </body>
 </html>

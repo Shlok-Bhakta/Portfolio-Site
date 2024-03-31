@@ -1,6 +1,7 @@
-<script>
-  import "../styles/global.css";
-</script>
+---
+import "../styles/global.css";
+import Hamburger from "./hamburger.svelte";
+---
 
 <link
   rel="stylesheet"
@@ -17,9 +18,7 @@
     <!-- a spacer -->
     <li class="flex-auto"></li>
     <!-- Hamburger Menu -->
-    <button class="flex sm:flex md:hidden py-1 px-3 mx-3 mr-4"
-      ><span class="material-symbols-outlined text-9xl text-text"> menu </span>
-    </button>
+    <Hamburger client:load />
     <!-- the other 3 buttons -->
     <li>
       <div class="text-lg hidden sm:hidden md:flex">
