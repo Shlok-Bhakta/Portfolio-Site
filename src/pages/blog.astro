@@ -1,8 +1,19 @@
 ---
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Navbar from "../components/navbar.astro";
-
 import "../styles/global.css";
+import PostCard from "../components/postcard.astro"
+import PocketBase from 'pocketbase';
+const pb = new PocketBase('http://pocketbase:8090');
+let data = await pb.collection('Tags').getFullList({
+    sort: '-created',
+});
+
+http://pocketbase:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME
+for(let i = 0; i < data.length; i++){
+  data[i].imgurl = pb.files.getUrl(data[i], data[i].Icon);
+}
+
+console.log(data)
 ---
 
 <!doctype html>
@@ -26,10 +37,17 @@ import "../styles/global.css";
       class="flex justify-center bg-mantle w-vw h-[calc(100vh-56*2.5px)] m-10 rounded-md"
     >
       <div
-        class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vh] nerdfont"
+        class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[100%] max-w-96 nerdfont"
       >
         read more bruh
       </div>
+      <ul>
+        {data.map((item) => (
+          <li>
+            <PostCard image={item.imgurl} tag={item.tagName} color={item.color}></PostCard>
+          </li>
+        ))}
+      </ul>
     </section>
   </body>
 </html>

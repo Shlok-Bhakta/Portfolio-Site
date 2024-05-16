@@ -13,13 +13,12 @@
   </button>
 
   {#if clicked}
-    <dialog
-      open="True"
+    <div
       id="dialogbox"
       transition:fade={{ duration: 100 }}
-      class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-base px-auto py-3 m-3 rounded-md backdrop-blur-md bg-opacity-30"
+      class="fixed -top-4 -left-4 w-svw h-svh flex items-center justify-center bg-base px-auto py-3 m-3 rounded-md backdrop-blur-md bg-opacity-30 toptop"
     >
-      <div class="flex flex-col space-y-3 items-center backdrop-blur-md bg-opacity-50">
+      <div class="flex flex-col space-y-3 items-center">
         <button on:click={toggle} class="flex mx-3 mr-4">
           <span class="material-symbols-outlined text-9xl text-text py-1.5 px-1.5 transition-all ease-in-out delay-50 hover:bg-surface1 rounded-md"> close </span>
         </button>
@@ -28,6 +27,12 @@
         <a href="/projects/" class="bg-surface2 rounded-md py-7 w-[80svw] mx-3 text-text nerdfont text-center"> Projects </a>
         <a href="/contact/" class="bg-surface2 rounded-md py-7 w-[80svw] mx-3 mr-4 text-text nerdfont text-center"> Contact </a>
       </div>
-    </dialog>
+    </div>
   {/if}
 </div>
+
+<style>
+  .toptop {
+    z-index: 100;
+  }
+</style>
