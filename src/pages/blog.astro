@@ -3,7 +3,7 @@ import Navbar from "../components/navbar.astro";
 import "../styles/global.css";
 import PostCard from "../components/postcard.astro"
 import PocketBase from 'pocketbase';
-const pb = new PocketBase('http://pocketbase:8090');
+const pb = new PocketBase('http://db.shlokbhakta.dev');
 let data = await pb.collection('Tags').getFullList({
     sort: '-created',
 });
@@ -34,7 +34,8 @@ console.log(data)
   <body class="mocha bg-crust">
     <Navbar />
     <section
-      class="flex justify-center bg-mantle w-vw h-[calc(100vh-56*2.5px)] m-10 rounded-md"
+      class="flex justify-center bg-mantle w-vw h-svh m-10 rounded-md"
+      style="height: 500vh;"
     >
       <div
         class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[100%] max-w-96 nerdfont"
