@@ -1,5 +1,4 @@
 ---
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Navbar from "../components/navbar.astro";
 
 import "../styles/global.css";
@@ -30,16 +29,25 @@ import "../styles/global.css";
       >
         Contact Me!
       </h1>
+      <div class="h-1 mb-4 flex mx-auto w-[calc(100%-50px)] bg-gradient-to-r from-sky to-red"></div>
       <div class="flex place-content-center ">
-        <div class="flex justify-center rounded-md bg-gradient-to-r from-blue to-lavender">
-          <div class="flex items-center p-3 m-0.5 divide-x divide-crust divide-dashed flex-nowrap bg-base rounded-md border-spacing-1">
+        <div class="flex justify-center rounded-md bg-gradient-to-r from-yellow to-lavender">
+          <div class="flex items-center p-3 m-0.5 divide-x divide-subtext1 divide-dashed flex-nowrap bg-base rounded-md border-spacing-1">
             <div class="block p-3">
-              <h3 class="text-center text-text">Email: shlokbhakta1@gmail.com</h3>
-              <h3 class="text-center text-text">Phone Number: (111)-111-1111</h3>
+              <h3 class="ease-in-out transition-all scale-100 hover:scale-105 text-text hover:text-red">
+                <a href="mailto:shlokbhakta1@gmail.com" target="_blank" rel="noopener noreferrer" class="text-center">Email: shlokbhakta1@gmail.com</a>
+              </h3>
+              <h3 class="ease-in-out transition-all scale-100 hover:scale-105 text-text hover:text-blue">
+                <a href="tel:(254)-251-9749" target="_blank" rel="noopener noreferrer" class="text-center">Phone Number: (254)-251-9749</a>
+              </h3>
             </div>
             <div class="block p-3">
-              <h3 class="text-center text-text">Github: Shlok-Bhakta</h3>
-              <h3 class="text-center text-text">LinkedIn: shlok-bhakta</h3>
+              <h3 class="ease-in-out transition-all scale-100 hover:scale-105 text-text hover:text-mauve">
+                <a href="https://github.com/Shlok-Bhakta" target="_blank" rel="noopener noreferrer" class="text-center">Github: Shlok-Bhakta</a>
+              </h3>
+              <h3 class="ease-in-out transition-all scale-100 hover:scale-105 text-text hover:text-sky">
+                <a href="https://www.linkedin.com/in/shlok-bhakta-586317218/" target="_blank" rel="noopener noreferrer" class="text-center">LinkedIn: shlok-bhakta</a>
+              </h3>
             </div>
           </div>
         </div>
