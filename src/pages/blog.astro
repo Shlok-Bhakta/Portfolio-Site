@@ -1,7 +1,8 @@
 ---
-import Navbar from "../components/navbar.astro";
+import Navbar from "../components/searchNavbar.astro";
 import "../styles/global.css";
-import PostCard from "../components/postcard.astro"
+import PostTag from "../components/postTag.astro"
+import PostCards from "../components/postCard.astro"
 import PocketBase from 'pocketbase';
 const pb = new PocketBase('http://db.shlokbhakta.dev');
 let data = await pb.collection('Tags').getFullList({
@@ -10,10 +11,15 @@ let data = await pb.collection('Tags').getFullList({
 
 http://pocketbase:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME
 for(let i = 0; i < data.length; i++){
-  data[i].imgurl = pb.files.getUrl(data[i], data[i].Icon);
+  data[i].imgurl = pb.files.getUrl(data[i], data[i].Icon, {'thumb': '32x32'});
 }
 
-console.log(data)
+let posts = await pb.collection('Posts').getList(1, 30, { expand: "tagName", sort: '-created' })
+// let posts = await pb.collection('Posts').getFullList({expand: "tagName", sort: '-created' })
+for(let i = 0; i < posts.items.length; i++){
+  posts.items[i].imgurl = pb.files.getUrl(posts.items[i], posts.items[i].Thumbnail, {'thumb': '16x9'})
+}
+console.log(posts.items[0].expand)
 ---
 
 <!doctype html>
@@ -33,22 +39,36 @@ console.log(data)
   </head>
   <body class="mocha bg-crust">
     <Navbar />
-    <section
-      class="flex justify-center bg-mantle w-vw h-svh m-10 rounded-md"
-      style="height: 500vh;"
-    >
+    <!-- background Box 1 -->
+    <!-- Header Text -->
       <div
-        class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[100%] max-w-96 nerdfont"
+        class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[calc(16px+8vw)] text-center nerdfont"
       >
-        read more bruh
+        Blog
       </div>
-      <ul>
+    <div
+      class="flex justify-center bg-mantle w-vw h-auto p-2 m-2 rounded-md"
+    >
+      <!-- Tags -->
+      <ul class="flex flex-wrap space-x-1">
         {data.map((item) => (
-          <li>
-            <PostCard image={item.imgurl} tag={item.tagName} color={item.color}></PostCard>
+          <li class="flex">
+            <PostTag image={item.imgurl} tag={item.tagName} col={item.color}></PostTag>
           </li>
         ))}
       </ul>
-    </section>
+    </div>
+    <!-- posts -->
+    <div class="flex justify-center bg-mantle w-vw h-auto pt-2 pb-2 m-2 rounded-md">
+      <!-- Posts -->
+      <ol class="grid grid-cols-3 gap-2">
+        {posts.items.map((data) => <li>
+          <PostCards title={data.Title} tags={data.expand.tagName} date={data.created} image={data.imgurl}/>
+        </li>)}
+        {posts.items.map((data) => <li>
+          <PostCards title={data.Title} tags={data.expand.tagName} date={data.created} image={data.imgurl}/>
+        </li>)}
+      </ol>
+    </div>
   </body>
 </html>

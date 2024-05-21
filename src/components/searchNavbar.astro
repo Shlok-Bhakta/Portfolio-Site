@@ -1,0 +1,61 @@
+---
+import "../styles/global.css";
+import Hamburger from "./hamburger.svelte";
+
+
+---
+
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+<div class="sticky top-0 bg-base py-2">
+  <ul class="flex items-center">
+    <!-- Logo Area -->
+    <li>
+      <a href="/" class="text-4xl mx-3 text-text ml-4 font-display nerdfont">
+        SB~%
+      </a>
+    </li>
+    <!-- The Navbar -->
+    <div class="bg-surface0 flex flex-grow items-center rounded-md divide-x divide-surface1 py-1">
+      <!--Search Icon -->
+      <div class="px-2">
+        🔍
+      </div>
+      <!-- Search Functionallity -->
+      <div class="px-2 text-text nerdfont hidden sm:hidden md:flex">
+        search somethin...
+      </div>
+      <div class="px-2 text-text nerdfont flex md:hidden">
+        search
+      </div>
+    </div>
+    <!-- Hamburger Menu -->
+    <Hamburger client:load />
+    <!-- the other 3 buttons -->
+    <li>
+      <div class="text-lg hidden sm:hidden md:flex">
+        <a
+          href="/blog/"
+          class="bg-surface2 rounded-md py-1 px-3 mx-3 text-text nerdfont"
+        >
+          Blog
+        </a>
+        <a
+          href="/projects/"
+          class="bg-surface2 rounded-md py-1 px-3 mx-3 text-text nerdfont"
+        >
+          Projects
+        </a>
+        <a
+          href="/contact/"
+          class="bg-surface2 rounded-md py-1 px-3 mx-3 mr-4 text-text nerdfont"
+        >
+          Contact
+        </a>
+      </div>
+    </li>
+  </ul>
+</div>

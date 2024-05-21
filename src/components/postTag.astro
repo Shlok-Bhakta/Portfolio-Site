@@ -1,0 +1,11 @@
+---
+import "../styles/global.css";
+import ColorThief from "color-thief-node";
+
+const { image, tag, col } = Astro.props;
+---
+
+<div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px]" style=`border-color: ${col1};`>
+    <img class="pl-2 aspect-square h-8" src={image} alt={tag}>
+    <div class="pr-2 text-sm text-text nerdfont">{tag}</div>
+</div>

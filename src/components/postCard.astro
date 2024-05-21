@@ -1,0 +1,34 @@
+---
+import "../styles/global.css";
+import PocketBase from 'pocketbase';
+import PostTag from "./postTag.astro";
+// import ColorThief from "color-thief-node";
+
+const { title, tags, date, image } = Astro.props;
+
+// await getPaletteFromURL(imageURL);
+// const palette = await ColorThief.getPaletteFromURL(image, 2);
+// const col1 =
+//   "#" +
+//   palette[0][0].toString(16) +
+//   palette[0][1].toString(16) +
+//   palette[0][2].toString(16);
+// const col2 =
+//   "#" +
+//   palette[1][0].toString(16) +
+//   palette[1][1].toString(16) +
+//   palette[1][2].toString(16);
+---
+<div class="w-full h-72 border-2 border-red rounded-md p-2">
+  <img src={image} class="aspect-video w-full max-w-96" >
+  <div class="pr-2 text-sm text-text nerdfont">{title}</div>
+  <div class="pr-2 text-sm text-blue nerdfont">{date}</div>
+  <!-- Tags -->
+  <ul class="flex flex-wrap space-x-1">
+    {tags.map((item: { imgurl: any; tagName: any; }) => (
+      <li class="flex">
+        <PostTag image={item.imgurl} tag={item.tagName}></PostTag>
+      </li>
+    ))}
+  </ul>
+</div>
