@@ -1,8 +1,24 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Navbar from "../components/navbar.astro";
-
+import PocketBase from "pocketbase";
+import PostCard from "../components/postCard.astro";
 import "../styles/global.css";
+
+const pb = new PocketBase("http://db.shlokbhakta.dev");
+let data = await pb.collection("Projects").getFullList({
+  sort: "-created",
+  expand: "Tags",
+});
+for (let i = 0; i < data.length; i++) {
+  data[i].imgurl = pb.files.getUrl(data[i], data[i].Thumbnail);
+  for (let j = 0; j < data[i].expand?.Tags.length; j++) {
+    data[i].expand.Tags[j].imgurl = pb.files.getUrl(
+      data[i].expand?.Tags[j],
+      data[i].expand?.Tags[j].Icon,
+    );
+  }
+}
 ---
 
 <!doctype html>
@@ -22,14 +38,31 @@ import "../styles/global.css";
   </head>
   <body class="mocha bg-crust">
     <Navbar />
-    <section
-      class="flex justify-center bg-mantle w-vw h-[calc(100vh-56*2.5px)] m-10 rounded-md"
+    <div
+      class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[calc(16px+6vw)] text-center nerdfont"
     >
-      <div
-        class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vh] nerdfont"
+      Things I Made!
+    </div>
+    <div class="flex justify-center">
+      <section
+        class="flex justify-center bg-mantle w-vw max-w-4xl h-auto p-6 m-2 rounded-md"
       >
-        I build things
-      </div>
-    </section>
+        <ol class="grid grid-cols-3 gap-2">
+          {
+            data.map((item) => (
+              <li>
+                <PostCard
+                  title={item.Title}
+                  tags={item.expand.Tags}
+                  date={item.created}
+                  image={item.imgurl}
+                  link={"/project/" + item.id + "-" + item.Title}
+                />
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+    </div>
   </body>
 </html>

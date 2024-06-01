@@ -1,0 +1,66 @@
+---
+import PocketBase from "pocketbase";
+import Navbar from "../../components/navbar.astro";
+import "../../styles/global.css";
+
+export async function getStaticPaths() {
+    let paths = [];
+    const pb = new PocketBase("http://db.shlokbhakta.dev");
+    const data = await pb.collection("posts").getFullList({
+        sort: "-created",
+    });
+    for (let i = 0; i < data.length; i++) {
+        paths[i] = { params: { id: data[i].id } };
+    }
+    console.log(paths);
+    return paths;
+}
+const { id } = Astro.params;
+
+const pb = new PocketBase("http://db.shlokbhakta.dev");
+
+const data = await pb.collection("posts").getOne(id);
+const image = pb.files.getUrl(data, data.Thumbnail);
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="UTF-8" />
+        <meta name="author" content="Shlok Bhakta" />
+        <meta
+            name="keywords"
+            content="HTML, CSS, JavaScript, Hire, Blog, Personal Site, "
+        />
+        <meta
+            name="description"
+            content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
+        />
+        <style>
+            .title {
+                font-size: min(10vw, 4.5rem);
+            }
+        </style>
+    </head>
+    <body class="mocha bg-crust">
+        <Navbar />
+        <div class="flex justify-center">
+            <img
+                class="aspect-video w-[calc(100vw-40px)] max-w-4xl mt-4 rounded-md border-2 border-text"
+                src={image}
+                alt={data.Title}
+            />
+        </div>
+        <div class="title text-center text-text nerdfont">
+            {data.Title}
+        </div>
+        <div class="flex justify-center">
+            <article
+                class="flex w-[calc(100vw-40px)] bg-mantle center flex-col justify-center max-w-4xl nerdfont p-3 rounded-md"
+            >
+                <Fragment set:html={data.Html} />
+            </article>
+        </div>
+    </body>
+</html>

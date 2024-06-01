@@ -1,25 +1,44 @@
 ---
 import Navbar from "../components/searchNavbar.astro";
 import "../styles/global.css";
-import PostTag from "../components/postTag.astro"
-import PostCards from "../components/postCard.astro"
-import PocketBase from 'pocketbase';
-const pb = new PocketBase('http://db.shlokbhakta.dev');
-let data = await pb.collection('Tags').getFullList({
-    sort: '-created',
+import PostTag from "../components/postTag.astro";
+import PostCards from "../components/postCard.astro";
+import PocketBase from "pocketbase";
+const pb = new PocketBase("http://db.shlokbhakta.dev");
+let data = await pb.collection("Tags").getFullList({
+  sort: "-created",
 });
 
-http://pocketbase:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME
-for(let i = 0; i < data.length; i++){
-  data[i].imgurl = pb.files.getUrl(data[i], data[i].Icon, {'thumb': '32x32'});
+//pocketbase:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME
+http: for (let i = 0; i < data.length; i++) {
+  data[i].imgurl = pb.files.getUrl(data[i], data[i].Icon, { thumb: "32x32" });
 }
 
-let posts = await pb.collection('Posts').getList(1, 30, { expand: "tagName", sort: '-created' })
+let posts = await pb
+  .collection("Posts")
+  .getList(1, 30, { expand: "tagName", sort: "-created" });
 // let posts = await pb.collection('Posts').getFullList({expand: "tagName", sort: '-created' })
-for(let i = 0; i < posts.items.length; i++){
-  posts.items[i].imgurl = pb.files.getUrl(posts.items[i], posts.items[i].Thumbnail, {'thumb': '16x9'})
+for (let i = 0; i < posts.items.length; i++) {
+  posts.items[i].imgurl = pb.files.getUrl(
+    posts.items[i],
+    posts.items[i].Thumbnail,
+    { thumb: "16x9" },
+  );
+  posts.items[i].imgurlhq = pb.files.getUrl(
+    posts.items[i],
+    posts.items[i].Thumbnail,
+  );
+  for (let j = 0; j < posts.items[i].expand?.tagName.length; j++) {
+    posts.items[i].expand.tagName[j].imgurl = pb.files.getUrl(
+      posts.items[i].expand?.tagName[j],
+      posts.items[i].expand?.tagName[j].Icon,
+      {
+        thumb: "32x32",
+      },
+    );
+  }
 }
-console.log(posts.items[0].expand)
+// console.log(posts.items[1].expand.tagName);
 ---
 
 <!doctype html>
@@ -41,34 +60,62 @@ console.log(posts.items[0].expand)
     <Navbar />
     <!-- background Box 1 -->
     <!-- Header Text -->
-      <div
-        class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[calc(16px+8vw)] text-center nerdfont"
-      >
-        Blog
-      </div>
     <div
-      class="flex justify-center bg-mantle w-vw h-auto p-2 m-2 rounded-md"
+      class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[calc(16px+8vw)] text-center nerdfont"
     >
-      <!-- Tags -->
-      <ul class="flex flex-wrap space-x-1">
-        {data.map((item) => (
-          <li class="flex">
-            <PostTag image={item.imgurl} tag={item.tagName} col={item.color}></PostTag>
-          </li>
-        ))}
-      </ul>
+      Blog
     </div>
+    <!-- <div class="flex justify-center bg-mantle w-vw h-auto p-2 m-2 rounded-md"> -->
+    <!-- Tags -->
+    <!-- <ul class="flex flex-wrap space-x-1">
+        {
+          data.map((item) => (
+            <li class="flex">
+              <PostTag
+                image={item.imgurl}
+                tag={item.tagName}
+                col={item.color}
+              />
+            </li>
+          ))
+        }
+      </ul> -->
+    <!-- </div> -->
     <!-- posts -->
-    <div class="flex justify-center bg-mantle w-vw h-auto pt-2 pb-2 m-2 rounded-md">
-      <!-- Posts -->
-      <ol class="grid grid-cols-3 gap-2">
-        {posts.items.map((data) => <li>
-          <PostCards title={data.Title} tags={data.expand.tagName} date={data.created} image={data.imgurl}/>
-        </li>)}
-        {posts.items.map((data) => <li>
-          <PostCards title={data.Title} tags={data.expand.tagName} date={data.created} image={data.imgurl}/>
-        </li>)}
-      </ol>
+    <div class="flex justify-center">
+      <div
+        class="flex justify-center bg-mantle w-vw max-w-4xl h-auto p-6 m-2 rounded-md"
+      >
+        <!-- Posts -->
+        <ol class="grid grid-cols-3 gap-2">
+          {
+            posts.items.map((data) => (
+              <li>
+                <PostCards
+                  title={data.Title}
+                  tags={data.expand.tagName}
+                  date={data.created}
+                  image={data.imgurl}
+                  link={"/post/" + data.id}
+                />
+              </li>
+            ))
+          }
+          {
+            posts.items.map((data) => (
+              <li>
+                <PostCards
+                  title={data.Title}
+                  tags={data.expand.tagName}
+                  date={data.created}
+                  image={data.imgurl}
+                  id={data.id}
+                />
+              </li>
+            ))
+          }
+        </ol>
+      </div>
     </div>
   </body>
 </html>
