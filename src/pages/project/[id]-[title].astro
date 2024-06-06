@@ -30,6 +30,9 @@ let posts = await pb.collection("Posts").getFullList({
 
 for (let i = 0; i < posts.length; i++) {
     posts[i].imgurl = pb.files.getUrl(posts[i], posts[i].Thumbnail);
+    posts[i].imgurllq = pb.files.getUrl(posts[i], posts[i].Thumbnail, {
+        thumb: "16x9",
+    });
     for (let j = 0; j < posts[i].expand?.tagName.length; j++) {
         posts[i].expand.tagName[j].imgurl = pb.files.getUrl(
             posts[i].expand?.tagName[j],
@@ -95,6 +98,8 @@ console.log(posts);
                                         date={data.created}
                                         image={data.imgurl}
                                         link={"/post/" + data.id}
+                                        imagelq={data.imgurllq}
+                                        col={data.color}
                                     />
                                 </li>
                             ))
@@ -102,6 +107,9 @@ console.log(posts);
                     </ol>
                 </div>
             </div>
+        </div>
+        <div>
+            <img src="/ReadingThanks.svg" class="w-full px-6 pt-24" />
         </div>
     </body>
 </html>

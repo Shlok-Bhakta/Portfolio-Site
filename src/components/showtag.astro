@@ -1,11 +1,12 @@
 ---
 import "../styles/global.css";
-import ColorThief from "color-thief-node";
 
 const { color, tag } = Astro.props;
-
 ---
 
-<div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px]" style=`border-color: ${color};`>
+<div
+    class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px]"
+    style=`border-color: ${color};`
+>
     <div class="pr-2 text-sm nerdfont" style=`text-color: ${color};`>{tag}</div>
 </div>

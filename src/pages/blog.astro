@@ -4,13 +4,13 @@ import "../styles/global.css";
 import PostTag from "../components/postTag.astro";
 import PostCards from "../components/postCard.astro";
 import PocketBase from "pocketbase";
-const pb = new PocketBase("http://db.shlokbhakta.dev");
+const pb = new PocketBase("https://db.shlokbhakta.dev");
 let data = await pb.collection("Tags").getFullList({
   sort: "-created",
 });
 
 //pocketbase:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME
-http: for (let i = 0; i < data.length; i++) {
+for (let i = 0; i < data.length; i++) {
   data[i].imgurl = pb.files.getUrl(data[i], data[i].Icon, { thumb: "32x32" });
 }
 
@@ -95,21 +95,10 @@ for (let i = 0; i < posts.items.length; i++) {
                   title={data.Title}
                   tags={data.expand.tagName}
                   date={data.created}
-                  image={data.imgurl}
+                  image={data.imgurlhq}
                   link={"/post/" + data.id}
-                />
-              </li>
-            ))
-          }
-          {
-            posts.items.map((data) => (
-              <li>
-                <PostCards
-                  title={data.Title}
-                  tags={data.expand.tagName}
-                  date={data.created}
-                  image={data.imgurl}
-                  id={data.id}
+                  imagelq={data.imgurl}
+                  col={data.Color}
                 />
               </li>
             ))

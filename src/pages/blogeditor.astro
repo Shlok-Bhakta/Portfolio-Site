@@ -1,0 +1,24 @@
+---
+import Navbar from "../components/navbar.astro";
+import Auth from "../components/auth.svelte";
+import "../styles/global.css";
+---
+
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="UTF-8" />
+        <meta name="author" content="Shlok Bhakta" />
+        <meta
+            name="keywords"
+            content="HTML, CSS, JavaScript, Hire, Blog, Personal Site"
+        />
+        <meta name="description" content="You are't supposed to be here!" />
+    </head>
+    <body class="mocha bg-crust">
+        <div class="relative z-10">
+            <Navbar />
+        </div>
+        <Auth client:only />
+    </body>r
+</html>

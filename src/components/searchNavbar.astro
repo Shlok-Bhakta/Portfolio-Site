@@ -1,10 +1,7 @@
 ---
 import "../styles/global.css";
 import Hamburger from "./hamburger.svelte";
-
-
 ---
-
 
 <link
   rel="stylesheet"
@@ -19,18 +16,16 @@ import Hamburger from "./hamburger.svelte";
       </a>
     </li>
     <!-- The Navbar -->
-    <div class="bg-surface0 flex flex-grow items-center rounded-md divide-x divide-surface1 py-1">
+    <div
+      class="bg-surface0 flex flex-grow items-center rounded-md divide-x divide-surface1 py-1"
+    >
       <!--Search Icon -->
-      <div class="px-2">
-        🔍
-      </div>
+      <div class="px-2">🔍</div>
       <!-- Search Functionallity -->
       <div class="px-2 text-text nerdfont hidden sm:hidden md:flex">
-        search somethin...
+        broken search bar
       </div>
-      <div class="px-2 text-text nerdfont flex md:hidden">
-        search
-      </div>
+      <div class="px-2 text-text nerdfont flex md:hidden">searchn't</div>
     </div>
     <!-- Hamburger Menu -->
     <Hamburger client:load />

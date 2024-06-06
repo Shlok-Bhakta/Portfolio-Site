@@ -5,19 +5,23 @@ import PocketBase from "pocketbase";
 import PostCard from "../components/postCard.astro";
 import "../styles/global.css";
 
-const pb = new PocketBase("http://db.shlokbhakta.dev");
+const pb = new PocketBase("https://db.shlokbhakta.dev");
 let data = await pb.collection("Projects").getFullList({
   sort: "-created",
   expand: "Tags",
 });
 for (let i = 0; i < data.length; i++) {
   data[i].imgurl = pb.files.getUrl(data[i], data[i].Thumbnail);
+  // data[i].imgurllq = pb.files.getUrl(data[i], data[i].Thumbnail, {
+  //   thumb: "16x9",
+  // });
   for (let j = 0; j < data[i].expand?.Tags.length; j++) {
     data[i].expand.Tags[j].imgurl = pb.files.getUrl(
       data[i].expand?.Tags[j],
       data[i].expand?.Tags[j].Icon,
     );
   }
+  console.log(data);
 }
 ---
 

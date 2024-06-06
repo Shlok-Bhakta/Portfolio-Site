@@ -1,13 +1,18 @@
 ---
 import "../styles/global.css";
 import PostTag from "./postTag.astro";
-
-const { title, tags, date, image, link } = Astro.props;
+import LazyImage from "./lazyImage.astro";
+const { title, tags, date, image, imagelq, link, col } = Astro.props;
 ---
 
 <a href={link}>
-  <div class="w-full h-full min-h-72 border-2 border-red rounded-md p-2">
-    <img src={image} class="aspect-video w-full max-w-96" />
+  <div
+    class="w-full h-full min-h-72 border-2 rounded-md p-2"
+    style=`border-color: ${col};`
+  >
+    <LazyImage hq={image} lq={imagelq} alt={title} />
+    <!-- <img src={image} class="aspect-video w-full max-w-96" /> -->
+
     <div class="pr-2 text-sm text-text nerdfont">{title}</div>
     <div class="pr-2 text-sm text-blue nerdfont">{date}</div>
     <!-- Tags -->

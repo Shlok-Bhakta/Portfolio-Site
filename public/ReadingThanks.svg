@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="112.03157mm"
+   height="31.716255mm"
+   viewBox="0 0 112.03157 31.716255"
+   version="1.1"
+   id="svg1"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <linearGradient
+       id="swatch7">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop7" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-28.210837,-21.703172)">
+    <path
+       style="fill:none;fill-opacity:1;stroke:#b4befe;stroke-width:0.264583;stroke-opacity:1"
+       d="m 14.612546,38.357934 c 0.720134,-3.704564 2.581186,-7.179211 5.265867,-9.831546 2.68468,-2.652335 6.181628,-4.471136 9.894649,-5.146315 4.710231,-0.856513 9.594924,0.111313 14.064575,1.826569 11.319319,4.343859 20.256183,13.180381 30.686348,19.361624 9.363161,5.548903 20.150065,8.960851 31.030815,8.699453 10.88076,-0.261398 21.81533,-4.391924 29.42859,-12.169935 1.93008,-1.971852 3.67006,-4.214903 4.55001,-6.830073 0.43997,-1.307585 0.65653,-2.697623 0.55865,-4.073768 -0.0979,-1.376145 -0.51647,-2.737569 -1.27286,-3.89136 -0.71526,-1.091057 -1.72411,-1.981998 -2.87782,-2.591058 -1.15372,-0.60906 -2.44909,-0.938508 -3.75255,-0.993324 -2.60692,-0.109632 -5.19365,0.884362 -7.25155,2.488441 -1.05929,0.825687 -1.99769,1.81616 -2.70428,2.958343 -0.70659,1.142183 -1.17729,2.438821 -1.29672,3.776576 -0.11943,1.337754 0.12035,2.715418 0.74792,3.902851 0.62758,1.187434 1.65023,2.174294 2.88776,2.696177 0.85717,0.361479 1.80817,0.497981 2.73231,0.391371 0.92414,-0.10661 1.81928,-0.456174 2.57061,-1.004725 0.75133,-0.548551 1.35704,-1.294874 1.73848,-2.143345 0.38145,-0.848471 0.53764,-1.797108 0.44753,-2.723004 -0.0821,-0.843331 -0.37492,-1.678814 -0.91581,-2.33102 -0.5409,-0.652207 -1.34273,-1.105229 -2.18935,-1.139462 -0.47545,-0.01922 -0.95555,0.09266 -1.37352,0.320097 -0.41797,0.227437 -0.77265,0.569794 -1.01473,0.979459 -0.24207,0.409665 -0.37087,0.885504 -0.36847,1.361341 0.002,0.475836 0.13599,0.950352 0.38218,1.357555"
+       id="path2"
+       transform="matrix(0.8872139,0,0,0.96702282,15.812809,1.7668368)" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;fill:#b4befe;fill-opacity:1;stroke:#f38ba8;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       id="text7"
+       transform="translate(-0.36531364,-2.1918819)"><textPath
+         xlink:href="#path2"
+         id="textPath7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'CaskaydiaCove Nerd Font';-inkscape-font-specification:'CaskaydiaCove Nerd Font, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#f38ba8;fill-opacity:1;stroke:#f38ba8;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1">               Thanks For Reading !</textPath></text>
+  </g>
+</svg>

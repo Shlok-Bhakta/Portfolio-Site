@@ -1,0 +1,37 @@
+---
+import "../styles/global.css";
+
+const { hq, lq, alt } = Astro.props;
+---
+
+<script>
+    const blurredImageDiv = document.querySelector(".blur-load");
+    const img = blurredImageDiv.querySelector("img");
+    function loaded() {
+        blurredImageDiv.classList.add("loaded");
+    }
+
+    if (img.complete) {
+        loaded();
+    } else {
+        img.addEventListener("load", loaded);
+    }
+</script>
+
+<div
+    class="blur-load aspect-video w-full bg-cover bg-center bg-no-repeat"
+    style=`background-image: url(${(lq)});`
+>
+    <img class="w-full aspect-video" src={hq} alt={alt} loading="lazy" />
+</div>
+
+<style>
+    .blur-load.loaded > img {
+        opacity: 1;
+    }
+
+    .blur-load > img {
+        opacity: 0;
+        transition: opacity 200ms ease-in-out;
+    }
+</style>

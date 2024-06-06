@@ -2,6 +2,7 @@
 import PocketBase from "pocketbase";
 import Navbar from "../../components/navbar.astro";
 import "../../styles/global.css";
+import "../../styles/blog.css";
 
 export async function getStaticPaths() {
     let paths = [];
@@ -12,7 +13,6 @@ export async function getStaticPaths() {
     for (let i = 0; i < data.length; i++) {
         paths[i] = { params: { id: data[i].id } };
     }
-    console.log(paths);
     return paths;
 }
 const { id } = Astro.params;
@@ -61,6 +61,13 @@ const image = pb.files.getUrl(data, data.Thumbnail);
             >
                 <Fragment set:html={data.Html} />
             </article>
+        </div>
+        <div class="mt-24 w-dvw p-10">
+            <img
+                src="/ReadingThanks.svg"
+                alt="Thanks For Reading!"
+                class="w-full"
+            />
         </div>
     </body>
 </html>

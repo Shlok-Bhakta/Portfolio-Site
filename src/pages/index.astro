@@ -3,6 +3,22 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Navbar from "../components/navbar.astro";
 import "../styles/global.css";
 import SkillCard from "../components/skillCard.astro";
+
+import PocketBase from "pocketbase";
+
+const pb = new PocketBase("https://db.shlokbhakta.dev");
+let data = await pb.collection("Skills").getFullList({
+  sort: "-created",
+  expand: "Tag",
+});
+
+for (let i = 0; i < data.length; i++) {
+  data[i].expand.Tag.imgurl = pb.files.getUrl(
+    data[i].expand?.Tag,
+    data[i].expand?.Tag.Icon,
+  );
+}
+console.log(data[0].expand?.Tag);
 ---
 
 <!doctype html>
@@ -23,24 +39,22 @@ import SkillCard from "../components/skillCard.astro";
   </head>
   <body class="mocha bg-crust">
     <Navbar />
-    <section class="flex flex-col items-center pb-40 pt-14 sm:pt-20 lg:pt-32">
+    <section class="flex flex-col items-center pb-40 pt-14">
       <div
         class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vw] nerdfont"
       >
         &ltHowdy/&gt
       </div>
     </section>
-    <!-- <SkillCard
-      title="Webpack"
-      text="never again shall I use this trecherous tool"
-      posts="0"
-      image="https://raw.githubusercontent.com/webpack/media/master/logo/icon.svg"
-    />
-    <SkillCard
-      title="Astro"
-      text="poggers metaframework with amazing docs and tools"
-      posts="0"
-      image="https://astro.build/favicon.svg"
-    /> -->
+
+    <ol class="grid gap-2 m-4 grid-cols-1 md:flex">
+      {
+        data.map((item) => (
+          <li>
+            <SkillCard text={item.Description} tag={item.expand?.Tag} />
+          </li>
+        ))
+      }
+    </ol>
   </body>
 </html>
