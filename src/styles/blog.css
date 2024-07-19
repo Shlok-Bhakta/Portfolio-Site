@@ -38,12 +38,16 @@ ul ul{
     @apply list-disc pl-3 text-text nerdfont;
 }
 
+li {
+    @apply text-text nerdfont;
+}
+
 p{
     @apply text-text nerdfont;
 }
 
 code{
-    @apply text-text nerdfont;
+    @apply text-text nerdfont bg-base p-1 rounded-md;
 }
 blockquote{
     @apply text-subtext1 nerdfont bg-base p-2 rounded-md my-3 border-l-4 border-blue;
@@ -54,17 +58,12 @@ blockquote{
 }
 
 img{
-    @apply w-96 mx-auto;
+    @apply w-96 mx-auto rounded-md;
 }
 
 .title {
     font-size: min(10vw, 4.5rem);
 }
-/**
- * atom-dark theme for `prism.js`
- * Based on Atom's `atom-dark` theme: https://github.com/atom/atom-dark-syntax
- * @author Joe Gibson (@gibsjose)
- */
 
  code[class*="language-"],
  pre[class*="language-"] {

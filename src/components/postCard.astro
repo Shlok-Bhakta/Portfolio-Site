@@ -16,7 +16,7 @@ const { title, tags, date, image, imagelq, link, col } = Astro.props;
     <div class="pr-2 text-sm text-text nerdfont">{title}</div>
     <div class="pr-2 text-sm text-blue nerdfont">{date}</div>
     <!-- Tags -->
-    <ul class="flex flex-wrap space-x-1">
+    <ol class="flex flex-wrap space-x-1">
       {
         tags.map((item) => (
           <li class="flex">
@@ -24,6 +24,6 @@ const { title, tags, date, image, imagelq, link, col } = Astro.props;
           </li>
         ))
       }
-    </ul>
+    </ol>
   </div>
 </a>

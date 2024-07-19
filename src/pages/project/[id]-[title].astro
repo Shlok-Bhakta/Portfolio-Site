@@ -3,6 +3,7 @@ import PocketBase from "pocketbase";
 import Navbar from "../../components/navbar.astro";
 import PostCard from "../../components/postCard.astro";
 import "../../styles/global.css";
+import "../../styles/blog.css";
 
 export async function getStaticPaths() {
     let paths = [];
@@ -61,6 +62,8 @@ console.log(posts);
             .title {
                 font-size: min(10vw, 4.5rem);
             }
+            .img {
+            }
         </style>
     </head>
     <body class="mocha bg-crust">
@@ -68,6 +71,7 @@ console.log(posts);
         <div class="flex justify-center">
             <img
                 class="aspect-video w-[calc(100vw-40px)] max-w-4xl mt-4 rounded-md border-2 border-text"
+                style=`border-color: ${data.Color}`
                 src={image}
                 alt={data.Title}
             />

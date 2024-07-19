@@ -48,6 +48,7 @@ const image = pb.files.getUrl(data, data.Thumbnail);
         <div class="flex justify-center">
             <img
                 class="aspect-video w-[calc(100vw-40px)] max-w-4xl mt-4 rounded-md border-2 border-text"
+                style=`border-color: ${data.Color}`
                 src={image}
                 alt={data.Title}
             />
