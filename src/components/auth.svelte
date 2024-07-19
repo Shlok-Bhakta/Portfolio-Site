@@ -51,7 +51,7 @@
             .use(rehypeRaw)
             .use(rehypeMathjax)
             .use(rehypePrism, { plugins: ["copy-to-clipboard"] })
-            .use(rehypeStringify)
+            .use(rehypeStringify, { allowDangerousHtml: true })
             .process(markdown);
         document.getElementById("html").innerHTML = String(file);
     }
