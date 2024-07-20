@@ -54,6 +54,7 @@
             .use(rehypeStringify, { allowDangerousHtml: true })
             .process(markdown);
         document.getElementById("html").innerHTML = String(file);
+        document.getElementById("docHead").innerHTML = CurrentTitle;
     }
 
     let posts = null;

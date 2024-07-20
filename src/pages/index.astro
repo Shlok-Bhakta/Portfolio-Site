@@ -46,15 +46,33 @@ console.log(data[0].expand?.Tag);
         &ltHowdy/&gt
       </div>
     </section>
-
-    <ol class="grid gap-2 m-4 grid-cols-1 md:flex">
-      {
-        data.map((item) => (
-          <li>
-            <SkillCard text={item.Description} tag={item.expand?.Tag} />
-          </li>
-        ))
-      }
-    </ol>
+    <div class="w-full h-full bg-mantle nerdfont">
+      <div class="mx-auto text-4xl text-text text-center">Things I do!</div>
+      <ol class="px-5">
+        <li>
+          <SkillCard
+            text="I've been coding for around 7 years, eperimenting with different languages and paradigms. Currently my 2 favorite languages are Python and C++"
+            tag="Programming"
+            symbol="data_object"
+            colorFlash="#500000"
+          />
+        </li>
+      </ol>
+    </div>
+    <!-- <ol class="
+        grid
+        gap-2
+        m-4
+        grid-cols-1
+        md:flex"
+      >
+        {
+          data.map((item) => (
+            <li>
+              <SkillCard text={item.Description} tag={item.expand?.Tag} />
+            </li>
+          ))
+        }
+      </SkillCard> -->
   </body>
 </html>

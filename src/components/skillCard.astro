@@ -1,41 +1,88 @@
 ---
 import "../styles/global.css";
 
-const { text, tag } = Astro.props;
-const image = tag.imgurl;
-const title = tag.tagName;
+const { text, tag, symbol, colorFlash } = Astro.props;
 ---
 
-<div
-  class={"bg-mantle flex items-center justify-center w-full md:w-fit h-full rounded-3xl border-[2px] shadow-md"}
-  style=`border-color: ${tag.color};`
->
-  <div
-    class="shadow-md
-        m-0.5
-        rounded-3xl
-        flex
-        flex-row w-full h-fit``
-        divide-x divide-overlay0
-        md:divide-none
-        md:flex-col md:h-full md:w-40"
-  >
-    <img class="h-32 aspect-square m-3" src={image} alt={title} />
+<style>
+  .material-symbols-outlined {
+    font-size: 8rem;
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 40;
+  }
 
+  .hoverBorder {
+    border-width: 3px;
+    border-color: #bac2de;
+    transition:
+      border-color 15s,
+      transform 0.2s ease-in-out;
+    transform: scale(1);
+  }
+
+  .hoverBorder:hover {
+    border-color: var(--color-flash);
+    transition: border-color 0.2s;
+    transform: scale(1.02);
+  }
+
+  .hoverIcon {
+    color: #cdd6f4;
+    transition: color 10s;
+  }
+
+  .hoverBorder:hover > div > .hoverIcon {
+    color: var(--color-flash);
+    transition: color 0.2s;
+  }
+</style>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+
+<div>
+  <div
+    class="bg-mantle flex items-center justify-center w-full md:w-fit h-full rounded-3xl hoverBorder"
+    style={`--color-flash: ${colorFlash};`}
+  >
     <div
-      class="flex flex-col
-          items-baseline
-          justify-start
-          pl-5
-          md:pl-4
-          my-3 md:my-0 py-8 md:py-0"
+      class="shadow-md
+          m-0.5
+          rounded-3xl
+          flex
+          flex-row w-full h-fit``
+          divide-x divide-overlay0
+          md:divide-none
+          md:flex-col md:h-full md:w-40"
     >
-      <div class="flex flex-col h-fit">
-        <h1 class="text-lg font-normal mb-0 text-text font-sans">
-          {title}
-        </h1>
+      <!-- <img class="h-32 aspect-square m-3" src={imgurl} alt={tag} /> -->
+      <div
+        class="text-text my-auto mx-auto hoverIcon"
+        style={`--color-flash: ${colorFlash};`}
+      >
+        <span class="material-symbols-outlined">
+          {symbol}
+        </span>
       </div>
-      <p class="text-xs text-subtext1 mb-3">{text}</p>
+      <div
+        class="flex flex-col
+            items-baseline
+            justify-start
+            pl-5
+            md:pl-4
+            my-3 md:my-0 py-8 md:py-0"
+      >
+        <div class="flex flex-col h-fit">
+          <h1 class="text-lg font-normal mb-0 text-text font-sans">
+            {tag}
+          </h1>
+        </div>
+        <p class="text-xs text-subtext1 mb-3">{text}</p>
+      </div>
     </div>
   </div>
 </div>
