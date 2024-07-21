@@ -6,15 +6,15 @@ const { hq, lq, alt } = Astro.props;
 
 <script>
     const blurredImageDiv = document.querySelector(".blur-load");
-    const img = blurredImageDiv.querySelector("img");
+    const img = blurredImageDiv?.querySelector("img");
     function loaded() {
-        blurredImageDiv.classList.add("loaded");
+        blurredImageDiv?.classList.add("loaded");
     }
 
-    if (img.complete) {
+    if (img?.complete) {
         loaded();
     } else {
-        img.addEventListener("load", loaded);
+        img?.addEventListener("load", loaded);
     }
 </script>
 

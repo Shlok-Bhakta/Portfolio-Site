@@ -16,7 +16,7 @@ for (let i = 0; i < data.length; i++) {
   //   thumb: "16x9",
   // });
   for (let j = 0; j < data[i].expand?.Tags.length; j++) {
-    data[i].expand.Tags[j].imgurl = pb.files.getUrl(
+    data[i].expand!.Tags[j].imgurl = pb.files.getUrl(
       data[i].expand?.Tags[j],
       data[i].expand?.Tags[j].Icon,
     );
@@ -57,7 +57,7 @@ for (let i = 0; i < data.length; i++) {
               <li>
                 <PostCard
                   title={item.Title}
-                  tags={item.expand.Tags}
+                  tags={item.expand?.Tags}
                   date={item.created}
                   image={item.imgurl}
                   link={"/project/" + item.id + "-" + item.Title}

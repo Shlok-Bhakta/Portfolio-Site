@@ -18,10 +18,9 @@ for (let i = 0; i < data.length; i++) {
   // });
   data[i].created = data[i].created.slice(0, 10);
   for (let j = 0; j < data[i].expand?.Tags.length; j++) {
-    data[i].expand.Tags[j].imgurl = pb.files.getUrl(
-      data[i].expand?.Tags[j],
-      data[i].expand?.Tags[j].Icon,
-    );
+    data[i].expand!.Tags[j].imgurl =
+      pb.files.getUrl(data[i].expand?.Tags[j], data[i].expand?.Tags[j].Icon) ??
+      0;
   }
 }
 ---
@@ -50,14 +49,14 @@ for (let i = 0; i < data.length; i++) {
       var navbar = document.getElementById("navbar");
 
       // Get the offset position of the navbar
-      var sticky = navbar.offsetTop;
+      var sticky = navbar?.offsetTop;
 
       // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
       function myFunction() {
-        if (window.pageYOffset >= sticky) {
-          navbar.classList.add("sticky");
+        if (window.pageYOffset >= sticky!) {
+          navbar?.classList.add("sticky");
         } else {
-          navbar.classList.remove("sticky");
+          navbar?.classList.remove("sticky");
         }
       }
     </script>
@@ -105,7 +104,7 @@ for (let i = 0; i < data.length; i++) {
                     <li>
                       <PostCard
                         title={item.Title}
-                        tags={item.expand.Tags}
+                        tags={item.expand?.Tags}
                         date={item.created}
                         image={item.imgurl}
                         link={"/project/" + item.id + "-" + item.Title}

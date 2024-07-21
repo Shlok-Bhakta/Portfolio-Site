@@ -35,7 +35,7 @@ for (let i = 0; i < posts.length; i++) {
         thumb: "16x9",
     });
     for (let j = 0; j < posts[i].expand?.tagName.length; j++) {
-        posts[i].expand.tagName[j].imgurl = pb.files.getUrl(
+        posts[i].expand!.tagName[j].imgurl = pb.files.getUrl(
             posts[i].expand?.tagName[j],
             posts[i].expand?.tagName[j].Icon,
         );
@@ -98,7 +98,7 @@ console.log(posts);
                                 <li>
                                     <PostCard
                                         title={data.Title}
-                                        tags={data.expand.tagName}
+                                        tags={data.expand?.tagName}
                                         date={data.created}
                                         image={data.imgurl}
                                         link={"/post/" + data.id}

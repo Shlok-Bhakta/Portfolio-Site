@@ -29,7 +29,7 @@ for (let i = 0; i < posts.items.length; i++) {
     posts.items[i].Thumbnail,
   );
   for (let j = 0; j < posts.items[i].expand?.tagName.length; j++) {
-    posts.items[i].expand.tagName[j].imgurl = pb.files.getUrl(
+    posts.items[i].expand!.tagName[j].imgurl = pb.files.getUrl(
       posts.items[i].expand?.tagName[j],
       posts.items[i].expand?.tagName[j].Icon,
       {
@@ -93,7 +93,7 @@ for (let i = 0; i < posts.items.length; i++) {
               <li>
                 <PostCards
                   title={data.Title}
-                  tags={data.expand.tagName}
+                  tags={data.expand?.tagName}
                   date={data.created}
                   image={data.imgurlhq}
                   link={"/post/" + data.id}

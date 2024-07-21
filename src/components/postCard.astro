@@ -18,7 +18,7 @@ const { title, tags, date, image, imagelq, link, col } = Astro.props;
     <!-- Tags -->
     <ol class="flex flex-wrap space-x-1">
       {
-        tags.map((item) => (
+        tags.map((item: { imgurl: any; tagName: any; color: any }) => (
           <li class="flex">
             <PostTag image={item.imgurl} tag={item.tagName} col={item.color} />
           </li>
