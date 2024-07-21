@@ -19,7 +19,7 @@ jobs:
       - 
         name: start the docker daemon
         run: |
-          service docker start
+          dockerd
       -
         name: Login to Forgejo
         uses: docker/login-action@v3
