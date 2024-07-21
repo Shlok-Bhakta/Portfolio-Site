@@ -9,7 +9,8 @@ jobs:
     runs-on: docker
     container:
       image: catthehacker/ubuntu:act-22.04
-      
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
     steps:
       # - name: Install Docker
       #   run: curl -fsSL https://get.docker.com | sh
