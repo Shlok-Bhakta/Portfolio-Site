@@ -17,6 +17,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y docker.io
+          sudo systemctl start docker
       -
         name: Login to Forgejo
         uses: docker/login-action@v3
@@ -26,7 +27,7 @@ jobs:
           password: ${{ secrets.PASS }}
       -
         name: Check out the Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       -
         name: Build and push
         uses: docker/build-push-action@v6
