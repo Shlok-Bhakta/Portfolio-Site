@@ -8,7 +8,7 @@ jobs:
   docker:
     runs-on: docker
     container:
-      image: ubuntu:24.10
+      image: catthehacker/ubuntu:act-latest
     steps:
       -
         name: Set up QEMU
