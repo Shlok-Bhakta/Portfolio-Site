@@ -27,8 +27,7 @@ jobs:
 
       - name: docker auth
         run: |
-          docker login forgejo.shloklab.us -u ${{ secrets.USER }} -p 
-          "${{ secrets.PASS }}"
+          docker login forgejo.shloklab.us -u ${{ secrets.USER }} -p "${{ secrets.PASS }}"
       - name: docker build
         run: |
             docker build -t ShlokBhakta/Portfolio-Site:latest
