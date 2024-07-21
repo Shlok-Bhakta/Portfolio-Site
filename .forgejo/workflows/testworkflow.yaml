@@ -19,6 +19,7 @@ jobs:
       - 
         name: start the docker daemon
         run: |
+          su
           dockerd
       -
         name: Login to Forgejo
