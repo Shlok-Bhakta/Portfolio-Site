@@ -8,14 +8,14 @@ jobs:
   docker:
     runs-on: docker
     container:
-      image: docker:27.0.3-dind-alpine3.20
+      image: docker:20.15-alpine
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
     steps:
       - 
-        name: Install Node
+        name: Install Docker
         run: |
-          apk add --update nodejs=20.15.1-r0 npm=10.8.0-r0
+          apk add --update docker
       - 
         name: start the docker daemon
         run: |
