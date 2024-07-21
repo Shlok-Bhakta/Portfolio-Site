@@ -44,9 +44,9 @@ const { text, tag, symbol, colorFlash } = Astro.props;
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
 />
 
-<div>
+<div class="z-10">
   <div
-    class="bg-mantle flex items-center justify-center w-full md:w-fit h-full rounded-3xl hoverBorder"
+    class="bg-mantle flex items-center justify-center w-full h-full rounded-3xl hoverBorder"
     style={`--color-flash: ${colorFlash};`}
   >
     <div
@@ -54,12 +54,13 @@ const { text, tag, symbol, colorFlash } = Astro.props;
           m-0.5
           rounded-3xl
           flex
-          flex-row w-full h-fit``
+          pb-0
+          md:pb-3
+          flex-row w-full h-fit
           divide-x divide-overlay0
           md:divide-none
-          md:flex-col md:h-full md:w-40"
+          md:flex-col md:h-full"
     >
-      <!-- <img class="h-32 aspect-square m-3" src={imgurl} alt={tag} /> -->
       <div
         class="text-text my-auto mx-auto hoverIcon"
         style={`--color-flash: ${colorFlash};`}
@@ -71,17 +72,19 @@ const { text, tag, symbol, colorFlash } = Astro.props;
       <div
         class="flex flex-col
             items-baseline
-            justify-start
-            pl-5
+            px-3
+            md:px-1
             md:pl-4
             my-3 md:my-0 py-8 md:py-0"
       >
         <div class="flex flex-col h-fit">
-          <h1 class="text-lg font-normal mb-0 text-text font-sans">
+          <h1 class="text-xl font-normal mb-0 text-text font-sans">
             {tag}
           </h1>
         </div>
-        <p class="text-xs text-subtext1 mb-3">{text}</p>
+        <p class="text-xs text-subtext1 mb-3 text-ellipsis">
+          <Fragment set:html={text} />
+        </p>
       </div>
     </div>
   </div>

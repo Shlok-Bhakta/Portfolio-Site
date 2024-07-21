@@ -3,22 +3,27 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Navbar from "../components/navbar.astro";
 import "../styles/global.css";
 import SkillCard from "../components/skillCard.astro";
+import PostCard from "../components/postCard.astro";
 
 import PocketBase from "pocketbase";
-
 const pb = new PocketBase("https://db.shlokbhakta.dev");
-let data = await pb.collection("Skills").getFullList({
+let data = await pb.collection("Projects").getFullList({
   sort: "-created",
-  expand: "Tag",
+  expand: "Tags",
 });
-
 for (let i = 0; i < data.length; i++) {
-  data[i].expand.Tag.imgurl = pb.files.getUrl(
-    data[i].expand?.Tag,
-    data[i].expand?.Tag.Icon,
-  );
+  data[i].imgurl = pb.files.getUrl(data[i], data[i].Thumbnail);
+  // data[i].imgurllq = pb.files.getUrl(data[i], data[i].Thumbnail, {
+  //   thumb: "16x9",
+  // });
+  data[i].created = data[i].created.slice(0, 10);
+  for (let j = 0; j < data[i].expand?.Tags.length; j++) {
+    data[i].expand.Tags[j].imgurl = pb.files.getUrl(
+      data[i].expand?.Tags[j],
+      data[i].expand?.Tags[j].Icon,
+    );
+  }
 }
-console.log(data[0].expand?.Tag);
 ---
 
 <!doctype html>
@@ -35,44 +40,85 @@ console.log(data[0].expand?.Tag);
       name="description"
       content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
     />
-    <style></style>
+    <script>
+      // When the user scrolls the page, execute myFunction
+      window.onscroll = function () {
+        myFunction();
+      };
+
+      // Get the navbar
+      var navbar = document.getElementById("navbar");
+
+      // Get the offset position of the navbar
+      var sticky = navbar.offsetTop;
+
+      // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+      function myFunction() {
+        if (window.pageYOffset >= sticky) {
+          navbar.classList.add("sticky");
+        } else {
+          navbar.classList.remove("sticky");
+        }
+      }
+    </script>
+    <style>
+      /* Page content */
+      .content {
+        padding: 25px;
+      }
+
+      /* The sticky class is added to the navbar with JS when it reaches its scroll position */
+      .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+      }
+
+      /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+      .sticky + .content {
+        padding-top: 60px;
+      }
+    </style>
   </head>
   <body class="mocha bg-crust">
-    <Navbar />
-    <section class="flex flex-col items-center pb-40 pt-14">
-      <div
-        class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vw] nerdfont"
-      >
-        &ltHowdy/&gt
-      </div>
-    </section>
-    <div class="w-full h-full bg-mantle nerdfont">
-      <div class="mx-auto text-4xl text-text text-center">Things I do!</div>
-      <ol class="px-5">
-        <li>
-          <SkillCard
-            text="I've been coding for around 7 years, eperimenting with different languages and paradigms. Currently my 2 favorite languages are Python and C++"
-            tag="Programming"
-            symbol="data_object"
-            colorFlash="#500000"
-          />
-        </li>
-      </ol>
+    <div id="navbar" class="z-10 sticky">
+      <Navbar />
     </div>
-    <!-- <ol class="
-        grid
-        gap-2
-        m-4
-        grid-cols-1
-        md:flex"
-      >
-        {
-          data.map((item) => (
-            <li>
-              <SkillCard text={item.Description} tag={item.expand?.Tag} />
-            </li>
-          ))
-        }
-      </SkillCard> -->
+    <div class="content">
+      <section class="flex flex-col items-center pb-40 pt-14">
+        <div
+          class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vw] nerdfont"
+        >
+          &ltHowdy/&gt
+        </div>
+      </section>
+      <div class="">
+        <div class="w-full h-full bg-mantle nerdfont rounded-md">
+          <div class="mx-auto text-4xl text-text text-center">Things I do!</div>
+          <div class="block mx-auto">
+            <section
+              class="flex justify-center bg-base w-vw max-w-4xl h-auto p-6 mx-auto m-2 rounded-md"
+            >
+              <ol class="grid grid-cols-3 gap-2">
+                {
+                  data.map((item) => (
+                    <li>
+                      <PostCard
+                        title={item.Title}
+                        tags={item.expand.Tags}
+                        date={item.created}
+                        image={item.imgurl}
+                        link={"/project/" + item.id + "-" + item.Title}
+                        col={item.Color}
+                      />
+                    </li>
+                  ))
+                }
+              </ol>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
