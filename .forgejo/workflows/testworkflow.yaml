@@ -16,6 +16,10 @@ jobs:
         name: Install Docker CLI
         run: |
           apk add --update nodejs=20.15.1-r0 npm=10.8.0-r0
+      - 
+        name: start the docker daemon
+        run: |
+          sudo systemctl restart docker
       -
         name: Login to Forgejo
         uses: docker/login-action@v3
