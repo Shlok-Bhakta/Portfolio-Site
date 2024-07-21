@@ -8,17 +8,11 @@ jobs:
   docker:
     runs-on: docker
     container:
-      image: docker:27.0.3-dind-alpine3.20
+      image: catthehacker/ubuntu:act-22.04
+      
     steps:
-      - 
-        name: start the docker daemon
-        run: |
-          su
-          dockerd
-      - 
-        name: Install Node
-        run: |
-          apk add --update nodejs=20.15.1-r0 npm=10.8.0-r0
+      - name: Install Docker
+        run: curl -fsSL https://get.docker.com | sh
       -
         name: Login to Forgejo
         uses: docker/login-action@v3
