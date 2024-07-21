@@ -12,6 +12,10 @@ jobs:
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
     steps:
+      - name: Install Docker CLI
+        run: |
+          apt-get update
+          apt-get install -y docker.io
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
