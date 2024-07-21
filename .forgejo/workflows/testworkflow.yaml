@@ -23,8 +23,6 @@ jobs:
       -
         name: Check out the Repo
         uses: actions/checkout@v4
-        with:
-          path: /app
 
 
       - name: docker auth
