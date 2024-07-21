@@ -12,6 +12,10 @@ jobs:
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
     steps:
+      - 
+        name: Install Docker CLI
+        run: |
+          apk add --update nodejs nodejs-npm
       -
         name: Login to Forgejo
         uses: docker/login-action@v3
