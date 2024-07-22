@@ -8,11 +8,11 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    container:
+      image: catthehacker/ubuntu:act-22.04
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
     steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'  # or another version you prefer
       - name: Check out the Repo
         uses: actions/checkout@v4
 
@@ -29,11 +29,3 @@ jobs:
           context: .
           push: true
           tags: ShlokBhakta/Portfolio-Site:latest
-
-        
-      # -
-      #   name: Build and push
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     push: true
-      #     tags: ShlokBhakta/Portfolio-Site:latest
