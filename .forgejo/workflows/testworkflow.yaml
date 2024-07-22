@@ -1,4 +1,4 @@
-name: CI
+name: ci
 
 on:
   push:
@@ -6,17 +6,20 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: self-hosted
+  docker:
+    runs-on: ubuntu-latest
+    container:
+      image: catthehacker/ubuntu:act-22.04
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+      env:
+        DOCKER_HOST: tcp://docker-in-docker:2375
     steps:
+      - name: docker auth
+        run: |
+          docker login forgejo.shloklab.us -u ${{ secrets.USER }} -p "${{ secrets.PASS }}"
       - name: Check out the Repo
         uses: actions/checkout@v4
-
-      - name: Docker login
-        run: docker login forgejo.shloklab.us -u ${{ secrets.USER }} -p "${{ secrets.PASS }}"
-
-      - name: Docker build
-        run: docker build -t ShlokBhakta/Portfolio-Site:latest .
-
-      - name: Docker push
-        run: docker push ShlokBhakta/Portfolio-Site:latest
+      - name: Build Docker image
+        run: |
+          docker -H tcp://docker-in-docker:2375 build -t shlokbhakta/portfolio-site:latest .
