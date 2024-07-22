@@ -23,4 +23,4 @@ jobs:
         with:
           push: true
           tags: 
-            ShlokBhakta/Portfolio-Site:latest
+            shlokbhakta/portfolio-site:latest
