@@ -24,4 +24,4 @@ jobs:
           context: .
           push: true
           tags: 
-            shlok-bhakta/portfolio-site:latest
+            ghcr.io/shlok-bhakta/portfolio-site:latest
