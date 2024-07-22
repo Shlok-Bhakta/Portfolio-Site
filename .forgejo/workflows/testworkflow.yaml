@@ -23,7 +23,7 @@ jobs:
       #     password: ${{ secrets.PASS }}
       - name: start docker
         run: |
-          dockerd
+          systemctl start docker
       -
         name: Check out the Repo
         uses: actions/checkout@v4
