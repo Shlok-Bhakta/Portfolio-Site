@@ -4,39 +4,27 @@ on:
   push:
     branches:
       - main
+
 jobs:
   docker:
-    runs-on: docker
-    container:
-      image: catthehacker/ubuntu:act-22.04
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
+    runs-on: ubuntu-latest
     steps:
-      - name: Install Docker
-        run: curl -fsSL https://get.docker.com | sh
-      # -
-      #   name: Login to Forgejo
-      #   uses: docker/login-action@v3
-      #   with:
-      #     registry: forgejo.shloklab.us
-      #     username: ${{ secrets.USER }}
-      #     password: ${{ secrets.PASS }}
-      - name: start docker
-        run: |
-          sudo docker ps
-      -
-        name: Check out the Repo
+      - name: Check out the Repo
         uses: actions/checkout@v4
 
-      - name: docker auth
-        run: |
-          docker login forgejo.shloklab.us -u ${{ secrets.USER }} -p "${{ secrets.PASS }}"
-      - name: docker build
-        run: |
-            docker build -t ShlokBhakta/Portfolio-Site:latest .
-      - name: docker push
-        run: |
-            docker push ShlokBhakta/Portfolio-Site:latest
+      - name: Docker login
+        uses: docker/login-action@v3
+        with:
+          registry: forgejo.shloklab.us
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASS }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ShlokBhakta/Portfolio-Site:latest
 
         
       # -
