@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: catthehacker/ubuntu:act-22.04
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
     steps:
       -
         name: Set up QEMU
