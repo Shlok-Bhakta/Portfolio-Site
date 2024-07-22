@@ -13,6 +13,9 @@ jobs:
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
     steps:
+      - name: start docker
+        run: |
+          service start dockerd
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
