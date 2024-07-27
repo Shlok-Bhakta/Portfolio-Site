@@ -10,6 +10,12 @@ jobs:
     steps:
       - name: checkout Repo 
         uses: actions/checkout@v4
+      - name: Get next version
+        uses: reecetech/version-increment@2024.4.3
+        id: version
+        with:
+          scheme: semver
+          increment: patch
       -
         name: Login to github
         uses: docker/login-action@v3
@@ -24,4 +30,4 @@ jobs:
           context: .
           push: true
           tags: 
-            ghcr.io/shlok-bhakta/portfolio-site:latest
+            ghcr.io/shlok-bhakta/portfolio-site:latest, ghcr.io/shlok-bhakta/portfolio-site:${{ steps.version.outputs.version }}
