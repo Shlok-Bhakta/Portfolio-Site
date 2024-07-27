@@ -1,5 +1,5 @@
 ---
-import Navbar from "../components/searchNavbar.astro";
+import Navbar from "../components/Navbar.astro";
 import "../styles/global.css";
 import PostTag from "../components/postTag.astro";
 import PostCards from "../components/postCard.astro";
@@ -94,7 +94,7 @@ for (let i = 0; i < posts.items.length; i++) {
                 <PostCards
                   title={data.Title}
                   tags={data.expand?.tagName}
-                  date={data.created}
+                  date={data.created.slice(0, 10)}
                   image={data.imgurlhq}
                   link={"/post/" + data.id}
                   imagelq={data.imgurl}
