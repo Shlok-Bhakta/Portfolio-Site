@@ -1,11 +1,11 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import ViewTransitions from "astro/components/ViewTransitions.astro";
 import Navbar from "../components/navbar.astro";
 import "../styles/global.css";
 import SkillCard from "../components/skillCard.astro";
 import PostCard from "../components/postCard.astro";
 import PocketBase from "pocketbase";
-import GlowingStarsBackground from "../components/aceternity/stars/Starsbg.svelte";
 
 const pb = new PocketBase("https://db.shlokbhakta.dev");
 let data = await pb.collection("Projects").getFullList({
@@ -61,11 +61,11 @@ for (let i = 0; i < data.length; i++) {
         }
       }
     </script>
+    <ViewTransitions />
     <style>
       /* Page content */
       .content {
         padding: 25px;
-        z-index: 20;
       }
 
       /* The sticky class is added to the navbar with JS when it reaches its scroll position */
@@ -85,7 +85,7 @@ for (let i = 0; i < data.length; i++) {
     <div id="navbar" class="z-10 sticky">
       <Navbar />
     </div>
-    <div class="content fixed z-[5]">
+    <div class="content">
       <section class="flex flex-col items-center pb-40 pt-14">
         <div
           class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vw] nerdfont"
@@ -103,7 +103,7 @@ for (let i = 0; i < data.length; i++) {
               <ol class="grid grid-cols-3 gap-2">
                 {
                   data.map((item) => (
-                    <li>
+                    <li transition:name={item.id}>
                       <PostCard
                         title={item.Title}
                         tags={item.expand?.Tags}

@@ -10,8 +10,12 @@ const { title, tags, date, image, imagelq, link, col } = Astro.props;
     class="w-full h-full min-h-72 border-2 rounded-md p-2"
     style=`border-color: ${col};`
   >
-    <LazyImage hq={image} lq={imagelq} alt={title} />
-    <!-- <img src={image} class="aspect-video w-full max-w-96" /> -->
+    <!-- <LazyImage hq={image} lq={imagelq} alt={title} /> -->
+    <img
+      src={image}
+      class="aspect-video w-full max-w-96"
+      transition:name={title}
+    />
 
     <div class="pr-2 text-sm text-text nerdfont">{title}</div>
     <div class="pr-2 text-sm text-blue nerdfont">{date}</div>

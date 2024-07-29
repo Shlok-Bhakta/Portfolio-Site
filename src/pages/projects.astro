@@ -4,7 +4,7 @@ import Navbar from "../components/navbar.astro";
 import PocketBase from "pocketbase";
 import PostCard from "../components/postCard.astro";
 import "../styles/global.css";
-
+import ViewTransitions from "astro/components/ViewTransitions.astro";
 const pb = new PocketBase("https://db.shlokbhakta.dev");
 let data = await pb.collection("Projects").getFullList({
   sort: "-created",
@@ -39,35 +39,38 @@ for (let i = 0; i < data.length; i++) {
       name="description"
       content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
     />
+    <ViewTransitions />
   </head>
   <body class="mocha bg-crust">
     <Navbar />
-    <div
-      class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[calc(16px+6vw)] text-center nerdfont"
-    >
-      Things I Made!
-    </div>
-    <div class="flex justify-center">
-      <section
-        class="flex justify-center bg-mantle w-vw max-w-4xl h-auto p-6 m-2 rounded-md"
+    <div>
+      <div
+        class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[calc(16px+6vw)] text-center nerdfont"
       >
-        <ol class="grid grid-cols-3 gap-2">
-          {
-            data.map((item) => (
-              <li>
-                <PostCard
-                  title={item.Title}
-                  tags={item.expand?.Tags}
-                  date={item.created}
-                  image={item.imgurl}
-                  link={"/project/" + item.id + "-" + item.Title}
-                  col={item.Color}
-                />
-              </li>
-            ))
-          }
-        </ol>
-      </section>
+        Things I Made!
+      </div>
+      <div class="flex justify-center">
+        <section
+          class="flex justify-center bg-mantle w-vw max-w-4xl h-auto p-6 m-2 rounded-md"
+        >
+          <ol class="grid grid-cols-3 gap-2">
+            {
+              data.map((item) => (
+                <li transition:name={item.id}>
+                  <PostCard
+                    title={item.Title}
+                    tags={item.expand?.Tags}
+                    date={item.created}
+                    image={item.imgurl}
+                    link={"/project/" + item.id + "-" + item.Title}
+                    col={item.Color}
+                  />
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+      </div>
     </div>
   </body>
 </html>

@@ -1,5 +1,6 @@
 ---
 import PocketBase from "pocketbase";
+import ViewTransitions from "astro/components/ViewTransitions.astro";
 import Navbar from "../../components/navbar.astro";
 import PostCard from "../../components/postCard.astro";
 import "../../styles/global.css";
@@ -65,55 +66,61 @@ console.log(posts);
             .img {
             }
         </style>
+        <ViewTransitions />
     </head>
     <body class="mocha bg-crust">
-        <Navbar />
-        <div class="flex justify-center">
-            <img
-                class="aspect-video w-[calc(100vw-40px)] max-w-4xl mt-4 rounded-md border-2 border-text"
-                style=`border-color: ${data.Color}`
-                src={image}
-                alt={data.Title}
-            />
+        <div class="z-10">
+            <Navbar />
         </div>
-        <div class="title text-center text-text nerdfont">
-            {data.Title}
-        </div>
-        <div class="flex justify-center">
-            <article
-                class="flex w-[calc(100vw-40px)] bg-mantle center flex-col justify-center max-w-4xl nerdfont p-3 rounded-md text-text"
-            >
-                <Fragment set:html={data.Html} />
-            </article>
-        </div>
-        <div hidden={posts.length == 0}>
-            <div class="title text-center text-text nerdfont">Posts</div>
+        <div class="z-0">
             <div class="flex justify-center">
-                <div
+                <img
+                    class="aspect-video w-[calc(100vw-40px)] max-w-4xl mt-4 rounded-md border-2 border-text"
+                    style=`border-color: ${data.Color}`
+                    src={image}
+                    alt={data.Title}
+                    transition:name={title}
+                />
+            </div>
+            <div class="title text-center text-text nerdfont">
+                {data.Title}
+            </div>
+            <div class="flex justify-center">
+                <article
                     class="flex w-[calc(100vw-40px)] bg-mantle center flex-col justify-center max-w-4xl nerdfont p-3 rounded-md text-text"
                 >
-                    <ol class="grid grid-cols-3 gap-2">
-                        {
-                            posts.map((data) => (
-                                <li>
-                                    <PostCard
-                                        title={data.Title}
-                                        tags={data.expand?.tagName}
-                                        date={data.created}
-                                        image={data.imgurl}
-                                        link={"/post/" + data.id}
-                                        imagelq={data.imgurllq}
-                                        col={data.color}
-                                    />
-                                </li>
-                            ))
-                        }
-                    </ol>
+                    <Fragment set:html={data.Html} />
+                </article>
+            </div>
+            <div hidden={posts.length == 0}>
+                <div class="title text-center text-text nerdfont">Posts</div>
+                <div class="flex justify-center">
+                    <div
+                        class="flex w-[calc(100vw-40px)] bg-mantle center flex-col justify-center max-w-4xl nerdfont p-3 rounded-md text-text"
+                    >
+                        <ol class="grid grid-cols-3 gap-2">
+                            {
+                                posts.map((data) => (
+                                    <li>
+                                        <PostCard
+                                            title={data.Title}
+                                            tags={data.expand?.tagName}
+                                            date={data.created}
+                                            image={data.imgurl}
+                                            link={"/post/" + data.id}
+                                            imagelq={data.imgurllq}
+                                            col={data.color}
+                                        />
+                                    </li>
+                                ))
+                            }
+                        </ol>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div>
-            <img src="/ReadingThanks.svg" class="w-full px-6 pt-24" />
+            <div>
+                <img src="/ReadingThanks.svg" class="w-full px-6 pt-24" />
+            </div>
         </div>
     </body>
 </html>

@@ -1,5 +1,7 @@
 ---
 import PocketBase from "pocketbase";
+import ViewTransitions from "astro/components/ViewTransitions.astro";
+
 import Navbar from "../../components/navbar.astro";
 import "../../styles/global.css";
 import "../../styles/blog.css";
@@ -42,33 +44,37 @@ const image = pb.files.getUrl(data, data.Thumbnail);
                 font-size: min(10vw, 4.5rem);
             }
         </style>
+        <ViewTransitions />
     </head>
     <body class="mocha bg-crust">
         <Navbar />
-        <div class="flex justify-center">
-            <img
-                class="aspect-video w-[calc(100vw-40px)] max-w-4xl mt-4 rounded-md border-2 border-text"
-                style=`border-color: ${data.Color}`
-                src={image}
-                alt={data.Title}
-            />
-        </div>
-        <div class="title text-center text-text nerdfont">
-            {data.Title}
-        </div>
-        <div class="flex justify-center">
-            <article
-                class="flex w-[calc(100vw-40px)] bg-mantle center flex-col justify-center max-w-4xl nerdfont p-3 rounded-md"
-            >
-                <Fragment set:html={data.Html} />
-            </article>
-        </div>
-        <div class="mt-24 w-dvw p-10">
-            <img
-                src="/ReadingThanks.svg"
-                alt="Thanks For Reading!"
-                class="w-full"
-            />
+        <div>
+            <div class="flex justify-center">
+                <img
+                    class="aspect-video w-[calc(100vw-40px)] max-w-4xl mt-4 rounded-md border-2 border-text"
+                    style=`border-color: ${data.Color}`
+                    src={image}
+                    alt={data.Title}
+                    transition:name={data.Title}
+                />
+            </div>
+            <div class="title text-center text-text nerdfont">
+                {data.Title}
+            </div>
+            <div class="flex justify-center">
+                <article
+                    class="flex w-[calc(100vw-40px)] bg-mantle center flex-col justify-center max-w-4xl nerdfont p-3 rounded-md"
+                >
+                    <Fragment set:html={data.Html} />
+                </article>
+            </div>
+            <div class="mt-24 w-dvw p-10">
+                <img
+                    src="/ReadingThanks.svg"
+                    alt="Thanks For Reading!"
+                    class="w-full"
+                />
+            </div>
         </div>
     </body>
 </html>
