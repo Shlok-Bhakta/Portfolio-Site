@@ -295,6 +295,7 @@
         payload.append("Markdown", markdown);
         payload.append("Html", String(file));
         payload.append("Thumbnail", imgInput.files[0]);
+        payload.append("ProjectTag", CurrentProjectTag.id);
         payload.append("Color", color);
         console.log(payload);
         const createRecord = await pb.collection("Projects").create(payload);
