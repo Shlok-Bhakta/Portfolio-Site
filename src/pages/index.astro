@@ -79,9 +79,14 @@ for (let i = 0; i < data.length; i++) {
       .sticky + .content {
         padding-top: 60px;
       }
+
+      /* Make a tiling background for the page */
+      .tilebg {
+        background-image: url(TileBG.webp);
+      }
     </style>
   </head>
-  <body class="mocha bg-crust">
+  <body class="mocha bg-crust tilebg">
     <div id="navbar" class="z-10 sticky">
       <Navbar />
     </div>
