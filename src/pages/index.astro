@@ -9,6 +9,8 @@ import PocketBase from "pocketbase";
 import "../styles/global.css";
 
 const pb = new PocketBase("https://db.shlokbhakta.dev");
+import BentoGrid from "@bentogrid/core";
+
 let data = await pb.collection("Projects").getFullList({
   sort: "-created",
   expand: "Tags",
@@ -124,6 +126,7 @@ for (let i = 0; i < data.length; i++) {
       <Navbar />
     </div>
     <div class="content">
+      <!-- Starting Howdy -->
       <section class="flex flex-col items-center pb-40 pt-14">
         <div
           class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vw] nerdfont"
@@ -131,30 +134,64 @@ for (let i = 0; i < data.length; i++) {
           &ltHowdy/&gt
         </div>
       </section>
-      <div class="bg-mantle card rounded-md">
-        <div class="w-full h-full nerdfont rounded-md">
-          <div class="mx-auto text-4xl text-text text-center">Things I do!</div>
-          <section
-            class="flex justify-center w-vw max-w-4xl h-auto p-6 mx-auto m-2 rounded-md"
-          >
-            <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2">
-              {
-                data.map((item) => (
-                  <li transition:name={item.id}>
-                    <PostCard
-                      title={item.Title}
-                      tags={item.expand?.Tags}
-                      date={item.created}
-                      image={item.imgurl}
-                      link={"/project/" + item.id + "-" + item.Title}
-                      col={item.Color}
-                    />
-                  </li>
-                ))
-              }
-            </ol>
-          </section>
+
+      <!-- About Me -->
+      <section>
+        <div class="py-16">
+          <div class="mx-auto px-6 max-w-6xl text-text">
+            <div class="relative">
+              <div class="relative z-10 grid gap-3 grid-cols-6">
+                <div
+                  class="col-span-full lg:col-span-2 overflow-hidden flex relative p-8 card"
+                >
+                  <div>im a developer mom</div>
+                </div>
+                <div
+                  class="col-span-full sm:col-span-3 lg:col-span-2 overflow-hidden relative p-8 card"
+                >
+                </div>
+                <div
+                  class="col-span-full sm:col-span-3 lg:col-span-2 overflow-hidden relative p-8 card"
+                >
+                </div>
+                <div
+                  class="col-span-full lg:col-span-3 overflow-hidden relative p-8 card"
+                >
+                </div>
+                <div
+                  class="col-span-full lg:col-span-3 overflow-hidden relative p-8 card"
+                >
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
+    </div>
+    <!-- Projects on Home -->
+    <div class="bg-mantle card rounded-md mx-20">
+      <div class="w-full h-full nerdfont rounded-md">
+        <div class="mx-auto text-4xl text-text text-center">My Projects!</div>
+        <section
+          class="flex justify-center w-vw max-w-4xl h-auto p-6 mx-auto m-2 rounded-md"
+        >
+          <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2">
+            {
+              data.map((item) => (
+                <li transition:name={item.id}>
+                  <PostCard
+                    title={item.Title}
+                    tags={item.expand?.Tags}
+                    date={item.created}
+                    image={item.imgurl}
+                    link={"/project/" + item.id + "-" + item.Title}
+                    col={item.Color}
+                  />
+                </li>
+              ))
+            }
+          </ol>
+        </section>
       </div>
     </div>
   </body>
