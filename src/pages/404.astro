@@ -1,0 +1,29 @@
+---
+import Navbar from "../components/navbar.astro";
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="UTF-8" />
+        <meta name="author" content="Shlok Bhakta" />
+        <meta name="keywords" content="404 Error" />
+        <meta
+            name="description"
+            content="you seem to be on a page that doesnt exist, good luck finding it!"
+        />
+    </head>
+    <body class="mocha bg-crust tilebg">
+        <div id="navbar" class="z-10 sticky">
+            <Navbar />
+        </div>
+        <div class="grid items-center nerdfont w-svw h-svh absolute">
+            <div class="text-center">
+                <div class="text-5xl text-text">Nothing to see here!</div>
+                <div class="text-7xl text-red">404 Page not found</div>
+            </div>
+        </div>
+    </body>
+</html>
