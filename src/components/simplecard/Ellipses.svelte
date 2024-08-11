@@ -1,5 +1,5 @@
 <script>
-    let sharedClass = "rounded-full outline outline-8 outline-crust sm:my-6 md:my-8 size-1 my-4 bg-green";
+    let sharedClass = "rounded-full outline outline-8 outline-crust sm:my-6 md:my-8 size-1 my-4 bg-green hover:bg-maroon";
 </script>
 
 <div class="absolute z-0 grid h-full w-full items-center gap-8 lg:grid-cols-2">

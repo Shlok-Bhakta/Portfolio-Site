@@ -1,4 +1,5 @@
 <script lang="ts">
+    import "../../styles/global.css";
     import { cn } from "./utils.ts";
 
     let className: any = "";
@@ -10,10 +11,10 @@
 </script>
 
 <div class={cn("text-left", className)}>
-    <h3 class="text-lg font-bold mb-1 text-gray-100">
+    <h3 class="text-lg font-bold mb-1 text-text nerdfont">
         {cardContent.title}
     </h3>
-    <p class="text-gray-300">
+    <p class="text-subtext1 nerdfont">
         {cardContent.description}
     </p>
 </div>
