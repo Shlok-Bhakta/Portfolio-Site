@@ -8,8 +8,8 @@ import PostCard from "../components/postCard.astro";
 import PocketBase from "pocketbase";
 import "../styles/global.css";
 import SimpleCard from "../components/simplecard/SimpleVariant.svelte";
+import BorderBeam from "../components/borderbeam/BorderBeam.svelte";
 const pb = new PocketBase("https://db.shlokbhakta.dev");
-import BentoGrid from "@bentogrid/core";
 
 let data = await pb.collection("Projects").getFullList({
   sort: "-created",
@@ -175,6 +175,7 @@ for (let i = 0; i < data.length; i++) {
         <section
           class="flex justify-center w-vw max-w-4xl h-auto p-6 mx-auto m-2 rounded-md"
         >
+          <BorderBeam />
           <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2">
             {
               data.map((item) => (
