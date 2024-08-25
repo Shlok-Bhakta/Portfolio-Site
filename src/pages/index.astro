@@ -9,6 +9,7 @@ import PocketBase from "pocketbase";
 import "../styles/global.css";
 import SimpleCard from "../components/simplecard/SimpleVariant.svelte";
 import BorderBeam from "../components/borderbeam/BorderBeam.svelte";
+import Meteors from "../components/meteors/Meteors.svelte";
 const pb = new PocketBase("https://db.shlokbhakta.dev");
 
 let data = await pb.collection("Projects").getFullList({
@@ -119,6 +120,15 @@ for (let i = 0; i < data.length; i++) {
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.073);
       }
+
+      .usa-card {
+        backdrop-filter: blur(3px) saturate(190%);
+        -webkit-backdrop-filter: blur(3px) saturate(190%);
+        background: #11111b3f;
+        background: linear-gradient(90deg, #f38ba83f 0%, #cdd6f43f 35%, #89b4fa3f 100%);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.073);
+      }
     </style>
   </head>
   <body class="mocha bg-crust tilebg">
@@ -147,8 +157,14 @@ for (let i = 0; i < data.length; i++) {
                   <SimpleCard />
                 </div>
                 <div
-                  class="col-span-full sm:col-span-3 lg:col-span-2 overflow-hidden relative p-8 card"
+                  class="col-span-full sm:col-span-3 lg:col-span-2 overflow-hidden relative p-8 usa-card"
                 >
+                  <Meteors number={30} client:load/>
+                  <p
+                    class="grid w-full h-full place-content-center text-3xl font-semibold bg-gradient-to-br from-text to-blue text-transparent bg-clip-text"
+                  >
+                    USA Based
+                  </p>
                 </div>
                 <div
                   class="col-span-full sm:col-span-3 lg:col-span-2 overflow-hidden relative p-8 card"
