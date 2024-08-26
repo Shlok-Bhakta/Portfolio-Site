@@ -10,6 +10,7 @@ import "../styles/global.css";
 import SimpleCard from "../components/simplecard/SimpleVariant.svelte";
 import BorderBeam from "../components/borderbeam/BorderBeam.svelte";
 import Meteors from "../components/meteors/Meteors.svelte";
+import SimpleCard6 from "../components/card6/SimpleCardVariant6.svelte"
 const pb = new PocketBase("https://db.shlokbhakta.dev");
 
 let data = await pb.collection("Projects").getFullList({
@@ -167,16 +168,17 @@ for (let i = 0; i < data.length; i++) {
                   </p>
                 </div>
                 <div
-                  class="col-span-full sm:col-span-3 lg:col-span-2 overflow-hidden relative p-8 card"
+                  class="col-span-full sm:col-span-3 lg:col-span-2 overflow-hidden relative card"
                 >
-                </div>
-                <div
-                  class="col-span-full lg:col-span-3 overflow-hidden relative p-8 card"
-                >
-                </div>
-                <div
-                  class="col-span-full lg:col-span-3 overflow-hidden relative p-8 card"
-                >
+              </div>
+              <div
+              class="col-span-full lg:col-span-3 overflow-hidden relative p-8 card"
+              >
+            </div>
+            <div
+            class="col-span-full lg:col-span-3 relative"
+            >
+            <SimpleCard6 />
                 </div>
               </div>
             </div>
