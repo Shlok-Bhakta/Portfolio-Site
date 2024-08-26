@@ -4,20 +4,23 @@
   
     export let number = 10;
     let meteorStyles: any = [];
+    let trailColor: string[] = ["from-rosewater", "from-red", "from-peach", "from-sky", "from-text", "from-blue", "from-teal"];
+    let trailColorMid: string[] = ["via-rosewater", "via-red", "via-peach", "via-sky", "via-text", "via-blue", "via-teal"];
     let changeMeteors = (num: number) => {
       meteorStyles = [];
       const styles = [...new Array(num)].map(() => ({
         top: -20,
-        left: Math.floor(Math.random() * 700) + "px",
+        left: Math.floor(Math.random() * 900) + "px",
         animationDelay: Math.random() * 1 + 0.2 + "s",
         animationDuration: Math.floor(Math.random() * 8 + 2.9) + "s",
+        fromCol: trailColor[Math.floor(Math.random() * 7)],
+        viaCol: trailColorMid[Math.floor(Math.random() * 7)],
       }));
       meteorStyles = styles;
     };
     onMount(() => {
       changeMeteors(number);
     });
-    //   $: changeMeteors(number);
 </script>
   
 {#each meteorStyles as style, idx}
@@ -30,7 +33,8 @@
 >
     <!-- Meteor Tail  -->
     <div
-    class="pointer-events-none absolute top-1/2 -z-10 h-px w-[50px] -translate-y-1/2 bg-gradient-to-r from-blue via-text to-transparent"
+    id = "trail-{idx+1}"
+    class="pointer-events-none absolute top-1/2 -z-10 h-px w-[50px] -translate-y-1/2 bg-gradient-to-r {style.fromCol} {style.viaCol} to-transparent"
     />
 </span>
 {/each}
