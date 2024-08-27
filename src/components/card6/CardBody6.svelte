@@ -5,7 +5,7 @@
     title: "3D Card",
     desc: "Don't take above two words seriously, I just made them up.",
   };
-  let className = "p-8 h-full w-full";
+  let className = "p-8 h-full w-full nerdfont";
   export { className as class };
 </script>
 
