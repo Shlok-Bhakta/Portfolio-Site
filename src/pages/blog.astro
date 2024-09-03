@@ -1,5 +1,7 @@
 ---
-import Navbar from "../components/searchNavbar.astro";
+import "../styles/global.css";
+import Navbar from "../components/navbar.astro";
+import ViewTransitions from "astro/components/ViewTransitions.astro";
 import "../styles/global.css";
 import PostTag from "../components/postTag.astro";
 import PostCards from "../components/postCard.astro";
@@ -38,7 +40,6 @@ for (let i = 0; i < posts.items.length; i++) {
     );
   }
 }
-// console.log(posts.items[1].expand.tagName);
 ---
 
 <!doctype html>
@@ -55,56 +56,35 @@ for (let i = 0; i < posts.items.length; i++) {
       name="description"
       content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
     />
+    <ViewTransitions />
   </head>
-  <body class="mocha bg-crust">
-    <Navbar />
-    <!-- background Box 1 -->
-    <!-- Header Text -->
+  <body class="mocha bg-crust tilebg">
+    <div id="navbar" class="z-10 sticky">
+      <Navbar />
+    </div>
     <div
       class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[calc(16px+8vw)] text-center nerdfont"
     >
       Blog
     </div>
-    <!-- <div class="flex justify-center bg-mantle w-vw h-auto p-2 m-2 rounded-md"> -->
-    <!-- Tags -->
-    <!-- <ul class="flex flex-wrap space-x-1">
+    <div class="flex justify-center bg-mantle w-vw h-auto p-2 m-2 rounded-md">
+      <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2">
         {
-          data.map((item) => (
-            <li class="flex">
-              <PostTag
-                image={item.imgurl}
-                tag={item.tagName}
-                col={item.color}
+          posts.items.map((data) => (
+            <li>
+              <PostCards
+                title={data.Title}
+                tags={data.expand?.tagName}
+                date={data.created.slice(0, 10)}
+                image={data.imgurlhq}
+                link={"/post/" + data.id}
+                imagelq={data.imgurl}
+                col={data.Color}
               />
             </li>
           ))
         }
-      </ul> -->
-    <!-- </div> -->
-    <!-- posts -->
-    <div class="flex justify-center">
-      <div
-        class="flex justify-center bg-mantle w-vw max-w-4xl h-auto p-6 m-2 rounded-md"
-      >
-        <!-- Posts -->
-        <ol class="grid grid-cols-3 gap-2">
-          {
-            posts.items.map((data) => (
-              <li>
-                <PostCards
-                  title={data.Title}
-                  tags={data.expand?.tagName}
-                  date={data.created}
-                  image={data.imgurlhq}
-                  link={"/post/" + data.id}
-                  imagelq={data.imgurl}
-                  col={data.Color}
-                />
-              </li>
-            ))
-          }
-        </ol>
-      </div>
+      </ol>
     </div>
   </body>
 </html>

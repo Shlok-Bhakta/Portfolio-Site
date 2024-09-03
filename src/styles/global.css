@@ -11,3 +11,8 @@
 .nerdfont {
   font-family: "CaskaydiaCoveNF";
 }
+
+/* Make a tiling background for the page */
+.tilebg {
+  background-image: url("/TileBG.webp");
+}

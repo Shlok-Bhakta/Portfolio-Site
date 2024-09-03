@@ -1,5 +1,6 @@
 ---
 import PocketBase from "pocketbase";
+import ViewTransitions from "astro/components/ViewTransitions.astro";
 import Navbar from "../../components/navbar.astro";
 import PostCard from "../../components/postCard.astro";
 import "../../styles/global.css";
@@ -41,7 +42,6 @@ for (let i = 0; i < posts.length; i++) {
         );
     }
 }
-console.log(posts);
 ---
 
 <!doctype html>
@@ -64,16 +64,28 @@ console.log(posts);
             }
             .img {
             }
+            .card {
+                backdrop-filter: blur(5px) saturate(180%);
+                -webkit-backdrop-filter: blur(5px) saturate(180%);
+                background-color: #3132443f;
+                border-radius: 12px;
+                border: 1px solid;
+            }
         </style>
+        <ViewTransitions />
     </head>
-    <body class="mocha bg-crust">
-        <Navbar />
+    <body class="mocha bg-crust tilebg">
+        <div class="z-10 sticky">
+            <Navbar />
+        </div>
+
         <div class="flex justify-center">
             <img
-                class="aspect-video w-[calc(100vw-40px)] max-w-4xl mt-4 rounded-md border-2 border-text"
+                class="aspect-video w-[calc(100vw-40px)] max-w-4xl mt-4 card"
                 style=`border-color: ${data.Color}`
                 src={image}
                 alt={data.Title}
+                transition:name={title}
             />
         </div>
         <div class="title text-center text-text nerdfont">
@@ -92,7 +104,9 @@ console.log(posts);
                 <div
                     class="flex w-[calc(100vw-40px)] bg-mantle center flex-col justify-center max-w-4xl nerdfont p-3 rounded-md text-text"
                 >
-                    <ol class="grid grid-cols-3 gap-2">
+                    <ol
+                        class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2"
+                    >
                         {
                             posts.map((data) => (
                                 <li>
@@ -113,7 +127,7 @@ console.log(posts);
             </div>
         </div>
         <div>
-            <img src="/ReadingThanks.svg" class="w-full px-6 pt-24" />
+            <img src="/ReadingThanks.svg" class="w-full px-6 pt-12 max:w-4xl" />
         </div>
     </body>
 </html>
