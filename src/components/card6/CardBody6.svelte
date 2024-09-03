@@ -1,9 +1,12 @@
 <script>
   import { cn } from "./utils.ts";
 
+  export let title = "3D Card";
+  export let desc = "Don't take above two words seriously, I just made them up."
+
   let card = {
-    title: "3D Card",
-    desc: "Don't take above two words seriously, I just made them up.",
+    title: title,
+    desc: desc,
   };
   let className = "p-8 h-full w-full nerdfont";
   export { className as class };

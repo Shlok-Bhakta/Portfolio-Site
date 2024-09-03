@@ -139,6 +139,7 @@ for (let i = 0; i < data.length; i++) {
     <div class="content">
       <!-- Starting Howdy -->
       <section class="flex flex-col items-center pb-40 pt-14">
+        <Meteors number={30} client:load/>
         <div
           class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vw] nerdfont"
         >
@@ -153,32 +154,30 @@ for (let i = 0; i < data.length; i++) {
             <div class="relative">
               <div class="relative z-10 grid gap-3 grid-cols-6">
                 <div
-                  class="col-span-full lg:col-span-2 overflow-hidden flex relative"
+                  class="col-span-full lg:col-span-2"
                 >
-                  <SimpleCard />
+                  <!-- <SimpleCard /> -->
+                <SimpleCard6 title="Coding For 10 Years" content="Started out when I was 10 getting better and better!"/>
                 </div>
                 <div
-                  class="col-span-full sm:col-span-3 lg:col-span-2 overflow-hidden relative p-8 usa-card"
+                  class="col-span-full sm:col-span-3 lg:col-span-2"
                 >
-                  <Meteors number={30} client:load/>
-                  <p
-                    class="grid w-full h-full place-content-center text-3xl font-semibold bg-gradient-to-br from-text to-blue text-transparent bg-clip-text z-10"
-                  >
-                    USA Based
-                  </p>
+                <SimpleCard6 title="From The USA" content="Born in California Raised in Texas 🤠" colors="#a6e3a1, #94e2d5, #89dceb, #a6e3a1"/>
                 </div>
                 <div
-                  class="col-span-full sm:col-span-3 lg:col-span-2 overflow-hidden relative card"
+                  class="col-span-full sm:col-span-3 lg:col-span-2"
                 >
+                <SimpleCard6 title="Web Dev" content="I've been keeping an eye on web technologies" colors="#f38ba8, #f9e2af, #f38ba8"/>
               </div>
               <div
-              class="col-span-full lg:col-span-3 overflow-hidden relative p-8 card"
+              class="col-span-full lg:col-span-3"
               >
+              <SimpleCard6 title="Embedded" content="I mess around with embedded systems like ESP32, Arduino, and a Custom y86 CPU" colors="#cba6f7, #f38ba8, #cba6f7"/>
             </div>
             <div
             class="col-span-full lg:col-span-3 relative"
             >
-            <SimpleCard6 />
+            <SimpleCard6 title="Cyber Security" content="Working on a Minor in Cybersecurity. Participated in many CTFs and placed 7th in the university" colors="#89b4fa, #b4befe, #89b4fa"/>
                 </div>
               </div>
             </div>
