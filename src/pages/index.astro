@@ -138,12 +138,14 @@ for (let i = 0; i < data.length; i++) {
     </div>
     <div class="content">
       <!-- Starting Howdy -->
-      <section class="flex flex-col items-center pb-40 pt-14">
-        <Meteors number={30} client:load/>
-        <div
-          class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vw] nerdfont"
-        >
-          &ltHowdy/&gt
+      <section class="flex flex-col items-center pb-40">
+        <div class="relative flex justify-center items-center w-vw h-96 overflow-x-clip">
+          <Meteors number={30} client:load/>
+          <div
+            class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[20vw] nerdfont"
+          >
+            &ltHowdy/&gt
+          </div>
         </div>
       </section>
 
