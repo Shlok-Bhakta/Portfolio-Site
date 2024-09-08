@@ -11,7 +11,7 @@
       const styles = [...new Array(num)].map(() => ({
         top: -20,
         left: Math.floor(Math.random() * 900) + "px",
-        animationDelay: Math.random() * 1 + 0.2 + "s",
+        animationDelay: Math.random() * 8 + 0.2 + "s",
         animationDuration: Math.floor(Math.random() * 8 + 2.9) + "s",
         fromCol: trailColor[Math.floor(Math.random() * 7)],
         viaCol: trailColorMid[Math.floor(Math.random() * 7)],
