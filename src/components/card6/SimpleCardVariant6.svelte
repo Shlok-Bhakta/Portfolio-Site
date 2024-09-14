@@ -17,7 +17,7 @@
   .rainbow-shadow{
 
     transform: translate(0px, -14px);
-    background-size: 500% 1%; /* Adjust background size as needed */
+    background-size: 500% 100%; /* Adjust background size as needed */
     background-position: 0% 0%;
     /* animation-delay: 2ms; */
     animation: moveGradient 10s linear infinite;
