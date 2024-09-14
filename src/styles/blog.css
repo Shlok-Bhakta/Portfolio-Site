@@ -7,27 +7,27 @@ font-family: "CaskaydiaCoveNF";
 }
 
 h1{
-    @apply text-red text-7xl nerdfont
+    @apply text-red text-5xl nerdfont py-2
 }
 
 h2{
-    @apply text-peach text-6xl nerdfont
+    @apply text-peach text-3xl nerdfont
 }
 
 h3{
-    @apply text-green text-5xl nerdfont
+    @apply text-green text-2xl nerdfont
 }
 
 h4{
-    @apply text-sky text-4xl nerdfont
+    @apply text-sky text-xl nerdfont
 }
 
 h5{
-    @apply text-blue text-3xl nerdfont
+    @apply text-blue text-lg nerdfont
 }
 
 h6{
-    @apply text-blue text-2xl nerdfont
+    @apply text-blue text-base nerdfont
 }
 
 ul{
@@ -54,7 +54,7 @@ blockquote{
 }
 
 .MathJax{
-    @apply text-text ; 
+    @apply text-text; 
 }
 
 img{
@@ -201,3 +201,13 @@ img{
  .token.italic {
      font-style: italic;
  }
+   .copy-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  }
+
+  .icon-animate {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
