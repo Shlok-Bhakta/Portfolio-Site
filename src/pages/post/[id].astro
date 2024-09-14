@@ -1,7 +1,7 @@
 ---
 import PocketBase from "pocketbase";
 import ViewTransitions from "astro/components/ViewTransitions.astro";
-
+import CopyButton from "../../components/CopyButtons.svelte";
 import Navbar from "../../components/navbar.astro";
 import "../../styles/global.css";
 import "../../styles/blog.css";
@@ -51,6 +51,8 @@ const image = pb.files.getUrl(data, data.Thumbnail);
                 border: 1px solid;
             }
         </style>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>{data.Title}</title>
         <ViewTransitions />
     </head>
     <body class="mocha bg-crust tilebg">
@@ -76,6 +78,7 @@ const image = pb.files.getUrl(data, data.Thumbnail);
                 >
                     <Fragment set:html={data.Html} />
                 </article>
+                <CopyButton client:load/>
             </div>
             <div class="w-full px-6 pt-12 max:w-4xl">
                 <img

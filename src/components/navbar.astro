@@ -3,10 +3,7 @@ import "../styles/global.css";
 import Hamburger from "./hamburger.svelte";
 ---
 
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-/>
+
 <div class="sticky top-0 bg-base py-2">
   <ul class="flex items-center list-none">
     <!-- Logo Area -->
@@ -18,7 +15,9 @@ import Hamburger from "./hamburger.svelte";
     <!-- a spacer -->
     <li class="flex-auto"></li>
     <!-- Hamburger Menu -->
-    <Hamburger client:load />
+     <li>
+       <Hamburger client:load />
+     </li>
     <!-- the other 3 buttons -->
     <li>
       <div class="text-lg hidden sm:hidden md:flex">

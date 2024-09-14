@@ -50,11 +50,10 @@
             .use(remarkRehype, { allowDangerousHtml: true })
             .use(rehypeRaw)
             .use(rehypeMathjax)
-            .use(rehypePrism, { plugins: ["copy-to-clipboard"] })
+            .use(rehypePrism)
             .use(rehypeStringify, { allowDangerousHtml: true })
             .process(markdown);
         document.getElementById("html").innerHTML = String(file);
-        document.getElementById("docHead").innerHTML = CurrentTitle;
     }
 
     let posts = null;
