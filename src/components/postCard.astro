@@ -13,9 +13,10 @@ const { title, tags, date, image, imagelq, link, col } = Astro.props;
     <!-- <LazyImage hq={image} lq={imagelq} alt={title} /> -->
     <img
       src={image}
-      class="aspect-auto w-full max-w-96"
+      class="aspect-auto w-full max-w-96 mx-auto"
       transition:name={title}
     />
+
 
     <div class="pr-2 text-sm text-text nerdfont">{title}</div>
     <div class="pr-2 text-sm text-blue nerdfont">{date}</div>

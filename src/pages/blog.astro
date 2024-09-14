@@ -69,24 +69,26 @@ for (let i = 0; i < posts.items.length; i++) {
     >
       Blog
     </div>
-    <div class="flex justify-center bg-mantle w-vw h-auto p-2 m-2 rounded-md">
-      <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2">
-        {
-          posts.items.map((data) => (
-            <li>
-              <PostCards
-                title={data.Title}
-                tags={data.expand?.tagName}
-                date={data.created.slice(0, 10)}
-                image={data.imgurlhq}
-                link={"/post/" + data.id}
-                imagelq={data.imgurl}
-                col={data.Color}
-              />
-            </li>
-          ))
-        }
-      </ol>
+    <div class="flex justify-center">
+      <div class="flex justify-center bg-mantle w-vw max-w-4xl h-auto p-6 m-2 rounded-md">
+        <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2">
+          {
+            posts.items.map((data) => (
+              <li>
+                <PostCards
+                  title={data.Title}
+                  tags={data.expand?.tagName}
+                  date={data.created.slice(0, 10)}
+                  image={data.imgurlhq}
+                  link={"/post/" + data.id}
+                  imagelq={data.imgurl}
+                  col={data.Color}
+                />
+              </li>
+            ))
+          }
+        </ol>
+      </div>
     </div>
   </body>
 </html>
