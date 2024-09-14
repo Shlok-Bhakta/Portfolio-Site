@@ -16,34 +16,3 @@
 .tilebg {
   background-image: url("/TileBG.webp");
 }
-
-/* Style for the copy button */
-.copy-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    z-index: 10; /* Make sure it sits on top */
-}
-
-/* Ensure the button doesn't interfere with code */
-pre {
-    position: relative; /* This is needed to position the button inside */
-    padding-top: 40px; /* Ensure space for the button */
-}
-
-/* Style for the copy icon */
-.copy-icon {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-}
-
-/* Icon animation when copied */
-.icon-animate {
-    transform: scale(1.2); /* Slightly enlarge the icon */
-    opacity: 0.8; /* Fade it slightly */
-}
