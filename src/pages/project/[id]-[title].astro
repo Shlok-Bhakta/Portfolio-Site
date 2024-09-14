@@ -2,6 +2,7 @@
 import PocketBase from "pocketbase";
 import ViewTransitions from "astro/components/ViewTransitions.astro";
 import Navbar from "../../components/navbar.astro";
+import CopyButton from "../../components/CopyButtons.svelte";
 import PostCard from "../../components/postCard.astro";
 import "../../styles/global.css";
 import "../../styles/blog.css";
@@ -97,6 +98,7 @@ for (let i = 0; i < posts.length; i++) {
             >
                 <Fragment set:html={data.Html} />
             </article>
+            <CopyButton client:load/>
         </div>
         <div hidden={posts.length == 0}>
             <div class="title text-center text-text nerdfont">Posts</div>
@@ -117,7 +119,7 @@ for (let i = 0; i < posts.length; i++) {
                                         image={data.imgurl}
                                         link={"/post/" + data.id}
                                         imagelq={data.imgurllq}
-                                        col={data.color}
+                                        col={data.Color}
                                     />
                                 </li>
                             ))
