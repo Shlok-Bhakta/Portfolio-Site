@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
 
@@ -24,7 +23,7 @@ const addHeadersToRoute = (route) => ({
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
-  integrations: [sitemap(), svelte(), tailwind()],
+  integrations: [svelte(), tailwind()],
 
   vite: {
     plugins: [addHeadersToRoute('/Spread-The-Light')]
