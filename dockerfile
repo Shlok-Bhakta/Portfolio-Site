@@ -4,10 +4,13 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install only production dependencies
-RUN apk add --no-cache python3 make g++ \
+# Install dependencies with correct Alpine packages
+RUN apk add --no-cache --virtual .build-deps \
+    python3 \
+    make \
+    g++ \
     && npm ci --only=production \
-    && apk del python3 make g++
+    && apk del .build-deps
 
 # Copy the built application
 COPY dist/ ./dist/
