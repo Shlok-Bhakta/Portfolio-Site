@@ -1,10 +1,7 @@
-FROM node:lts-alpine AS runtime
+FROM node:lts-alpine
 WORKDIR /app
 
-COPY . .
-
-RUN npm install --include=optional
-RUN npm run build
+COPY dist/ ./dist/
 
 ENV HOST=0.0.0.0
 ENV PORT=4321
