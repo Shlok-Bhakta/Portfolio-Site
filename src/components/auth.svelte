@@ -389,7 +389,7 @@
                     <ol id="postList" class="w-full flex flex-col gap-2 nerdfont">
                         {#each posts as post}
                             <li class="text-text text-sm text text-center bg-base mx-4 rounded-md py-2 items-center">
-                                <button onclick={fillPostBoxesByID(post.id)}>
+                                <button onclick={() => {fillPostBoxesByID(post.id)}}>
                                     <div class="text-text">
                                         {post.Title}
                                     </div>
@@ -417,7 +417,7 @@
                         {#if tags != null}
                             {#each tags as tag}
                                 <li class="">
-                                    <button onclick={deleteTag(tag)}>
+                                    <button onclick={() => {deleteTag(tag)}}>
                                         <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {tag.color}">
                                             <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl(tag, tag.Icon)} alt={tag.tagName} />
                                             <div class="pr-2 text-sm text-text nerdfont">{tag.tagName}</div>
@@ -459,7 +459,7 @@
                             {#if allTags != null}
                                 {#each allTags as tagItem}
                                     <li>
-                                        <button onclick={updateTags(tagItem)}>
+                                        <button onclick={() => {updateTags(tagItem)}}>
                                             <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {tagItem.color}">
                                                 <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl(tagItem, tagItem.Icon)} alt={tagItem.tagName} />
                                                 <div class="pr-2 text-sm text-text nerdfont">{tagItem.tagName}</div>
@@ -544,7 +544,7 @@
                     <ol class="w-full flex flex-col gap-2 nerdfont">
                         {#each projects as proj}
                             <li class="text-text text-sm text text-center bg-base mx-4 rounded-md py-2">
-                                <button onclick={fillProjectBoxesByID(proj.id)}>
+                                <button onclick={() => {fillProjectBoxesByID(proj.id)}}>
                                     <div class="text-text">
                                         {proj.Title}
                                     </div>
@@ -552,7 +552,7 @@
                                         {proj.created}
                                     </div>
                                 </button>
-                                <button id="delPR-{proj.id}" class="bg-overlay1 hover:bg-red w-full mx-2 rounded-md" onclick={deleteProj(proj.id)} confirmed="ST-A"> X </button>
+                                <button id="delPR-{proj.id}" class="bg-overlay1 hover:bg-red w-full mx-2 rounded-md" onclick={() => {deleteProj(proj.id)}} confirmed="ST-A"> X </button>
                             </li>
                         {/each}
                     </ol>
