@@ -5,7 +5,9 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install only production dependencies
-RUN npm ci --only=production
+RUN apk add --no-cache python3 make g++ \
+    && npm ci --only=production \
+    && apk del python3 make g++
 
 # Copy the built application
 COPY dist/ ./dist/
