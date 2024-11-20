@@ -63,8 +63,6 @@ for (let i = 0; i < posts.length; i++) {
             .title {
                 font-size: min(10vw, 4.5rem);
             }
-            .img {
-            }
             .card {
                 backdrop-filter: blur(5px) saturate(180%);
                 -webkit-backdrop-filter: blur(5px) saturate(180%);
@@ -82,9 +80,9 @@ for (let i = 0; i < posts.length; i++) {
             <Navbar />
         </div>
 
-        <div class="flex justify-center">
+        <div class="flex justify-center mt-4">
             <img
-                class="aspect-video w-[calc(100vw-40px)] max-w-4xl mt-4 card"
+                class="aspect-auto h-[30rem] w-auto card"
                 style=`border-color: ${data.Color}`
                 src={image}
                 alt={data.Title}

@@ -1,0 +1,41 @@
+---
+export const prerender = false;
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Spread The Light</title>
+    <link rel="preload" href="/Spread-The-Light/STL1.wasm" as="fetch" type="application/wasm" crossorigin>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script type="module">
+        const engineScript = document.createElement('script');
+        engineScript.src = '/Spread-The-Light/STL1.js';
+        document.body.appendChild(engineScript);
+
+        engineScript.onload = async () => {
+            // Create an imports object
+            const imports = {
+                env: {
+                    memory: new WebAssembly.Memory({ initial: 256 }),
+                    table: new WebAssembly.Table({ initial: 0, element: 'anyfunc' })
+                }
+            };
+
+            const engine = new Engine({
+                canvas: document.getElementById('canvas'),
+                canvasResizePolicy: 2,
+                executable: '/Spread-The-Light/STL1',
+                mainPack: '/Spread-The-Light/STL1.pck',
+                args: [],
+                imports: imports  // Pass the imports object
+            });
+            engine.startGame();
+        };
+    </script>
+</body>
+</html>
