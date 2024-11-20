@@ -1,15 +1,20 @@
-<script>
+<script lang="ts">
   import { cn } from "./utils.ts";
 
-  export let title = "3D Card";
-  export let desc = "Don't take above two words seriously, I just made them up."
 
+  interface Props {
+    title?: string;
+    desc?: string;
+    class?: string;
+  }
+  
+  
+  let { title = "3D Card", desc = "Don't take above two words seriously, I just made them up.", class: className = "p-8 h-full w-full nerdfont" }: Props = $props();
   let card = {
     title: title,
     desc: desc,
   };
-  let className = "p-8 h-full w-full nerdfont";
-  export { className as class };
+  
 </script>
 
 <div class={cn("text-left", className)}>

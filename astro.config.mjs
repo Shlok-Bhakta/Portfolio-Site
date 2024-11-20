@@ -4,6 +4,9 @@ import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
 
 
+import node from "@astrojs/node";
+
+
 // Custom Vite plugin to add headers to specific routes
 const addHeadersToRoute = (route) => ({
   name: 'add-headers-to-route',
@@ -22,7 +25,14 @@ const addHeadersToRoute = (route) => ({
 export default defineConfig({
   site: "https://example.com",
   integrations: [sitemap(), svelte(), tailwind()],
+
   vite: {
     plugins: [addHeadersToRoute('/Spread-The-Light')]
-  }
+  },
+
+  output: "server",
+
+  adapter: node({
+    mode: "standalone"
+  })
 });

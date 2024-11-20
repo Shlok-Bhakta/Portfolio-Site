@@ -2,8 +2,12 @@
     import "../../styles/global.css";
     import { cn } from "./utils.ts";
 
-    let className: any = "";
-    export { className as class };
+    interface Props {
+        class?: any;
+    }
+
+    let { class: className = "" }: Props = $props();
+    
     let cardContent = {
         title: "Svelte is Vibe",
         description: "Svelte is a fun way to build web applications.",

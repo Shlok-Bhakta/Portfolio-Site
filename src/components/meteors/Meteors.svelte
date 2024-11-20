@@ -2,8 +2,12 @@
     import { cn } from "./utils.ts";
     import { onMount } from "svelte";
   
-    export let number = 10;
-    let meteorStyles: any = [];
+  interface Props {
+    number?: number;
+  }
+
+  let { number = 10 }: Props = $props();
+    let meteorStyles: any = $state([]);
     let trailColor: string[] = ["from-rosewater", "from-red", "from-peach", "from-sky", "from-text", "from-blue", "from-teal"];
     let trailColorMid: string[] = ["via-rosewater", "via-red", "via-peach", "via-sky", "via-text", "via-blue", "via-teal"];
     let changeMeteors = (num: number) => {
@@ -36,7 +40,7 @@
     <div
     id = "trail-{idx+1}"
     class="pointer-events-none absolute top-1/2 -z-10 h-px w-[50px] -translate-y-1/2 bg-gradient-to-r {style.fromCol} {style.viaCol} to-transparent"
-    />
+></div>
 </span>
 {/each}
   

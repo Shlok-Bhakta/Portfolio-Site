@@ -14,7 +14,7 @@ jobs:
         uses: reecetech/version-increment@2024.4.3
         id: version
         with:
-          scheme: semver
+          scheme: calver 
           increment: patch
       -
         name: Login to github

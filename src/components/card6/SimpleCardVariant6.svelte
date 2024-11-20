@@ -1,8 +1,12 @@
-<script>
+<script lang="ts">
   import CardBody6 from "./CardBody6.svelte";
-  export let title = "2d card";
-  export let content = "placeholder lorem ipsum";
-  export let colors = "#b4befe, #f2cdcd, #f5c2e7, #cba6f7, #f38ba8, #eba0ac, #fab387, #f9e2af, #a6e3a1, #94e2d5, #89dceb, #74c7ec, #89b4fa, #b4befe";
+  interface Props {
+    title?: string;
+    content?: string;
+    colors?: string;
+  }
+
+  let { title = "2d card", content = "placeholder lorem ipsum", colors = "#b4befe, #f2cdcd, #f5c2e7, #cba6f7, #f38ba8, #eba0ac, #fab387, #f9e2af, #a6e3a1, #94e2d5, #89dceb, #74c7ec, #89b4fa, #b4befe" }: Props = $props();
 </script>
 <style>
 /* Keyframes for moving the gradient */
@@ -32,5 +36,5 @@
   >
   <CardBody6 class="p-8" title={title} desc={content}/>
 </div>
-<div class="bg-black h-5 rounded-xl rainbow-shadow" style="background-image: linear-gradient(45deg, {colors});"/>
+<div class="bg-black h-5 rounded-xl rainbow-shadow" style="background-image: linear-gradient(45deg, {colors});"></div>
 </div>

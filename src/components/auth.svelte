@@ -22,16 +22,16 @@
 
     import ColorThief from "color-thief-node";
 
-    let username;
-    let password;
+    let username = $state();
+    let password = $state();
     let currentEditingID = null;
-    let color = null;
-    let showImage = false;
-    let projectActive = false;
+    let color = $state(null);
+    let showImage = $state(false);
+    let projectActive = $state(false);
     const pb = new PocketBase("https://db.shlokbhakta.dev");
     // const pb = new PocketBase("http://172.20.0.3:8090");
 
-    let authData = null;
+    let authData = $state(null);
     async function login() {
         try {
             authData = await pb.admins.authWithPassword(username, password);
@@ -41,7 +41,7 @@
         console.log(authData);
     }
 
-    let markdown = null;
+    let markdown = $state(null);
     let file = null;
     async function updatemd() {
         file = await unified()
@@ -56,7 +56,7 @@
         document.getElementById("html").innerHTML = String(file);
     }
 
-    let posts = null;
+    let posts = $state(null);
     async function getPosts() {
         posts = await pb.collection("Posts").getFullList({
             sort: "-created",
@@ -64,8 +64,8 @@
         });
     }
 
-    let projects = null;
-    let CurrentProjectTag = null;
+    let projects = $state(null);
+    let CurrentProjectTag = $state(null);
     async function getProjects() {
         projects = await pb.collection("Projects").getFullList({
             sort: "-created",
@@ -74,10 +74,10 @@
         console.log(projects);
     }
 
-    let CurrentTitle = null;
+    let CurrentTitle = $state(null);
     let CurrentHTML = null;
-    let tags = null;
-    let imglink = null;
+    let tags = $state(null);
+    let imglink = $state(null);
     // gets a specific post index and sets it to the active title
     async function fillBoxes(postIndex) {
         projectActive = false;
@@ -153,7 +153,7 @@
         showImage = false;
         updatemd();
     }
-    let allTags = null;
+    let allTags = $state(null);
     async function getAllTags() {
         allTags = await pb.collection("Tags").getFullList({
             sort: "-created",
@@ -164,7 +164,7 @@
     getAllTags();
     getProjects();
 
-    let showdialog = false;
+    let showdialog = $state(false);
     function changeShow() {
         showdialog = !showdialog;
     }
@@ -198,8 +198,8 @@
         tags = tags;
     }
 
-    let imgInput;
-    let image;
+    let imgInput = $state();
+    let image = $state();
 
     async function newImage() {
         const file = imgInput.files[0];
@@ -303,12 +303,12 @@
 
     updatemd();
 
-    let makeNewTag = false;
-    let newTagName = null;
-    let newTagIcon = null;
-    let newTagColor = null;
-    let showIcoImg = false;
-    let icoImg;
+    let makeNewTag = $state(false);
+    let newTagName = $state(null);
+    let newTagIcon = $state(null);
+    let newTagColor = $state(null);
+    let showIcoImg = $state(false);
+    let icoImg = $state();
     function toggleTagMaker() {
         makeNewTag = !makeNewTag;
     }
@@ -382,14 +382,14 @@
     <!-- left sidebar     -->
     <div class="flex flex-row">
         <div class="h-auto w-1/4 bg-mantle text-text text-5xl">
-            <button class="pb-2 nerdfont" on:click={getPosts}>Posts</button>
-            <button class="w-full rounded-md bg-overlay2 hover:bg-green" on:click={newPost}>+</button>
+            <button class="pb-2 nerdfont" onclick={getPosts}>Posts</button>
+            <button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newPost}>+</button>
             {#if posts != null}
                 <div>
                     <ol id="postList" class="w-full flex flex-col gap-2 nerdfont">
                         {#each posts as post}
                             <li class="text-text text-sm text text-center bg-base mx-4 rounded-md py-2 items-center">
-                                <button on:click={fillPostBoxesByID(post.id)}>
+                                <button onclick={fillPostBoxesByID(post.id)}>
                                     <div class="text-text">
                                         {post.Title}
                                     </div>
@@ -397,7 +397,7 @@
                                         {post.created}
                                     </div>
                                 </button>
-                                <button id="del-{post.id}" class="bg-overlay1 hover:bg-red w-full mx-2 rounded-md" on:click={deletePost(post.id)} confirmed="false"> X </button>
+                                <button id="del-{post.id}" class="bg-overlay1 hover:bg-red w-full mx-2 rounded-md" onclick={deletePost(post.id)} confirmed="false"> X </button>
                             </li>
                         {/each}
                     </ol>
@@ -417,7 +417,7 @@
                         {#if tags != null}
                             {#each tags as tag}
                                 <li class="">
-                                    <button on:click={deleteTag(tag)}>
+                                    <button onclick={deleteTag(tag)}>
                                         <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {tag.color}">
                                             <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl(tag, tag.Icon)} alt={tag.tagName} />
                                             <div class="pr-2 text-sm text-text nerdfont">{tag.tagName}</div>
@@ -429,7 +429,7 @@
                     </ol>
                     <button
                         class="p-4 bg-mantle rounded-md m-3"
-                        on:click={() => {
+                        onclick={() => {
                             changeShow();
                             editTags();
                         }}>+</button
@@ -447,7 +447,7 @@
                             {/if}
                             <button
                                 class="p-4 bg-mantle rounded-md m-3"
-                                on:click={() => {
+                                onclick={() => {
                                     changeShow();
                                     editProjTag();
                                 }}>+</button
@@ -459,7 +459,7 @@
                             {#if allTags != null}
                                 {#each allTags as tagItem}
                                     <li>
-                                        <button on:click={updateTags(tagItem)}>
+                                        <button onclick={updateTags(tagItem)}>
                                             <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {tagItem.color}">
                                                 <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl(tagItem, tagItem.Icon)} alt={tagItem.tagName} />
                                                 <div class="pr-2 text-sm text-text nerdfont">{tagItem.tagName}</div>
@@ -468,7 +468,7 @@
                                     </li>
                                 {/each}
                                 <li>
-                                    <button class="p-4 py-1 bg-mantle rounded-md" on:click={toggleTagMaker}>+</button>
+                                    <button class="p-4 py-1 bg-mantle rounded-md" onclick={toggleTagMaker}>+</button>
                                 </li>
                             {/if}
                         </ul>
@@ -480,7 +480,7 @@
                                 </div>
                                 <div>
                                     tagIcon:
-                                    <input type="file" bind:this={newTagIcon} on:change={handleNewTagIcon} />
+                                    <input type="file" bind:this={newTagIcon} onchange={handleNewTagIcon} />
                                     {#if showIcoImg}
                                         <img class="aspect-square w-8" bind:this={icoImg} alt={newTagName} />
                                     {/if}
@@ -491,7 +491,7 @@
                                 </div>
                                 <div>
                                     submit:
-                                    <button on:click={newTagUpload} class="bg-subtext1 border-2 border-green">Submit</button>
+                                    <button onclick={newTagUpload} class="bg-subtext1 border-2 border-green">Submit</button>
                                 </div>
                                 {#if showIcoImg}
                                     <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {newTagColor}">
@@ -504,7 +504,7 @@
                     </dialog>
                     <div>
                         Image Upload
-                        <input type="file" bind:this={imgInput} on:change={newImage} />
+                        <input type="file" bind:this={imgInput} onchange={newImage} />
                     </div>
                     <div>
                         Edit Color
@@ -512,8 +512,8 @@
                     </div>
                 </div>
                 <div class="bg-crust border-2 border-blue text-center rounded-md p-4 multiline flex flex-col h-96 gap-1">
-                    <textarea type="text" class="border-2 border-text w-full h-full rounded-md" bind:value={markdown} />
-                    <button class="text-text border-2 border-peach rounded-lg" on:click={updatemd}>remark</button>
+                    <textarea type="text" class="border-2 border-text w-full h-full rounded-md" bind:value={markdown}></textarea>
+                    <button class="text-text border-2 border-peach rounded-lg" onclick={updatemd}>remark</button>
                 </div>
                 <div class="w-4xl p-3 bg-mantle border-2 border-overlay1 h-fit rounded-md">
                     <div class="flex justify-center">
@@ -527,24 +527,24 @@
                     <div id="html"></div>
                 </div>
                 {#if projectActive}
-                    <button class="text-text nerdfont bg-base border-2 border-lavender rounded md" on:click={submitProjectUpdate}> Update </button>
-                    <button class="text-text nerdfont bg-base border-2 border-lavender rounded md" on:click={submitNewProject}> Create </button>
+                    <button class="text-text nerdfont bg-base border-2 border-lavender rounded md" onclick={submitProjectUpdate}> Update </button>
+                    <button class="text-text nerdfont bg-base border-2 border-lavender rounded md" onclick={submitNewProject}> Create </button>
                 {:else}
-                    <button class="text-text nerdfont bg-base border-2 border-sky rounded md" on:click={submitPostUpdate}> Update </button>
-                    <button class="text-text nerdfont bg-base border-2 border-sky rounded md" on:click={submitNewPost}> Create </button>
+                    <button class="text-text nerdfont bg-base border-2 border-sky rounded md" onclick={submitPostUpdate}> Update </button>
+                    <button class="text-text nerdfont bg-base border-2 border-sky rounded md" onclick={submitNewPost}> Create </button>
                 {/if}
             </div>
         </div>
         <!-- Right Sidebar -->
         <div class="h-auto w-1/4 bg-mantle text-text text-5xl">
-            <button class="mx-auto pb-2 nerdfont" on:click={getProjects}>Projects</button>
-            <button class="w-full rounded-md bg-overlay2 hover:bg-green" on:click={newProj}>+</button>
+            <button class="mx-auto pb-2 nerdfont" onclick={getProjects}>Projects</button>
+            <button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newProj}>+</button>
             {#if projects != null}
                 <div>
                     <ol class="w-full flex flex-col gap-2 nerdfont">
                         {#each projects as proj}
                             <li class="text-text text-sm text text-center bg-base mx-4 rounded-md py-2">
-                                <button on:click={fillProjectBoxesByID(proj.id)}>
+                                <button onclick={fillProjectBoxesByID(proj.id)}>
                                     <div class="text-text">
                                         {proj.Title}
                                     </div>
@@ -552,7 +552,7 @@
                                         {proj.created}
                                     </div>
                                 </button>
-                                <button id="delPR-{proj.id}" class="bg-overlay1 hover:bg-red w-full mx-2 rounded-md" on:click={deleteProj(proj.id)} confirmed="ST-A"> X </button>
+                                <button id="delPR-{proj.id}" class="bg-overlay1 hover:bg-red w-full mx-2 rounded-md" onclick={deleteProj(proj.id)} confirmed="ST-A"> X </button>
                             </li>
                         {/each}
                     </ol>
@@ -565,7 +565,7 @@
         <div class="flex flex-col space-y-3 w-96">
             <input class="w-full border-2 rounded-md" id="user" type="email" bind:value={username} />
             <input class="w-full border-2 rounded-md" type="password" bind:value={password} />
-            <button class="text-text border-2 rounded-md bg-mantle" on:click={login}>auth</button>
+            <button class="text-text border-2 rounded-md bg-mantle" onclick={login}>auth</button>
         </div>
     </div>
 {/if}
