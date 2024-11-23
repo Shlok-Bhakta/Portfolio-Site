@@ -1,5 +1,4 @@
-<script lang="ts">
-  if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined') {
     window.addEventListener('load', () => {
       const codeBlocks = document.querySelectorAll('pre code');
 
@@ -42,4 +41,3 @@
       });
     });
   }
-</script>

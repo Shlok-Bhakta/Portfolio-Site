@@ -51,6 +51,7 @@ const image = pb.files.getUrl(data, data.Thumbnail);
                 border: 1px solid;
             }
         </style>
+        <script src="../../lib/addcopy.ts" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{data.Title}</title>
         <ViewTransitions />
@@ -79,7 +80,6 @@ const image = pb.files.getUrl(data, data.Thumbnail);
                 >
                     <Fragment set:html={data.Html} />
                 </article>
-                <CopyButton client:load/>
             </div>
             <div class="w-full px-6 pt-12 max:w-4xl">
                 <img
