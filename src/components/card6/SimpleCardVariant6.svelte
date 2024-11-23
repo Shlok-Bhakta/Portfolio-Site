@@ -32,7 +32,7 @@
 
 <div class="grid grid-flow-row">
   <div
-  class="border border-base relative rounded-xl bg-mantle h-full w-full"
+  class="border border-base relative rounded-t-xl bg-mantle h-full w-full"
   >
   <CardBody6 class="p-8" title={title} desc={content}/>
 </div>

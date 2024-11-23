@@ -7,19 +7,19 @@ font-family: "CaskaydiaCoveNF";
 }
 
 h1{
-    @apply text-red text-5xl nerdfont py-2
+    @apply text-red text-6xl nerdfont py-2
 }
 
 h2{
-    @apply text-peach text-3xl nerdfont
+    @apply text-peach text-4xl nerdfont
 }
 
 h3{
-    @apply text-green text-2xl nerdfont
+    @apply text-green text-3xl nerdfont
 }
 
 h4{
-    @apply text-sky text-xl nerdfont
+    @apply text-sky text-2xl nerdfont
 }
 
 h5{
@@ -43,7 +43,7 @@ li {
 }
 
 p{
-    @apply text-text nerdfont;
+    @apply text-text nerdfont mb-5 my-4;
 }
 
 code{

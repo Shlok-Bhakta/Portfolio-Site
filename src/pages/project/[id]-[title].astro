@@ -81,13 +81,14 @@ for (let i = 0; i < posts.length; i++) {
         </div>
 
         <div class="flex justify-center mt-4">
-            <img
-                class="aspect-auto h-[30rem] w-auto card"
-                style=`border-color: ${data.Color}`
-                src={image}
-                alt={data.Title}
-                transition:name={title}
-            />
+            <div class="card w-4/5 lg:w-2/4 p-1" style=`border-color: ${data.Color}`>
+                <img
+                    class="aspect-auto w-full"
+                    src={image}
+                    alt={data.Title}
+                    transition:name={title}
+                />
+            </div>
         </div>
         <div class="title text-center text-text nerdfont">
             {data.Title}
