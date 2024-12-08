@@ -4,7 +4,7 @@ import Navbar from "../components/navbar.astro";
 import PocketBase from "pocketbase";
 import PostCard from "../components/postCard.astro";
 import "../styles/global.css";
-import ViewTransitions from "astro/components/ViewTransitions.astro";
+import { ClientRouter } from 'astro:transitions';
 const pb = new PocketBase("https://db.shlokbhakta.dev");
 let data = await pb.collection("Projects").getFullList({
   sort: "-created",
@@ -40,7 +40,7 @@ for (let i = 0; i < data.length; i++) {
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>My Projects</title>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="mocha bg-crust tilebg">
     <div id="navbar" class="z-10 sticky">
