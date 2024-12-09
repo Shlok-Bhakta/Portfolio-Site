@@ -85,7 +85,11 @@ article img, .markdown-body img {
   
 
 article .shiki, .markdown-body .shiki {
-    @apply rounded-lg p-4;
+    @apply rounded-lg p-10;
+}
+
+article pre code, .markdown-body pre code {
+    @apply p-4;
 }
 
 article code[class*="language-"],
@@ -123,6 +127,7 @@ article pre[class*="language-"],
 .markdown-body :not(pre) > code[class*="language-"],
 .markdown-body pre[class*="language-"] {
     background: #1e1e2e;
+    
     
 }
 
@@ -308,3 +313,16 @@ article .icon-animate,
         transform: scale(1);
     }
 }
+
+[data-chars-id='v'] {
+    @apply text-pink-300 bg-rose-800/50 border-b-2 border-pink-600 font-bold;
+  }
+  
+  [data-chars-id='s'] {
+    @apply text-yellow-300 bg-yellow-800/50 border-b-2 border-yellow-600 font-bold;
+  }
+  
+  [data-chars-id='i'] {
+    @apply text-purple-200 bg-purple-800/50 border-b-2 border-purple-600 font-bold;
+  }
+  

@@ -4,7 +4,7 @@
     import type {currentData} from "./stores";
 
     // $inspect($posts);
-    $inspect($currentEdit);
+    // $inspect($currentEdit);
     async function getPosts() {
         $posts = await pb.collection("Posts").getFullList({
             sort: "-created",
