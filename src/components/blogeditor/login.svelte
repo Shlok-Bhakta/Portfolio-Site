@@ -3,6 +3,7 @@
     async function autoLogin(){
         try{
             $session = await pb.admins.authWithPassword($auth.username, $auth.password);
+            console.log("Auto login success");
         }catch(e){
             console.log("Could not auto login :(" + e);
         }

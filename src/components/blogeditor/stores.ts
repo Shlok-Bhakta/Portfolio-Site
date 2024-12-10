@@ -157,4 +157,7 @@ export let isProjTag = writable(false);
 export let imgInput = writable();
 export let image = writable();
 
+export let curPage = persisted("curPage", "Posts");
+
+
 export let pb = new PocketBase("https://db.shlokbhakta.dev");

@@ -29,5 +29,7 @@
     <PreRendered html={$currentEdit.html} />
   </article>
 </div>
-
+<div>
+  <img src="/ReadingThanks.svg" class="w-full px-6 pt-12 max:w-4xl" />
+</div>
 

@@ -23,7 +23,6 @@ export default function rehypeColoredWords(mapping: any) {
         }
         
     // if(mappedWord == undefined) continue;
-        console.log(mapping);
         const [colors, url] = mappedWord;
         let borderStyle, hoverColor, mouseoutStyle;
 
