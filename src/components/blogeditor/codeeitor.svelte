@@ -1,8 +1,16 @@
 <script lang="ts">
     import { Carta, MarkdownEditor, type Plugin } from "carta-md";
-    import { constructPayload, currentEdit, pb, showImage, type currentData } from "./stores";
+    import {
+        constructPayload,
+        currentEdit,
+        getRandomPastelColor,
+        imageElement,
+        imgInput,
+        pb,
+        showImage,
+        type currentData,
+    } from "./stores";
     import { math } from "@cartamd/plugin-math";
-    // import { code } from "@cartamd/plugin-code";
     import Preview from "./preview.svelte";
     import "@cartamd/plugin-code/default.css";
     import "./editor.css";
@@ -11,11 +19,8 @@
     import rehypePrettyCode from "rehype-pretty-code";
     import { transformerCopyButton } from "@rehype-pretty/transformers";
     import rehypeColoredWords from "./textunderline.svelte";
-    import { get } from "svelte/store";
-    import { init } from "astro/virtual-modules/prefetch.js";
-    import { on } from "svelte/events";
     import { onMount } from "svelte";
-    import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
+    import TagPicker from "./tagpicker.svelte";
 
     const mermaid: Plugin = {
         transformers: [
@@ -64,7 +69,6 @@
         return result;
     }
 
-    $inspect(mapping);
     // // @ts-ignore
     // $effect(async () => {
     //     mapping = await getMapping();
@@ -146,48 +150,102 @@
             html: "<h1>Put Some MD Here!</h1>",
             thumbnail: "/blog-placeholder-3.jpg",
             color: "#582859",
-        }
+        };
         $currentEdit = current;
     }
 
     async function push() {
         newhtml();
-        let data=$currentEdit;
+        let data = $currentEdit;
         let payload = constructPayload($currentEdit);
         console.log(payload);
-        if(data.id == null) { throw new Error("ID is null"); }
-        if(data.isPost) {
-            if(data.isEditing) {
+        if (data.id == null) {
+            throw new Error("ID is null");
+        }
+        if (data.isPost) {
+            if (data.isEditing) {
                 // edit post
-                const updateRecord = await pb.collection("Posts").update(data.id, payload);
+                const updateRecord = await pb
+                    .collection("Posts")
+                    .update(data.id, payload);
                 console.log(updateRecord);
-
-            }else{
+            } else {
                 // create post
-                
             }
-        }else if (data.isPost == false) {
-            if(data.isEditing) {
+        } else if (data.isPost == false) {
+            if (data.isEditing) {
                 // edit project
-                
-            }else{
+            } else {
                 // create project
-
             }
+        }
+    }
+
+    async function newImage() {
+        const file = $imgInput.files[0];
+        if (file) {
+            $currentEdit.thumbnail = $imgInput.files[0];
+            $showImage = true;
+            const reader = new FileReader();
+            $currentEdit.color = getRandomPastelColor();
+            // listener first
+            reader.addEventListener("load", function () {
+                $imageElement = reader.result;
+            });
+            // then do the loading
+            reader.readAsDataURL(file);
+            return;
+        } else {
+            $showImage = false;
         }
     }
 </script>
 
-<button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newPost}>New Post</button>
+<button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newPost}
+    >New Post</button
+>
 {#if carta != null}
     <MarkdownEditor {carta} bind:value={$currentEdit.markdown} mode="tabs" />
-    <button class="text-3xl text-text text-center w-full" onclick={push}>Update/Upload</button>
-    
+    <button class="text-3xl text-text text-center w-full" onclick={push}
+        >Update/Upload</button
+    >
+
     <button class="text-3xl text-text text-center w-full" onclick={newhtml}
-        >Generate Preview!</button>
+        >Generate Preview!</button
+    >
+
+    <div
+        class="bg-crust border-2 border-blue rounded-md p-4 flex flex-col text-text gap-4"
+    >
+        <div class="options text-center w-full text-4xl nerdfont">Options</div>
+        <div class="flex flex-row gap-4">
+            <!-- thumbnail upload fucntion -->
+            <div class="border-2 border-surface0 p-2 rounded-md">
+                Image Upload
+                <input
+                    class="bg-base"
+                    type="file"
+                    bind:this={$imgInput}
+                    onchange={newImage}
+                />
+            </div>
+            <!-- Color Picker -->
+            <div class="border-2 border-surface0 p-2 rounded-md">
+                Edit Color
+                <input
+                    class="bg-base"
+                    type="text"
+                    bind:value={$currentEdit.color}
+                />
+            </div>
+            <!-- Tag Picker -->
+             <div class="w-full">
+                 <TagPicker />
+             </div>
+        </div>
+    </div>
     
     <Preview />
-    
 {/if}
 
 <!-- <div bind:this={container}></div> -->

@@ -1,10 +1,6 @@
 <script lang="ts">
-    import { get } from "svelte/store";
     import {posts, currentEdit, pb, showImage} from "./stores";
     import type {currentData} from "./stores";
-
-    // $inspect($posts);
-    // $inspect($currentEdit);
     async function getPosts() {
         $posts = await pb.collection("Posts").getFullList({
             sort: "-created",
@@ -32,7 +28,6 @@
         }
         $currentEdit = current;
     }  
-    $inspect($currentEdit);
     async function deletePost(id) {
         let deleteButton = document.getElementById("del-" + id);
         console.log(deleteButton.getAttribute("data-confirmed"));

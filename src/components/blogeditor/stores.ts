@@ -16,7 +16,7 @@ export let posts: any = writable(null);
 export let projects = writable(null);
 
 // stuff for the tag selector
-export let allTags = writable(null);
+export let allTags: any = writable(null);
 
 // stuff for editing a post/project
 export let currentTitle = writable(null);
@@ -38,7 +38,7 @@ export type currentData = {
     projectTag: string | null,
     markdown: string,
     html: string,
-    thumbnail: string | null,
+    thumbnail: any,
     color: string,
 }
 
@@ -67,7 +67,7 @@ function constructCreatePostPayload(data: currentData): FormData {
     }
     payload.append("Markdown", data.markdown);
     payload.append("Html", data.color);
-    if (data.thumbnail == null) throw new Error("Thumbnail is null");
+    if (data.thumbnail == null) throw new Error("Thumbnail is Required");
     payload.append("Thumbnail", data.thumbnail);
     payload.append("Color", data.color);
     return payload;
@@ -165,10 +165,29 @@ export let file = writable(null);
 export let imglink = writable(null);
 export let showdialog = writable(false);
 export let isProjTag = writable(false);
-export let imgInput = writable();
-export let image = writable();
+export let imgInput: any = writable();
+export let imageElement = writable();
 
 export let curPage = persisted("curPage", "Posts");
 
 
 export let pb = new PocketBase("https://db.shlokbhakta.dev");
+
+const HSLToHex = (h: number, s: number, l: number) => {
+  l /= 100
+  const a = s * Math.min(l, 1 - l) / 100
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
+    return Math.round(255 * color)
+  }
+  return (f(0) << 16) + (f(8) << 8) + f(4)
+}
+
+export const getRandomPastelColor = () => {
+    const h = Math.random() * 360
+    const s = 40 + Math.random() * 20
+    const l = 70 + Math.random() * 20
+    return `#${Math.floor(HSLToHex(h, s, l)).toString(16).padStart(6, '0')}`
+  }
+  
