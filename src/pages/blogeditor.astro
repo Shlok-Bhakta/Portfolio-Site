@@ -1,6 +1,6 @@
 ---
 import Navbar from "../components/navbar.astro";
-import Auth from "../components/auth.svelte";
+import BlogEditor from "../components/blogeditor/home.svelte";
 import "../styles/global.css";
 ---
 
@@ -22,6 +22,6 @@ import "../styles/global.css";
         <div class="relative z-10">
             <Navbar />
         </div>
-        <Auth client:only />
-    </body>r
+        <BlogEditor client:only />
+    </body>
 </html>

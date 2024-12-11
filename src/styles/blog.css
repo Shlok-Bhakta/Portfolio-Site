@@ -1,209 +1,278 @@
 @font-face {
     font-family: "CaskaydiaCoveNF";
     src: url("/fonts/CaskCov.woff2");
-  }
-.nerdfont {
-font-family: "CaskaydiaCoveNF";
 }
 
-h1{
+.nerdfont {
+    font-family: "CaskaydiaCoveNF";
+}
+
+article h1, .markdown-body h1 {
     @apply text-red text-6xl nerdfont py-2
 }
 
-h2{
+article h2, .markdown-body h2 {
     @apply text-peach text-4xl nerdfont
 }
 
-h3{
+article h3, .markdown-body h3 {
     @apply text-green text-3xl nerdfont
 }
 
-h4{
+article h4, .markdown-body h4 {
     @apply text-sky text-2xl nerdfont
 }
 
-h5{
+article h5, .markdown-body h5 {
     @apply text-blue text-lg nerdfont
 }
 
-h6{
+article h6, .markdown-body h6 {
     @apply text-blue text-base nerdfont
 }
 
-ul{
+article ul, .markdown-body ul {
     @apply list-disc text-text pl-3 nerdfont;
 }
 
-ul ul{
+article ul ul, .markdown-body ul ul {
     @apply list-disc pl-3 text-text nerdfont;
 }
 
-li {
+article li, .markdown-body li {
     @apply text-text nerdfont;
 }
 
-p{
+article p, .markdown-body p {
     @apply text-text nerdfont mb-5 my-4;
 }
 
-code{
+article code, .markdown-body code, .carta-renderer code {
     @apply text-text nerdfont bg-base p-1 rounded-md;
+    color: #cdd6f4 !important;
 }
-blockquote{
+
+article blockquote, .markdown-body blockquote {
     @apply text-subtext1 nerdfont bg-base p-2 rounded-md my-3 border-l-4 border-blue;
 }
 
-.MathJax{
+article .MathJax, .markdown-body .MathJax {
+    @apply text-text; 
+}
+article .katex-display, .markdown-body .katex-display {
     @apply text-text; 
 }
 
-img{
+article img, .markdown-body img {
     @apply w-96 mx-auto rounded-md;
 }
 
-.title {
-    font-size: min(10vw, 4.5rem);
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .title {
+    font-size: min(10vw, 6.5rem); 
+    text-align: center;
+    background: linear-gradient(90deg, #f38ba8, #fab387, #f9e2af, #a6e3a1, #89dceb, #89b4fa, #cba6f7, red);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 30s ease infinite;
+  }
+  
+article figure pre, .markdown-body figure pre {
+    @apply pt-0;
 }
 
- code[class*="language-"],
- pre[class*="language-"] {
-     @apply nerdfont;
-     color: #cdd6f4;
-     text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-     direction: ltr;
-     text-align: left;
-     white-space: pre;
-     word-spacing: normal;
-     word-break: normal;
-     line-height: 1.5;
- 
-     -moz-tab-size: 4;
-     -o-tab-size: 4;
-     tab-size: 4;
- 
-     -webkit-hyphens: none;
-     -moz-hyphens: none;
-     -ms-hyphens: none;
-     hyphens: none;
- }
- 
- /* Code blocks */
- pre[class*="language-"] {
-     padding: 1em;
-     margin: .5em 0;
-     overflow: auto;
-     border-radius: 0.3em;
- }
- 
- :not(pre) > code[class*="language-"],
- pre[class*="language-"] {
-     background: #1e1e2e;
- }
- 
- /* Inline code */
- :not(pre) > code[class*="language-"] {
-     padding: .1em;
-     border-radius: .3em;
- }
- 
- .token.comment,
- .token.prolog,
- .token.doctype,
- .token.cdata {
-     color: #cdd6f4;
- }
- 
- .token.punctuation {
-     color: #cdd6f4;
- }
- 
- .namespace {
-     opacity: .7;
- }
- 
- .token.property,
- .token.keyword,
- .token.tag {
-     color: #cba6f7;
- }
- 
- .token.class-name {
-     color: #cba6f7;
- }
- 
- .token.boolean,
- .token.constant {
-     color: #99CC99;
- }
- 
- .token.symbol,
- .token.deleted {
-     color: #f92672;
- }
- 
- .token.number {
-     color: #fab387;
- }
- 
- .token.selector,
- .token.attr-name,
- .token.string,
- .token.char,
- .token.builtin,
- .token.inserted {
-     color: #a6e3a1;
- }
- 
- .token.variable {
-     color: #C6C5FE;
- }
- 
- .token.operator {
-     color: #EDEDED;
- }
- 
- .token.entity {
-     color: #FFFFB6;
-     cursor: help;
- }
- 
- .token.url {
-     color: #96CBFE;
- }
- 
- .language-css .token.string,
- .style .token.string {
-     color: #87C38A;
- }
- 
- .token.atrule,
- .token.attr-value {
-     color: #F9EE98;
- }
- 
- .token.function {
-     color: #89b4fa;
- }
- 
- .token.regex {
-     color: #eba0ac;
- }
- 
- .token.important {
-     color: #fd971f;
- }
- 
- .token.important,
- .token.bold {
-     font-weight: bold;
- }
- 
- .token.italic {
-     font-style: italic;
- }
+article .shiki, .markdown-body .shiki {
+    @apply rounded-lg p-10;
+}
 
-/* Style for the copy button */
-.copy-button {
+article pre code, .markdown-body pre code {
+    @apply p-4;
+}
+
+article code[class*="language-"],
+article pre[class*="language-"],
+.markdown-body code[class*="language-"],
+.markdown-body pre[class*="language-"] {
+    @apply nerdfont;
+    color: #cdd6f4;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    line-height: 1.5;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+article pre[class*="language-"],
+.markdown-body pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border-radius: 0.3em;
+}
+
+article :not(pre) > code[class*="language-"],
+article pre[class*="language-"],
+.markdown-body :not(pre) > code[class*="language-"],
+.markdown-body pre[class*="language-"] {
+    background: #1e1e2e;
+    
+    
+}
+
+article :not(pre) > code[class*="language-"],
+.markdown-body :not(pre) > code[class*="language-"] {
+    padding: .1em;
+    border-radius: .3em;
+}
+
+article .token.comment,
+article .token.prolog,
+article .token.doctype,
+article .token.cdata,
+.markdown-body .token.comment,
+.markdown-body .token.prolog,
+.markdown-body .token.doctype,
+.markdown-body .token.cdata {
+    color: #cdd6f4;
+}
+
+article .token.punctuation,
+.markdown-body .token.punctuation {
+    color: #cdd6f4;
+}
+
+article .namespace,
+.markdown-body .namespace {
+    opacity: .7;
+}
+
+article .token.property,
+article .token.keyword,
+article .token.tag,
+.markdown-body .token.property,
+.markdown-body .token.keyword,
+.markdown-body .token.tag {
+    color: #cba6f7;
+}
+
+article .token.class-name,
+.markdown-body .token.class-name {
+    color: #cba6f7;
+}
+
+article .token.boolean,
+article .token.constant,
+.markdown-body .token.boolean,
+.markdown-body .token.constant {
+    color: #99CC99;
+}
+
+article .token.symbol,
+article .token.deleted,
+.markdown-body .token.symbol,
+.markdown-body .token.deleted {
+    color: #f92672;
+}
+
+article .token.number,
+.markdown-body .token.number {
+    color: #fab387;
+}
+
+article .token.selector,
+article .token.attr-name,
+article .token.string,
+article .token.char,
+article .token.builtin,
+article .token.inserted,
+.markdown-body .token.selector,
+.markdown-body .token.attr-name,
+.markdown-body .token.string,
+.markdown-body .token.char,
+.markdown-body .token.builtin,
+.markdown-body .token.inserted {
+    color: #a6e3a1;
+}
+
+article .token.variable,
+.markdown-body .token.variable {
+    color: #C6C5FE;
+}
+
+article .token.operator,
+.markdown-body .token.operator {
+    color: #EDEDED;
+}
+
+article .token.entity,
+.markdown-body .token.entity {
+    color: #FFFFB6;
+    cursor: help;
+}
+
+article .token.url,
+.markdown-body .token.url {
+    color: #96CBFE;
+}
+
+article .language-css .token.string,
+article .style .token.string,
+.markdown-body .language-css .token.string,
+.markdown-body .style .token.string {
+    color: #87C38A;
+}
+
+article .token.atrule,
+article .token.attr-value,
+.markdown-body .token.atrule,
+.markdown-body .token.attr-value {
+    color: #F9EE98;
+}
+
+article .token.function,
+.markdown-body .token.function {
+    color: #89b4fa;
+}
+
+article .token.regex,
+.markdown-body .token.regex {
+    color: #eba0ac;
+}
+
+article .token.important,
+.markdown-body .token.important {
+    color: #fd971f;
+}
+
+article .token.important,
+article .token.bold,
+.markdown-body .token.important,
+.markdown-body .token.bold {
+    font-weight: bold;
+}
+
+article .token.italic,
+.markdown-body .token.italic {
+    font-style: italic;
+}
+
+article.copy-button,
+.markdown-body.copy-button {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -211,32 +280,31 @@ img{
     border: none;
     padding: 5px;
     cursor: pointer;
-    z-index: 10; /* Make sure it sits on top */
+    z-index: 10;
 }
 
-/* Ensure the button doesn't interfere with code */
-pre {
-    position: relative; /* This is needed to position the button inside */
-    padding-top: 40px; /* Ensure space for the button */
+article pre,
+.markdown-body pre {
+    position: relative;
+    padding-top: 40px;
 }
 
-/* Style for the copy icon */
-.copy-icon {
+article .copy-icon,
+.markdown-body .copy-icon {
     @apply text-text;
     width: 20px;
     height: 20px;
     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
-/* Icon animation when copied */
-.icon-animate {
+article .icon-animate,
+.markdown-body .icon-animate {
     @apply text-green;
-    transform: scale(1.2); /* Slightly enlarge the icon */
-    opacity: 0.8; /* Fade it slightly */
-    animation: pulse 0.5s ease-in-out; /* Adding a pulse animation */
+    transform: scale(1.2);
+    opacity: 0.8;
+    animation: pulse 0.5s ease-in-out;
 }
 
-/* Keyframes for the pulse animation */
 @keyframes pulse {
     0% {
         transform: scale(1);
@@ -249,3 +317,15 @@ pre {
     }
 }
 
+[data-chars-id='v'] {
+    @apply text-pink-300 bg-rose-800/50 border-b-2 border-pink-600 font-bold;
+  }
+  
+  [data-chars-id='s'] {
+    @apply text-yellow-300 bg-yellow-800/50 border-b-2 border-yellow-600 font-bold;
+  }
+  
+  [data-chars-id='i'] {
+    @apply text-purple-200 bg-purple-800/50 border-b-2 border-purple-600 font-bold;
+  }
+  

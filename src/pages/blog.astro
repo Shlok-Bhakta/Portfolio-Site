@@ -1,7 +1,8 @@
 ---
 import "../styles/global.css";
 import Navbar from "../components/navbar.astro";
-import ViewTransitions from "astro/components/ViewTransitions.astro";
+import { ClientRouter } from 'astro:transitions';
+
 import "../styles/global.css";
 import PostTag from "../components/postTag.astro";
 import PostCards from "../components/postCard.astro";
@@ -58,7 +59,7 @@ for (let i = 0; i < posts.items.length; i++) {
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Blog</title>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="mocha bg-crust tilebg">
     <div id="navbar" class="z-10 sticky">

@@ -1,6 +1,6 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import ViewTransitions from "astro/components/ViewTransitions.astro";
+import { ClientRouter } from 'astro:transitions';
 import Navbar from "../components/navbar.astro";
 import "../styles/global.css";
 import SkillCard from "../components/skillCard.astro";
@@ -84,7 +84,7 @@ for (let i = 0; i < data.length; i++) {
         });
       });
     </script>
-    <ViewTransitions />
+    <ClientRouter />
     <style>
       /* Page content */
       .content {

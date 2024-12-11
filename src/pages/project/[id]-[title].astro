@@ -1,6 +1,7 @@
 ---
 import PocketBase from "pocketbase";
-import ViewTransitions from "astro/components/ViewTransitions.astro";
+import { ClientRouter } from 'astro:transitions';
+
 import Navbar from "../../components/navbar.astro";
 import CopyButton from "../../components/CopyButtons.svelte";
 import PostCard from "../../components/postCard.astro";
@@ -8,7 +9,7 @@ import "../../styles/global.css";
 import "../../styles/blog.css";
 
 export async function getStaticPaths() {
-    let paths = [];
+    let paths: any[] = [];
     const pb = new PocketBase("http://db.shlokbhakta.dev");
     const data = await pb.collection("Projects").getFullList({
         sort: "-created",
@@ -60,9 +61,6 @@ for (let i = 0; i < posts.length; i++) {
             content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
         />
         <style>
-            .title {
-                font-size: min(10vw, 4.5rem);
-            }
             .card {
                 backdrop-filter: blur(5px) saturate(180%);
                 -webkit-backdrop-filter: blur(5px) saturate(180%);
@@ -74,7 +72,7 @@ for (let i = 0; i < posts.length; i++) {
         <script src="../../lib/addcopy.ts" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{data.Title}</title>
-        <ViewTransitions />
+        <ClientRouter />
     </head>
     <body class="mocha bg-crust tilebg">
         <div class="z-10 sticky">
@@ -82,17 +80,19 @@ for (let i = 0; i < posts.length; i++) {
         </div>
 
         <div class="flex justify-center mt-4">
-            <div class="card w-4/5 lg:w-2/4 p-1" style=`border-color: ${data.Color}`>
+            <div class="card w-4/5 lg:w-2/4" style=`border-color: ${data.Color}`>
                 <img
-                    class="aspect-auto w-full"
+                    class="aspect-auto w-full rouned-md rounded-xl p-1"
                     src={image}
                     alt={data.Title}
                     transition:name={title}
                 />
             </div>
         </div>
-        <div class="title text-center text-text nerdfont">
-            {data.Title}
+        <div class="flex justify-center">
+            <div class="title text-center text-text nerdfont">
+                {data.Title}
+            </div>
         </div>
         <div class="flex justify-center">
             <article
