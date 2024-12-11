@@ -23,6 +23,7 @@
     import { onMount } from "svelte";
     import TagPicker from "./tagpicker.svelte";
     import rehypeRaw from "rehype-raw";
+    import { get } from "svelte/store";
 
     const mermaid: Plugin = {
         transformers: [
@@ -155,6 +156,23 @@
         $currentEdit = current;
     }
 
+    function newProject() {
+        $showImage = false;
+        let current: currentData = {
+            id: null,
+            isPost: false,
+            isEditing: false,
+            title: "ProjectTitle Here!",
+            tags: [],
+            projectTag: [],
+            markdown: "# Good job now time to write!",
+            html: "<h1>Good job now time to write!</h1>",
+            thumbnail: "/blog-placeholder-4.jpg",
+            color: getRandomPastelColor(),
+        };
+        $currentEdit = current;
+    }
+
     async function push() {
         newhtml();
         let data = $currentEdit;
@@ -185,8 +203,22 @@
         } else if (data.isPost == false) {
             if (data.isEditing) {
                 // edit project
+                if (data.id == null) {
+                    throw new Error("ID is null");
+                }
+                const updateRecord = await pb
+                    .collection("Projects")
+                    .update(data.id, payload);
+                console.log(updateRecord);
             } else {
                 // create project
+                console.log(payload.tagName);
+                const createRecord = await pb
+                    .collection("Projects")
+                    .create(payload);
+                console.log(createRecord);
+                $currentEdit.id = createRecord.id;
+                $currentEdit.isEditing = true;
             }
         }
     }
@@ -211,9 +243,7 @@
     }
 </script>
 
-<button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newPost}
-    >New Post</button
->
+
 {#if carta != null}
     <MarkdownEditor {carta} bind:value={$currentEdit.markdown} mode="tabs" />
     <button class="text-3xl text-text text-center w-full" onclick={push}
@@ -258,7 +288,7 @@
                 />
             </div>
             <!-- Tag Picker -->
-             <div class="w-full">
+             <div class="w-full z-50">
                  <TagPicker />
              </div>
         </div>
@@ -266,5 +296,12 @@
     
     <Preview />
 {/if}
-
+<div class="grid grid-cols-2 gap-4">
+    <button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newPost}
+        >New Post</button
+    >
+    <button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newProject}
+        >New Project</button
+    >
+</div>
 <!-- <div bind:this={container}></div> -->

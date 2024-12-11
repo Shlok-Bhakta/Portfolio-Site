@@ -105,14 +105,14 @@ function constructCreateProjectPayload(data: currentData): FormData {
     let payload = new FormData();
     payload.append("Title", data.title);
     for(let i = 0; i < data.tags.length; i++) {
-        payload.append("Tags", data.tags[i]);
+        payload.append("Tags", data.tags[i].id);
     }
     payload.append("Markdown", data.markdown);
-    payload.append("Html", data.color);
+    payload.append("Html", data.html);
     if (data.thumbnail == null) throw new Error("Thumbnail is null");
     payload.append("Thumbnail", data.thumbnail);
     if (data.projectTag == null) throw new Error("ProjectTag is null");
-    payload.append("ProjectTag", data.projectTag);
+    payload.append("ProjectTag", data.projectTag.id);
     payload.append("Color", data.color);
     return payload;
 }
@@ -120,19 +120,32 @@ function constructCreateProjectPayload(data: currentData): FormData {
 function constructUpdateProjectPayload(data: currentData): any {
     let uploadTags = [];
     for(let i = 0; i < data.tags.length; i++) {
-        uploadTags.push(data.tags[i]);
+        uploadTags.push(data.tags[i].id);
     }
     uploadTags = Array.from(new Set(uploadTags));
     if (data.thumbnail == null) throw new Error("Thumbnail is null");
     if (data.projectTag == null) throw new Error("ProjectTag is null");
-    return {
-        Title: data.title,
-        Tags: uploadTags,
-        Markdown: data.markdown,
-        Html: data.html,
-        Thumbnail: data.thumbnail,
-        ProjectTag: data.projectTag,
-        Color: data.color,
+    if (data.thumbnail instanceof File){
+        console.log("AAAAAAAAAA: "+ data.projectTag.id)
+        return {
+            Title: data.title,
+            Tags: uploadTags,
+            Markdown: data.markdown,
+            Html: data.html,
+            Thumbnail: data.thumbnail,
+            ProjectTag: data.projectTag.id,
+            Color: data.color,
+        }
+    }else{
+        return {
+            Title: data.title,
+            Tags: uploadTags,
+            Markdown: data.markdown,
+            Html: data.html,
+            // Thumbnail: data.thumbnail,
+            ProjectTag: data.projectTag.id,
+            Color: data.color,
+        }
     }
 }
 

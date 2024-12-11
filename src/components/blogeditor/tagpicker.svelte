@@ -28,6 +28,7 @@
         iconFile: null,
         color: "",
     });
+    newTag.color = getRandomPastelColor();
     let showIcoImg = $state(false);
     let icoImg: any = $state(null);
     function toggleTagMaker() {
@@ -168,7 +169,7 @@
             <div>
                 tagColor:
                 <input type="text" bind:value={newTag.color} />
-            </div>
+                <button class="bg-base border-2 p-1 rounded-md" style="border-color: {newTag.color}; color: {newTag.color}" onclick={() => {newTag.color = getRandomPastelColor()}}>Pick Color</button>            </div>
             <div>
                 submit:
                 <button onclick={newTagUpload} class="bg-subtext1 border-2 border-green">Submit</button>
