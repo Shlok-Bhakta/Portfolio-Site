@@ -112,14 +112,14 @@
         +</button>
         </li>
     </ol>
-    <!-- {#if projectActive}
+    {#if $currentEdit.isPost == false}
         <div>
             ProjectTag:
-            {#if CurrentProjectTag != null}
+            {#if $currentEdit.projectTag != null}
                 <div>
-                    <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {CurrentProjectTag.color}">
-                        <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl(CurrentProjectTag, CurrentProjectTag.Icon)} alt={CurrentProjectTag.tagName} />
-                        <div class="pr-2 text-sm text-text nerdfont">{CurrentProjectTag.tagName}</div>
+                    <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {$currentEdit.projectTag.color}">
+                        <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl($currentEdit.projectTag, $currentEdit.projectTag.Icon)} alt={$currentEdit.projectTag.tagName} /> 
+                        <div class="pr-2 text-sm text-text nerdfont">{$currentEdit.projectTag.tagName}</div>
                     </div>
                 </div>
             {/if}
@@ -131,7 +131,7 @@
                 }}>+</button
             >
         </div>
-    {/if} -->
+    {/if}
 
 </div>
 <dialog open={showdialog}>

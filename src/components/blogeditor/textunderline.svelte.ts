@@ -1,15 +1,24 @@
 import { visit } from 'unist-util-visit';
 
-export default function rehypeColoredWords(mapping: any) {
-    return (tree: any) => {
+export default function rehypeColoredWords(mapping: any | undefined) {
+  if (!mapping) {
+    return (tree: any) => tree;
+  }
+
+  return (tree: any) => {
     visit(tree, 'text', (node, index, parent) => {
       if (!parent || parent.tagName === 'code' || parent.tagName === 'pre') {
         return;
       }
 
-      const words = Object.keys(mapping);
-      const pattern = new RegExp(`\\b(${words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})\\b`, 'gi');
-      
+      // First normalize multiple spaces to single spaces
+      node.value = node.value.replace(/\s+/g, ' ');
+
+      const words = Object.keys(mapping)
+        .map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        .sort((a, b) => b.length - a.length); // Sort longer phrases first
+
+      const pattern = new RegExp(`(${words.join('|')})`, 'gi');
       const parts = [];
       let lastIndex = 0;
       let match;
@@ -18,11 +27,19 @@ export default function rehypeColoredWords(mapping: any) {
         const word = match[0];
         const mappedWord = mapping[word.toLowerCase()];
         
+        if (!mappedWord) {
+          if (lastIndex !== match.index) {
+            parts.push({ type: 'text', value: node.value.slice(lastIndex, match.index) });
+          }
+          parts.push({ type: 'text', value: word });
+          lastIndex = pattern.lastIndex;
+          continue;
+        }
+
         if (lastIndex !== match.index) {
           parts.push({ type: 'text', value: node.value.slice(lastIndex, match.index) });
         }
-        
-    // if(mappedWord == undefined) continue;
+
         const [colors, url] = mappedWord;
         let borderStyle, hoverColor, mouseoutStyle;
 

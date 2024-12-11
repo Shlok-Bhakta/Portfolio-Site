@@ -9,6 +9,7 @@
         pb,
         showImage,
         type currentData,
+        mapping
     } from "./stores";
     import { math } from "@cartamd/plugin-math";
     import Preview from "./preview.svelte";
@@ -18,9 +19,10 @@
     import rehypeMermaid from "rehype-mermaid";
     import rehypePrettyCode from "rehype-pretty-code";
     import { transformerCopyButton } from "@rehype-pretty/transformers";
-    import rehypeColoredWords from "./textunderline.svelte";
+    import rehypeColoredWords from "./textunderline.svelte.ts";
     import { onMount } from "svelte";
     import TagPicker from "./tagpicker.svelte";
+    import rehypeRaw from "rehype-raw";
 
     const mermaid: Plugin = {
         transformers: [
@@ -56,18 +58,17 @@
         ],
     };
 
-    let mapping: any = {
-        "astro js": ["#111111", "https://example.com"],
-        svelte: ["#111111|#ffffff", "https://svelte.dev"],
+    const rawhtml: Plugin = {
+        transformers: [
+            {
+                execution: "async",
+                type: "rehype",
+                transform({ processor }) {
+                    processor.use(rehypeRaw);
+                },
+            },
+        ],
     };
-    async function getMapping() {
-        let data = await pb.collection("Mappings").getFullList();
-        let result: any = {};
-        for (let i = 0; i < data.length; i++) {
-            result[data[i].word] = [data[i].color, data[i].link];
-        }
-        return result;
-    }
 
     // // @ts-ignore
     // $effect(async () => {
@@ -101,12 +102,12 @@
     let carta: any = $state(null);
 
     async function initializeCarta() {
-        const mapping = await getMapping();
-        console.log(mapping);
+        console.log($mapping);
         carta = new Carta({
             sanitizer: false,
             theme: "catppuccin-mocha",
             extensions: [
+                rawhtml,
                 mermaid,
                 pretty,
                 math(),
@@ -116,7 +117,7 @@
                             execution: "async",
                             type: "rehype",
                             transform({ processor }) {
-                                processor.use(rehypeColoredWords, mapping);
+                                processor.use(rehypeColoredWords, $mapping);
                             },
                         },
                     ],
@@ -159,18 +160,27 @@
         let data = $currentEdit;
         let payload = constructPayload($currentEdit);
         console.log(payload);
-        if (data.id == null) {
-            throw new Error("ID is null");
-        }
         if (data.isPost) {
             if (data.isEditing) {
                 // edit post
+                if (data.id == null) {
+                    throw new Error("ID is null");
+                }
                 const updateRecord = await pb
                     .collection("Posts")
                     .update(data.id, payload);
                 console.log(updateRecord);
             } else {
                 // create post
+                console.log(payload.tagName);
+                const createRecord = await pb
+                    .collection("Posts")
+                    .create(payload);
+
+                console.log(createRecord);
+                $currentEdit.id = createRecord.id;
+                $currentEdit.isEditing = true;
+
             }
         } else if (data.isPost == false) {
             if (data.isEditing) {
@@ -180,7 +190,7 @@
             }
         }
     }
-
+    $inspect(JSON.stringify($currentEdit, null, 2));
     async function newImage() {
         const file = $imgInput.files[0];
         if (file) {
@@ -219,6 +229,15 @@
     >
         <div class="options text-center w-full text-4xl nerdfont">Options</div>
         <div class="flex flex-row gap-4">
+            <!-- Pick a Title -->
+            <div class="border-2 border-surface0 p-2 rounded-md">
+                <button class="bg-base border-2 p-1 rounded-md" style="border-color: {$currentEdit.title}; color: {$currentEdit.title}" onclick={() => {$currentEdit.title = "Title Here!"}}>Pick Title</button>
+                <input
+                    class="bg-base"
+                    type="text"
+                    bind:value={$currentEdit.title}
+                />
+            </div>
             <!-- thumbnail upload fucntion -->
             <div class="border-2 border-surface0 p-2 rounded-md">
                 Image Upload
@@ -231,7 +250,7 @@
             </div>
             <!-- Color Picker -->
             <div class="border-2 border-surface0 p-2 rounded-md">
-                Edit Color
+                <button class="bg-base border-2 p-1 rounded-md" style="border-color: {$currentEdit.color}; color: {$currentEdit.color}" onclick={() => {$currentEdit.color = getRandomPastelColor()}}>Pick Color</button>
                 <input
                     class="bg-base"
                     type="text"

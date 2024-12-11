@@ -1,8 +1,8 @@
 <script>
-    import PostPicker from "./postpicker.svelte";
     import Code from "./codeeitor.svelte";
     import Preview from "./preview.svelte";
-    import Postpicker from "./postpicker.svelte";
+    import PostPicker from "./postpicker.svelte";
+    import ProjectPicker from "./projectpicker.svelte" 
     import { curPage } from "./stores.ts";
 </script>
 
@@ -14,9 +14,9 @@
 </div>
 
 {#if $curPage == "Posts"}
-    <Postpicker />
+    <PostPicker />
 {:else if $curPage == "Projects"}
-    <Postpicker />
+    <ProjectPicker />
 {:else if $curPage == "Editor"}
     <Code />
 {:else if $curPage == "Preview"}

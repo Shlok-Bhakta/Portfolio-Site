@@ -13,11 +13,11 @@ export let session = writable(null);
 export let posts: any = writable(null);
 
 // stuff for the Project selector
-export let projects = writable(null);
+export let projects: any = writable(null);
 
 // stuff for the tag selector
 export let allTags: any = writable(null);
-
+export let mapping: any = persisted("Mapping", null);
 // stuff for editing a post/project
 export let currentTitle = writable(null);
 export let currentMarkdown = writable(null);
@@ -35,7 +35,7 @@ export type currentData = {
     isEditing: boolean,
     title: string,
     tags: any[],
-    projectTag: string | null,
+    projectTag: any,
     markdown: string,
     html: string,
     thumbnail: any,
@@ -63,10 +63,10 @@ function constructCreatePostPayload(data: currentData): FormData {
     let payload = new FormData();
     payload.append("Title", data.title);
     for(let i = 0; i < data.tags.length; i++) {
-        payload.append("tagName", data.tags[i]);
+        payload.append("tagName", data.tags[i].id);
     }
     payload.append("Markdown", data.markdown);
-    payload.append("Html", data.color);
+    payload.append("Html", data.html);
     if (data.thumbnail == null) throw new Error("Thumbnail is Required");
     payload.append("Thumbnail", data.thumbnail);
     payload.append("Color", data.color);
@@ -80,13 +80,13 @@ function constructUpdatePostPayload(data: currentData): any {
     }
     uploadTags = Array.from(new Set(uploadTags));
     if (data.thumbnail == null) throw new Error("Thumbnail is null");
-    if(data.thumbnail.startsWith("http")){
+    if(data.thumbnail instanceof File){
         return {
             Title: data.title,
             tagName: uploadTags,
             Markdown: data.markdown,
             Html: data.html,
-            // Thumbnail: data.thumbnail,
+            Thumbnail: data.thumbnail,
             Color: data.color,
         }
     }else{
@@ -95,7 +95,7 @@ function constructUpdatePostPayload(data: currentData): any {
             tagName: uploadTags,
             Markdown: data.markdown,
             Html: data.html,
-            Thumbnail: data.thumbnail,
+            // Thumbnail: data.thumbnail,
             Color: data.color,
         }
     }
@@ -191,3 +191,12 @@ export const getRandomPastelColor = () => {
     return `#${Math.floor(HSLToHex(h, s, l)).toString(16).padStart(6, '0')}`
   }
   
+
+export async function getMapping() {
+    let data = await pb.collection("Mappings").getFullList();
+    let result: any = {};
+    for (let i = 0; i < data.length; i++) {
+        result[data[i].word] = [data[i].color, data[i].link];
+    }
+    return result;
+}
