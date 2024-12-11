@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Carta, MarkdownEditor, type Plugin } from "carta-md";
-    import { currentEdit, pb } from "./stores";
+    import { constructPayload, currentEdit, pb, showImage, type currentData } from "./stores";
     import { math } from "@cartamd/plugin-math";
     import { code } from "@cartamd/plugin-code";
     import Preview from "./preview.svelte";
@@ -104,7 +104,6 @@
             theme: "catppuccin-mocha",
             extensions: [
                 mermaid,
-                code(),
                 pretty,
                 math(),
                 {
@@ -133,14 +132,62 @@
     async function newhtml() {
         $currentEdit.html = await carta.render($currentEdit.markdown);
     }
+
+    function newPost() {
+        $showImage = false;
+        let current: currentData = {
+            id: null,
+            isPost: true,
+            isEditing: false,
+            title: "Title Here!",
+            tags: [],
+            projectTag: null,
+            markdown: "# Put Some MD Here!",
+            html: "<h1>Put Some MD Here!</h1>",
+            thumbnail: "/blog-placeholder-3.jpg",
+            color: "#582859",
+        }
+        $currentEdit = current;
+    }
+
+    async function push() {
+        newhtml();
+        let data=$currentEdit;
+        let payload = constructPayload($currentEdit);
+        console.log(payload);
+        if(data.id == null) { throw new Error("ID is null"); }
+        if(data.isPost) {
+            if(data.isEditing) {
+                // edit post
+                const updateRecord = await pb.collection("Posts").update(data.id, payload);
+                console.log(updateRecord);
+
+            }else{
+                // create post
+                
+            }
+        }else if (data.isPost == false) {
+            if(data.isEditing) {
+                // edit project
+                
+            }else{
+                // create project
+
+            }
+        }
+    }
 </script>
 
+<button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newPost}>New Post</button>
 {#if carta != null}
     <MarkdownEditor {carta} bind:value={$currentEdit.markdown} mode="tabs" />
+    <button class="text-3xl text-text text-center w-full" onclick={push}>Update/Upload</button>
+    
     <button class="text-3xl text-text text-center w-full" onclick={newhtml}
-        >Final Preview!</button
-    >
+        >Generate Preview!</button>
+    
     <Preview />
+    
 {/if}
 
 <!-- <div bind:this={container}></div> -->

@@ -83,6 +83,9 @@ article img, .markdown-body img {
     animation: rainbow 30s ease infinite;
   }
   
+article figure pre, .markdown-body figure pre {
+    @apply pt-0;
+}
 
 article .shiki, .markdown-body .shiki {
     @apply rounded-lg p-10;

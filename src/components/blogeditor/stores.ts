@@ -34,7 +34,7 @@ export type currentData = {
     isPost: boolean,
     isEditing: boolean,
     title: string,
-    tags: string[],
+    tags: any[],
     projectTag: string | null,
     markdown: string,
     html: string,
@@ -76,17 +76,28 @@ function constructCreatePostPayload(data: currentData): FormData {
 function constructUpdatePostPayload(data: currentData): any {
     let uploadTags = [];
     for(let i = 0; i < data.tags.length; i++) {
-        uploadTags.push(data.tags[i]);
+        uploadTags.push(data.tags[i].id);
     }
     uploadTags = Array.from(new Set(uploadTags));
     if (data.thumbnail == null) throw new Error("Thumbnail is null");
-    return {
-        Title: data.title,
-        tagName: uploadTags,
-        Markdown: data.markdown,
-        Html: data.html,
-        Thumbnail: data.thumbnail,
-        Color: data.color,
+    if(data.thumbnail.startsWith("http")){
+        return {
+            Title: data.title,
+            tagName: uploadTags,
+            Markdown: data.markdown,
+            Html: data.html,
+            // Thumbnail: data.thumbnail,
+            Color: data.color,
+        }
+    }else{
+        return {
+            Title: data.title,
+            tagName: uploadTags,
+            Markdown: data.markdown,
+            Html: data.html,
+            Thumbnail: data.thumbnail,
+            Color: data.color,
+        }
     }
 }
 
@@ -125,7 +136,7 @@ function constructUpdateProjectPayload(data: currentData): any {
     }
 }
 
-function constructPayload(data: currentData): any {
+export function constructPayload(data: currentData): any {
     if(data.isPost) {
         if(data.isEditing) {
             return constructUpdatePostPayload(data);

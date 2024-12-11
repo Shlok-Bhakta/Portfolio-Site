@@ -11,22 +11,6 @@
             expand: "tagName",
         });
     }
-    function newPost() {
-        $showImage = false;
-        let current: currentData = {
-            id: null,
-            isPost: true,
-            isEditing: false,
-            title: "Title Here!",
-            tags: [],
-            projectTag: null,
-            markdown: "# Put Some MD Here!",
-            html: "<h1>Put Some MD Here!</h1>",
-            thumbnail: "/blog-placeholder-3.jpg",
-            color: "#582859",
-        }
-        $currentEdit = current;
-    }
     async function getPost(id: string) {
         let data = await pb.collection("Posts").getOne(id, {
             expand: "tagName",
@@ -48,7 +32,21 @@
         }
         $currentEdit = current;
     }  
-    $inspect($posts);
+    $inspect($currentEdit);
+    async function deletePost(id) {
+        let deleteButton = document.getElementById("del-" + id);
+        console.log(deleteButton.getAttribute("data-confirmed"));
+        if (deleteButton.getAttribute("data-confirmed") == "false") {
+            deleteButton.innerHTML = "Are you sure?";
+            deleteButton.setAttribute("data-confirmed", "true");
+        } else {
+            await pb.collection("Posts").delete(id);
+            await getPosts();
+            getPost("0");
+            deleteButton.innerHTML = "X";
+            deleteButton.setAttribute("data-confirmed", "false");
+        }
+    }
 
     async function setup() {
         await getPosts();
@@ -61,7 +59,6 @@
 
 
 <button class="pb-2 nerdfont text-center w-full text-text text-7xl" onclick={getPosts}>Posts</button>
-<button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newPost}>New Post</button>
 <div class="h-auto w-full bg-mantle text-text text-5xl">
     {#if posts != null}
         <div>
@@ -87,7 +84,8 @@
                                 {post.Markdown.substring(0, 100)}
                             </div>
                         </button>
-                        <!-- <button id="del-{post.id}" class="bg-overlay1 hover:bg-red w-11/12 rounded-md" onclick={deletePost(post.id)} confirmed="false"> X </button> -->
+                        @ts-ignore
+                        <button id="del-{post.id}" class="bg-overlay1 hover:bg-red w-11/12 rounded-md" onclick={async () => {await deletePost(post.id)}} data-confirmed="false"> Delete Post </button>
                     </li>
                 {/each}
             </ol>

@@ -79,19 +79,19 @@
     let tags = $state(null);
     let imglink = $state(null);
     // gets a specific post index and sets it to the active title
-    async function fillBoxes(postIndex) {
-        projectActive = false;
-        await getPosts();
-        CurrentTitle = posts[postIndex].Title;
-        markdown = posts[postIndex].Markdown;
-        CurrentHTML = posts[postIndex].Html;
-        tags = posts[postIndex].expand.tagName;
-        imglink = pb.files.getUrl(posts[postIndex], posts[postIndex].Thumbnail);
-        currentEditingID = posts[postIndex].id;
-        color = posts[postIndex].Color;
-        showImage = false;
-        updatemd();
-    }
+    // async function fillBoxes(postIndex) {
+    //     projectActive = false;
+    //     await getPosts();
+    //     CurrentTitle = posts[postIndex].Title;
+    //     markdown = posts[postIndex].Markdown;
+    //     CurrentHTML = posts[postIndex].Html;
+    //     tags = posts[postIndex].expand.tagName;
+    //     imglink = pb.files.getUrl(posts[postIndex], posts[postIndex].Thumbnail);
+    //     currentEditingID = posts[postIndex].id;
+    //     color = posts[postIndex].Color;
+    //     showImage = false;
+    //     updatemd();
+    // }
 
     async function fillPostBoxesByID(ID) {
         projectActive = false;
