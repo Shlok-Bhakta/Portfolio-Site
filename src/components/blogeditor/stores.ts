@@ -57,7 +57,7 @@ let current: currentData = {
 
 
 
-export let currentEdit = writable(current);
+export let currentEdit = persisted("currentEdit", current);
 
 function constructCreatePostPayload(data: currentData): FormData {
     let payload = new FormData();

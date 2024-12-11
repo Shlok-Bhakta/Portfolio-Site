@@ -2,7 +2,7 @@
     import { Carta, MarkdownEditor, type Plugin } from "carta-md";
     import { constructPayload, currentEdit, pb, showImage, type currentData } from "./stores";
     import { math } from "@cartamd/plugin-math";
-    import { code } from "@cartamd/plugin-code";
+    // import { code } from "@cartamd/plugin-code";
     import Preview from "./preview.svelte";
     import "@cartamd/plugin-code/default.css";
     import "./editor.css";
