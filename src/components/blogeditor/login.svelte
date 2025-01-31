@@ -2,7 +2,7 @@
     import { pb, auth, session } from "./stores";
     async function autoLogin(){
         try{
-            $session = await pb.admins.authWithPassword($auth.username, $auth.password);
+            $session = await pb.collection('_superusers').authWithPassword($auth.username, $auth.password);
             console.log("Auto login success");
         }catch(e){
             console.log("Could not auto login :(" + e);
@@ -13,7 +13,7 @@
     
     async function login() {
         try {
-            $session = await pb.admins.authWithPassword($auth.username, $auth.password);
+            $session = await pb.collection('_superusers').authWithPassword($auth.username, $auth.password);
         } catch (e) {
             console.log(e);
             $auth.username = "WRONG! BEGONE FROM MY BLOG!";
