@@ -23,9 +23,9 @@
     import { onMount } from "svelte";
     import TagPicker from "./tagpicker.svelte";
     import rehypeRaw from "rehype-raw";
-    import { get } from "svelte/store";
-
-    const mermaid: Plugin = {
+    import { ifembedTransformer } from "./htmlToIframe";
+    
+        const mermaid: Plugin = {
         transformers: [
             {
                 execution: "async",
@@ -71,6 +71,7 @@
         ],
     };
 
+
     // // @ts-ignore
     // $effect(async () => {
     //     mapping = await getMapping();
@@ -108,6 +109,7 @@
             sanitizer: false,
             theme: "catppuccin-mocha",
             extensions: [
+                ifembedTransformer,
                 rawhtml,
                 mermaid,
                 pretty,
@@ -126,7 +128,7 @@
             ],
             rehypeOptions: {
                 allowDangerousHtml: true,
-                passThrough: ["root"],
+                passThrough: ["root", "html"],
             },
         });
 
