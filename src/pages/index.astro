@@ -11,6 +11,7 @@ import SimpleCard from "../components/simplecard/SimpleVariant.svelte";
 import BorderBeam from "../components/borderbeam/BorderBeam.svelte";
 import Meteors from "../components/meteors/Meteors.svelte";
 import SimpleCard6 from "../components/card6/SimpleCardVariant6.svelte"
+import Pong from "../components/pong/Pong.svelte"
 const pb = new PocketBase("https://db.shlokbhakta.dev");
 
 let data = await pb.collection("Projects").getFullList({
@@ -189,6 +190,12 @@ for (let i = 0; i < data.length; i++) {
         </div>
       </section>
     </div>
+
+    <!-- Pong Section -->
+    <div class="w-full py-12">
+      <Pong client:load />
+    </div>
+
     <!-- Projects on Home -->
     <div class="bg-mantle card rounded-md mx-20">
       <div class="w-full h-full nerdfont rounded-md">
