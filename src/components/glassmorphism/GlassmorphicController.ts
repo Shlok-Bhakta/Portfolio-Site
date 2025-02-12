@@ -62,7 +62,7 @@ export const cardEffects = derived(
 
 // Update mouse position (throttled)
 let lastUpdate = 0;
-const THROTTLE_MS = 16; // ~60fps
+const THROTTLE_MS = 1000 / 30; // ~60fps
 
 export function updateMousePosition(x: number, y: number) {
   const now = performance.now();
