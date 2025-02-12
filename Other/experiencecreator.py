@@ -5,7 +5,7 @@ import hashlib
 import shutil
 
 # capture the output of the command
-x = subprocess.run(["eza", "-T", "./Experience"], capture_output=True)
+x = subprocess.run(["eza", "-T", "./Technology"], capture_output=True)
 
 x = x.stdout.decode("utf-8")
 

@@ -1,5 +1,5 @@
 <div class="grid grid-cols-1 -gap-5">
-<p class="-mt-[6px]"><span class="text-red">./Experience</span></p>
+<p class="-mt-[6px]"><span class="text-red">./Technology</span></p>
 <p class="-mt-[6px]"><span class="text-red">├</span><span class="text-peach">── Fullstack</span></p>
 <p class="-mt-[6px]"><span class="text-red">│</span>&nbsp;&nbsp;&nbsp;<span class="text-peach">├</span><span class="text-yellow">── Backend</span></p>
 <p class="-mt-[6px]"><span class="text-red">│</span>&nbsp;&nbsp;&nbsp;<span class="text-peach">│</span>&nbsp;&nbsp;&nbsp;<span class="text-yellow">├</span><span class="pr-2" style="color: #FBAD41">──</span><a href="https://www.cloudflare.com/" class="inline-flex items-center gap-2 transition-colors duration-200 hover:brightness-125" target="_blank"><span style="color: #FBAD41">Cloudflare</span><img src="/ezaicons/dd63ffcb0064c4d85102b2c34c400dc5.svg" class="w-4 h-4" alt="Cloudflare icon" /></a></p>
