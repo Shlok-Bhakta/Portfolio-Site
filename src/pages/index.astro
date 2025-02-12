@@ -102,9 +102,14 @@ import EzaTree from "../components/homepage/ezatree.svelte";
           opacity: 0;
         }
       }
+
+      .gitgrid {
+        display: grid;
+        grid-column:;
+      }
     </style>
   </head>
-  <body class="mocha bg-crust tilebg">
+  <body class="mocha bg-crust tilebg nerdfont">
     <body class="mocha bg-crust tilebg">
       <div id="navbar" class="z-50 sticky">
         <Navbar />
@@ -125,12 +130,15 @@ import EzaTree from "../components/homepage/ezatree.svelte";
         <GlassmorphicContainer client:only color="#f9e2af">
           <div class="p-6 grid grid-cols-1 grid-flow-row">
             <div class="">
-              $ 
+              $
               <span class="text-green">echo</span>
               <span class="text-text">-e</span>
-              <span class="text-yellow">"</span><span class="text-pink">$(</span><span class="text-green">curl</span>
+              <span class="text-yellow">"</span><span class="text-pink">$(</span
+              ><span class="text-green">curl</span>
               <span class="text-text">-s</span>
-              <span class="text-text">https://shlokbhakta.dev/fetchwelcome</span><span class="text-pink">)</span><span class="text-yellow">"</span>
+              <span class="text-text">https://shlokbhakta.dev/fetchwelcome</span
+              ><span class="text-pink">)</span><span class="text-yellow">"</span
+              >
             </div>
             <div class="font-mono">
               <div class="flex flex-col md:flex-row gap-4">
@@ -153,7 +161,9 @@ import EzaTree from "../components/homepage/ezatree.svelte";
                   <div class="text-text">---------------------</div>
                   <div>
                     <span class="text-yellow">OS:</span>
-                    <span class="text-text">&lt;Howdy Welcome To My Site/&gt;</span>
+                    <span class="text-text"
+                      >&lt;Howdy Welcome To My Site/&gt;</span
+                    >
                   </div>
 
                   <div>
@@ -179,7 +189,7 @@ import EzaTree from "../components/homepage/ezatree.svelte";
                   <div>
                     <span class="text-yellow">Swap:</span>
                     <span class="text-text">Cybersecurity Minor</span>
-                  </div>                  
+                  </div>
                   <div>
                     <span class="text-yellow">Locale:</span>
                     <span class="text-text">English (US) - Fluent</span>
@@ -249,36 +259,102 @@ import EzaTree from "../components/homepage/ezatree.svelte";
                 $ <span class="text-green">cat</span>
                 <span class="text-text">About.md</span>
                 <div>
-                  <div class="text-red text-2xl ">
-                    # About Me
-                  </div>
+                  <div class="text-red text-2xl"># About Me</div>
                   <p>
-                    I am a Fullstack Developer who is studying at Texas A&M University. I am majoring in Computer Science and minoring in Cybersecurity graduating in May 2026. 
+                    I am a Fullstack Developer who is studying at Texas A&M
+                    University. I am majoring in Computer Science and minoring
+                    in Cybersecurity graduating in May 2026.
                   </p>
-                  <div class="text-peach text-xl">
-                    ## Looking for
-                  </div>
+                  <div class="text-peach text-xl">## Looking for</div>
                   <!-- make list bulleted -->
                   <ol class="list-disc px-8">
                     <li class="">An Internship for Summer 2025</li>
                   </ol>
-                  <div class="text-peach text-xl">
-                    ## Skills
-                  </div>
+                  <div class="text-peach text-xl">## Skills</div>
                   <p>
-                    I like to learn new tech, and apply what I know to create things and solve problems.
+                    I like to learn new tech, and apply what I know to create
+                    things and solve problems.
                   </p>
                   <p class="mt-2">
-                    I dont have any professional experience with fullstack development (hence the internship search), but I have experience in backend development and frontend development.
+                    I dont have any professional experience with fullstack
+                    development (hence the internship search), but I have
+                    experience in backend development and frontend development.
                   </p>
                 </div>
               </div>
             </div>
           </GlassmorphicContainer>
-
-          <!-- Spacer
-          <div class="mt-5"></div> -->
         </div>
+        <!-- Spacer -->
+        <div class="mt-5"></div>
+        <GlassmorphicContainer client:only color="#a6e3a1">
+          <div class="p-6">
+            $ <span class="text-green">git</span>
+            <span class="text-text"
+              >log --pretty=format:<span class="text-yellow"
+                >"%h %ad | %s%d [%an]"</span
+              > --graph --date=short</span
+            >
+          </div>
+          <div class="grid grid-cols-[min-content_1fr]">
+            <!-- TA Job -->
+            <div class="pr-4 nerdfont">
+              <br />
+              <br />
+              <div>*</div>
+              <div>|</div>
+              <div>|</div>
+            </div>
+            <a target="_blank" href="https://www.indeed.com/cmp/Texas-A&M-University/reviews?fjobtitle=Student+Technician">
+              <div class="scale-100 hover:scale-[1.01] transition-all duration-200">
+                <GlassmorphicContainer client:only color="#500000">
+                  <div class="text-text nerdfont">
+                    <span class="text-yellow">08/2024 - Present</span> | <span
+                      class="text-mauve">Teaching Assistant</span
+                    >
+                    <span class="text-maroon">[Texas A&M University]</span>
+                  </div>
+                  <p class="text-text">
+                    I work with students to help them learn the fundementals of
+                    programming and computer science using Java and VSCode.
+                  </p>
+                </GlassmorphicContainer>
+              </div>
+            </a>
+
+            <!-- Personal Website Project -->
+            <div class="pr-4 nerdfont">
+
+              <div>|</div>
+              <div>|</div>
+              <div>|</div>
+              <div>|</div>
+              <div>*</div>
+              <div>|</div>
+              <div>|</div>
+              <div>|</div>
+              <div>|</div>
+              <div>|</div>
+            </div>
+            <a target="_blank" href="https://github.com/Shlok-Bhakta/portfolio-site">
+              <div class="mt-4 scale-100 hover:scale-[1.01] transition-all duration-200">
+                <GlassmorphicContainer client:only color="#500000">
+                  <div class="text-text nerdfont">
+                    <span class="text-yellow">04/2024</span> | <span
+                      class="text-mauve">Personal Website</span
+                    >
+                    <span class="text-maroon">[Self Led]</span>
+                  </div>
+                  <p class="text-text">
+                    I created this website to showcase my skills and projects
+                    that I have worked on. I used Astro, Svelte, and Tailwind
+                    to create this website. Pocketbase as a lightweight backend. Deployed to my own servers through Github actions
+                  </p>
+                </GlassmorphicContainer>
+              </div>
+            </a>
+          </div>
+        </GlassmorphicContainer>
       </div>
     </body>
   </body>
