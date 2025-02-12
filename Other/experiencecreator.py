@@ -81,12 +81,18 @@ for key, value in icons.items():
     # Update the icon path to use local file
     icons[key][0] = web_path
 
+
 def process_line(line):
     parts = []
     content = ""
     current_col = 0
     i = 0
-    
+    if(lines[0] == line):
+        j = 1
+        parts.append(f'<span class="text-{colcolors[current_col]} text-3xl">{line}</span>')
+        i += 999999999
+        content = ""
+
     # First collect all the tree structure parts
     while i < len(line):
         if line[i] in "├└│":
