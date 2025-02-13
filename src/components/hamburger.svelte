@@ -25,7 +25,7 @@
         <a href="/" class="bg-surface2 rounded-md py-7 w-[80svw] mx-3 text-text nerdfont text-center"> Home </a>
         <a href="/blog/" class="bg-surface2 rounded-md py-7 w-[80svw] mx-3 text-text nerdfont text-center"> Blog </a>
         <a href="/projects/" class="bg-surface2 rounded-md py-7 w-[80svw] mx-3 text-text nerdfont text-center"> Projects </a>
-        <a href="/contact/" class="bg-surface2 rounded-md py-7 w-[80svw] mx-3 mr-4 text-text nerdfont text-center"> Contact </a>
+        <!-- <a href="/contact/" class="bg-surface2 rounded-md py-7 w-[80svw] mx-3 mr-4 text-text nerdfont text-center"> Contact </a> -->
       </div>
     </div>
   {/if}
