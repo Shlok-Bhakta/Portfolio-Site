@@ -10,6 +10,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
         response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
         return response;
     }
-    
+
+    // if the path goes to the contact page, redirect to the main page
+    if(path === '/contact/') {
+        return context.redirect('/index.html');
+
+    }
+
     return next();
 });

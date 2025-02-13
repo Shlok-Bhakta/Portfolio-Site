@@ -5,9 +5,9 @@ const { image, tag, col } = Astro.props;
 ---
 
 <div
-    class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px]"
-    style=`border-color: ${col};`
+    class="flex flex-row items-center space-x-2 rounded-md border-[1px] w-fit"
+    style=`border-color: ${col}; background-color: ${col}20;`
 >
-    <img class="pl-2 aspect-square h-8 w-8" src={image} alt={tag + " icon"} />
+    <img class="pl-2 aspect-square h-6 w-6" src={image} alt={tag + " icon"} />
     <div class="pr-2 text-sm text-text nerdfont">{tag}</div>
 </div>
