@@ -167,17 +167,16 @@ import Tag from "../components/postTag.astro";
       <div id="navbar" class="z-50 sticky">
         <Navbar />
       </div>
-
       <!-- Spacer -->
       <div class="h-[60px]"></div>
 
       <!-- Starting Howdy -->
-      <div class="absolute w-svw overflow-x-clip">
-        <Meteors number={10} client:load />
-      </div>
+      <!-- <div class="absolute w-full overflow-x-clip">
+        <Meteors number={3} client:load />
+      </div> -->
       <div class="mt-10 rounded-lg relative overflow-hidden"></div>
       <!-- Clamps content to 2/5 the screen -->
-      <div class="w-4/5 max-w-6xl mx-auto">
+      <div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto">
         <!-- Hero Section -->
         <!-- Socials  -->
         <GlassmorphicContainer client:only color="#f9e2af">
@@ -202,9 +201,9 @@ import Tag from "../components/postTag.astro";
               </span>
             </div>
             <div class="font-mono">
-              <div class="flex flex-col md:flex-row gap-4">
+              <div class="flex flex-col md:flex-row gap-4 ">
                 <pre
-                  class="text-blue select-none text-[0.7em] md:text-[1em]">
+                  class="text-blue text-center pt-3 md:text-left md:pt-0 select-none text-[0.7em] md:text-[1em]">
    :::            ::: :::    
   :+:            :+:   :+:   
  +:+            +:+     +:+  
@@ -214,41 +213,44 @@ import Tag from "../components/postTag.astro";
    ###      ###      ###    
                   </pre>
                 <div class="flex flex-col gap-0 text-sm md:text-[1rem]">
-                  <div>
+                  <div class="text-lg md:text-xl">
                     <span class="text-red">Shlok_Bhakta</span>@<span
                       class="text-green">portfolio</span
                     >
                   </div>
                   <div class="text-text">---------------------</div>
                   <div>
-                    <span class="text-yellow">OS:</span>
-                    <span class="text-text"
+                    <span class="text-yellow">Greeting:</span>
+                    <span class="text-text hidden md:inline"
                       >&lt;Howdy Welcome To My Site/&gt;</span
+                    >
+                    <span class="text-text inline md:hidden"
+                      >&lt;Howdy/&gt;</span
                     >
                   </div>
 
-                  <div>
+                  <div> 
                     <span class="text-yellow">Languages:</span>
                     <span class="text-text">JavaScript, Python, Java, C++</span>
                   </div>
                   <div>
-                    <span class="text-yellow">Shell:</span>
+                    <span class="text-yellow">Profession:</span>
                     <span class="text-text">Full Stack Development</span>
                   </div>
                   <div>
-                    <span class="text-yellow">Local IP:</span>
+                    <span class="text-yellow">Location:</span>
                     <span class="text-text">College Station, TX</span>
                   </div>
                   <div>
-                    <span class="text-yellow">CPU:</span>
+                    <span class="text-yellow">Education:</span>
                     <span class="text-text">Texas A&M University</span>
                   </div>
                   <div>
-                    <span class="text-yellow">Memory:</span>
-                    <span class="text-text">Computer Science Major</span>
+                    <span class="text-yellow">Degree:</span>
+                    <span class="text-text">B.A. Computer Science</span>
                   </div>
                   <div>
-                    <span class="text-yellow">Swap:</span>
+                    <span class="text-yellow">Minor:</span>
                     <span class="text-text">Cybersecurity Minor</span>
                   </div>
                   <div>
@@ -292,8 +294,8 @@ import Tag from "../components/postTag.astro";
                     <span class="text-green">███</span>
                     <span class="text-yellow">███</span>
                     <span class="text-blue">███</span>
-                    <span class="text-purple">███</span>
-                    <span class="text-cyan">███</span>
+                    <span class="text-mauve">███</span>
+                    <span class="text-teal">███</span>
                   </div>
                 </div>
               </div>
@@ -352,7 +354,7 @@ import Tag from "../components/postTag.astro";
         <!-- Spacer -->
         <div class="mt-5"></div>
         <!-- Projects & Experience -->
-        <GlassmorphicContainer client:only color="#a6e3a1">
+        <GlassmorphicContainer client:only color="#8839ef">
           <div class="p-6">
             <span class="hidden md:inline">
               $ <span class="text-green">git</span>
@@ -384,7 +386,7 @@ import Tag from "../components/postTag.astro";
                 <div
                   class="timeline-content scale-100 hover:scale-[1.01] transition-all duration-200"
                 >
-                  <GlassmorphicContainer client:only color="#d20f39">
+                  <GlassmorphicContainer client:only color="#cba6f7">
                     <div class="text-text nerdfont">
                       <span class="text-yellow">08/2024 - Present</span> | <span
                         class="text-mauve">Teaching Assistant</span
@@ -421,7 +423,7 @@ import Tag from "../components/postTag.astro";
                 <div
                   class="timeline-content scale-100 hover:scale-[1.01] transition-all duration-200"
                 >
-                  <GlassmorphicContainer client:only color="#df8e1d">
+                  <GlassmorphicContainer client:only color="#cba6f7">
                     <div class="text-text nerdfont">
                       <span class="text-yellow">04/2024</span> | <span
                         class="text-mauve">Personal Portfolio</span
@@ -458,7 +460,7 @@ import Tag from "../components/postTag.astro";
               <div
                 class="mt-4 timeline-content scale-100 hover:scale-[1.01] transition-all duration-200"
               >
-                <GlassmorphicContainer client:only color="#8839ef">
+                <GlassmorphicContainer client:only color="#cba6f7">
                   <div class="text-text nerdfont">
                     <span class="text-yellow">01/2025</span> | <span
                       class="text-mauve">Cabin Connect</span
@@ -471,7 +473,7 @@ import Tag from "../components/postTag.astro";
                     <Tag col="#439A45" tag="MongoDB Atlas" image="https://api.iconify.design/vscode-icons:file-type-mongo.svg"/>
                     <Tag col="#FAAE40" tag="Cloudflare" image="https://api.iconify.design/devicon:cloudflare.svg"/>
                     <Tag col="#2396ED" tag="Docker" image="https://api.iconify.design/logos:docker-icon.svg"/> 
-                    <Tag col="#4F84F4" tag="Google Gemini" image="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png"/>  
+                    <Tag col="#4F84F4" tag="Google Gemini" image="https://api.iconify.design/simple-icons:googlegemini.svg?color=%23dc8add"/>  
                   </div>
                   <p class="text-text">
                     Created an in-flight entertainment system letting passengers
@@ -503,7 +505,7 @@ import Tag from "../components/postTag.astro";
               <div
                 class="timeline-content mt-4 scale-100 hover:scale-[1.01] transition-all duration-200"
               >
-                <GlassmorphicContainer client:only color="#1e66f5">
+                <GlassmorphicContainer client:only color="#cba6f7">
                   <div class="text-text nerdfont">
                     <span class="text-yellow">10/2024</span> | <span
                       class="text-mauve">Panda POS</span
@@ -537,7 +539,7 @@ import Tag from "../components/postTag.astro";
               <div
                 class="timeline-content mt-4 scale-100 hover:scale-[1.01] transition-all duration-200"
               >
-                <GlassmorphicContainer client:only color="#179299">
+                <GlassmorphicContainer client:only color="#cba6f7">
                   <div class="text-text nerdfont">
                     <span class="text-yellow">10/2024</span> | <span
                       class="text-mauve">SignSense</span
@@ -572,7 +574,7 @@ import Tag from "../components/postTag.astro";
               <div
                 class="mt-4 timeline-content scale-100 hover:scale-[1.01] transition-all duration-200"
               >
-                <GlassmorphicContainer client:only color="#dd7878">
+                <GlassmorphicContainer client:only color="#cba6f7">
                   <div class="text-text nerdfont">
                     <span class="text-yellow">01/2018</span> | <span
                       class="text-mauve">Homelab</span
@@ -581,7 +583,7 @@ import Tag from "../components/postTag.astro";
                   </div>
                   <div class="flex flex-row flex-wrap gap-2">
                     <Tag col="#DD4814" tag="Ubuntu" image="https://api.iconify.design/logos:ubuntu.svg"/>
-                    <Tag col="#E66100" tag="Vite" image="https://api.iconify.design/simple-icons:proxmox.svg?color=%23e66100"/>
+                    <Tag col="#E66100" tag="Proxmox" image="https://api.iconify.design/simple-icons:proxmox.svg?color=%23e66100"/>
                     <Tag col="#2396ED" tag="Docker" image="https://api.iconify.design/logos:docker-icon.svg"/> 
                     <Tag col="#FAAE40" tag="Cloudflare" image="https://api.iconify.design/devicon:cloudflare.svg"/>
                     <Tag col="#3BBCED" tag="Portainer" image="https://api.iconify.design/devicon:portainer.svg?color=%23e66100"/> 
@@ -604,7 +606,7 @@ import Tag from "../components/postTag.astro";
         <div class="mt-5"></div>
 
         <!-- Footer -->
-        <GlassmorphicContainer client:only color="#585b70">
+        <GlassmorphicContainer client:only color="#b4befe">
           <div class="p-6">
             <div>
               $ <span class="text-green">echo</span>
@@ -615,13 +617,8 @@ import Tag from "../components/postTag.astro";
             </div>
             <div class="mt-8">
               $ <span class="text-green">ln</span>
-              <span class="text-text">-s ../blog.txt ./blog_link.txt && cat blog_link.txt</span> 
+              <span class="text-text">-s ../blog.txt <span class="underline text-blue hover:text-blue-400 scale-100 hover:scale-105 transition-all"><a href="/blog">./check_out_my_blog.txt</a></span></span> 
             </div>
-            <a href="/blog">
-              <div class="text-center text-4xl scale-100 hover:scale-105 font-bold text-red mt-4 hover:text-red-400 transition-all duration-200">
-                Feel free to check out my blog 
-              </div>
-            </a>
             <div class="flex items-center mt-4">
               <span class="text-text">$</span>
               <div class="w-3 h-6 bg-pink ml-2 animate-blink"></div>
@@ -630,5 +627,5 @@ import Tag from "../components/postTag.astro";
         </GlassmorphicContainer>
       </div>
     </body>
-  </body>
+p  </body>
 </html>

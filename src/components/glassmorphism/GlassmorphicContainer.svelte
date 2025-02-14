@@ -5,6 +5,30 @@
   
   export let color = '#00ffd5';
   
+  function rgbToHsl(r, g, b) {
+    r /= 255, g /= 255, b /= 255;
+
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+
+    if (max == min) {
+      h = s = 0; // achromatic
+    } else {
+      var d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+
+      h /= 6;
+    }
+
+    return [ h, s, l ];
+  }
+
   let cardElement;
   const cardId = nanoid();
   let effect = { mouseX: 0, mouseY: 0, intensity: 0 };
@@ -41,6 +65,7 @@
   // Computed styles for glow effect
   $: overlayStyles = `
     --glow-color: ${color};
+    --glow-light-color: ${color}40;
     --glow-opacity: ${effect.intensity};
     --mouse-x: ${effect.mouseX}px;
     --mouse-y: ${effect.mouseY}px;
@@ -83,7 +108,7 @@
     opacity: var(--glow-opacity, 0);
     -webkit-mask: radial-gradient(25rem 25rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 1%, transparent 50%);
     mask: radial-gradient(25rem 25rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 1%, transparent 50%);
-    background-color: color-mix(in srgb, var(--glow-color, currentColor) 20%, transparent);
+    background-color: color-mix(in srgb, var(--glow-light-color, currentColor) 20%, transparent);
     border: 2px solid var(--glow-color, currentColor);
     box-shadow: 
       0 0 4px var(--glow-color, currentColor),

@@ -3,6 +3,7 @@ import urllib.request
 import os
 import hashlib
 import shutil
+import colorsys
 
 # capture the output of the command
 x = subprocess.run(["eza", "-T", "./Technology"], capture_output=True)
@@ -20,6 +21,38 @@ if os.path.exists(iconpath):
     shutil.rmtree(iconpath)
 os.makedirs(iconpath)
 
+def hex_to_hsl(hex_color):
+    # Remove the # if present
+    hex_color = hex_color.lstrip('#')
+    # Convert hex to RGB
+    r = int(hex_color[:2], 16) / 255.0
+    g = int(hex_color[2:4], 16) / 255.0
+    b = int(hex_color[4:], 16) / 255.0
+    # Convert RGB to HSL
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+    return (h * 360, s * 100, l * 100)
+
+def hsl_to_hex(h, s, l):
+    # Convert HSL to RGB
+    h = h / 360
+    s = s / 100
+    l = l / 100
+    r, g, b = colorsys.hls_to_rgb(h, l, s)
+    # Convert RGB to hex
+    return "#{:02x}{:02x}{:02x}".format(
+        int(r * 255),
+        int(g * 255),
+        int(b * 255)
+    )
+
+# Get the target lightness from #89dceb
+target_lightness = hex_to_hsl("#89dceb")[2]
+
+def adjust_color_lightness(hex_color):
+    if not hex_color.startswith('#'):
+        return hex_color
+    h, s, _ = hex_to_hsl(hex_color)
+    return hsl_to_hex(h, s, target_lightness)
 
 # get more from https://icones.js.org
 icons = {
@@ -53,6 +86,9 @@ icons = {
     "I use NixOS btw": ["https://api.iconify.design/catppuccin:nix.svg?color=%23dc8add", "#8AADF4", "https://nixos.org/" ],  
     "Obsidian": ["https://api.iconify.design/logos:obsidian-icon.svg?color=%23dc8add", "#4C239F", "https://obsidian.md/" ],  
 }
+
+for key, value in icons.items():
+    icons[key][1] = adjust_color_lightness(value[1])
 
 # Download icons and update paths
 for key, value in icons.items():
@@ -95,45 +131,54 @@ def process_line(line):
 
     # First collect all the tree structure parts
     while i < len(line):
+        # Handle tree structure
         if line[i] in "├└│":
-            parts.append(f'<span class="text-{colcolors[current_col]}">{line[i]}</span>')
-            if i + 2 < len(line) and line[i:i+3] in ["├--", "└--"]:
-                parts.append(f'<span class="text-{colcolors[current_col-1]}">--</span>')
+            if line[i] in "├└":
+                parts.append(f'<span class="text-{colcolors[current_col]} relative -top-[0.75px] -left-[1px]">{line[i]}</span>')
+            else:
+                parts.append(f'<span class="text-{colcolors[current_col]} ">{line[i]}</span>')
+            if i + 2 < len(line) and line[i:i+3] in ["├──", "└──"]:
+                parts.append(f'<span class="text-{colcolors[current_col]}">──</span>')
                 i += 2
             current_col += 1
             i += 1
+        # Handle Space Character
         elif line[i] == " ":
             parts.append("&nbsp;")
             i += 1
+        # Handle Content
         else:
             # We've hit the content part
             content = line[i:].strip()
+            # print(content)
+            # Process the content part
+            parts = parts[:-2]
+            print(parts)
+            if content:
+                # Remove any leading dashes and spaces
+                clean_content = content
+                if clean_content in icons:
+                    icon_url, color, link = icons[clean_content]
+                    parts.append(f'<span class="pr-2" style="color: {color}">─</span>')
+                    parts.append(f'<a href="{link}" class="inline-flex items-center gap-2 transition-colors duration-200 hover:brightness-125" target="_blank">')
+                    parts.append(f'<span style="color: {color}">{clean_content}</span>')
+                    parts.append(f'<img loading="lazy" src="{icon_url}" class="w-4 h-4" alt="{clean_content} icon" />')
+                    parts.append('</a>')
+                else:
+                    parts.append(f'<span class="text-{colcolors[current_col-1]} allign-middle">─</span><span class="text-{colcolors[current_col]}">{content}</span>')
             break
-    
-    # Process the content part
-    if content:
-        # Remove any leading dashes and spaces
-        clean_content = content[3:]
-        if clean_content in icons:
-            icon_url, color, link = icons[clean_content]
-            parts.append(f'<span class="pr-2" style="color: {color}">──</span>')
-            parts.append(f'<a href="{link}" class="inline-flex items-center gap-2 transition-colors duration-200 hover:brightness-125" target="_blank">')
-            parts.append(f'<span style="color: {color}">{clean_content}</span>')
-            parts.append(f'<img src="{icon_url}" class="w-4 h-4" alt="{clean_content} icon" />')
-            parts.append('</a>')
-        else:
-            parts.append(f'<span class="text-{colcolors[current_col]}">{content}</span>')
     
     return "".join(parts)
 
 for line in lines:
     line = line.replace("'", "")
     processed = process_line(line)
-    processed_lines.append(f'<p class="-mt-[6px]">{processed}</p>')
+    processed = processed.replace("&nbsp;&nbsp;", "&nbsp;")
+    processed_lines.append(f'<div class="-mt-[5px]">{processed}</div>')
 
 ezatreefile = "../src/components/homepage/ezatree.svelte"
 content = "\n".join(processed_lines)
-content = f"""<div class="grid grid-cols-1 -gap-5">
+content = f"""<div class="">
 {content}
 </div>"""
 open(ezatreefile, "w").write(content)

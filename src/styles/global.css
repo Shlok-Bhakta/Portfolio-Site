@@ -5,12 +5,22 @@
  */
 
  @font-face {
+   font-family: "CaskaydiaCoveNF";
+   src: url("/fonts/CaskCov.woff2");
+   font-display: swap;
+ }
+ 
+ /* Fallback font that closely matches CaskaydiaCoveNF */
+ .nerdfont { 
+   font-family: "CaskaydiaCoveNF", "Arial", "Monaco", "Andale Mono", monospace;
+ }
+/* .nerdfont {
   font-family: "CaskaydiaCoveNF";
-  src: url("/fonts/CaskCov.woff2");
 }
+
 .nerdfont {
-  font-family: "CaskaydiaCoveNF";
-}
+  font-family: "Arial";
+} */
 
 /* Make a tiling background for the page */
 .tilebg {
