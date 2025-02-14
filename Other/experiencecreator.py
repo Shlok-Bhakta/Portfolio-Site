@@ -12,7 +12,8 @@ x = x.stdout.decode("utf-8")
 
 lines = x.split("\n")[:-1]
 processed_lines = []
-colcolors = ["red", "peach", "yellow", "teal", "blue", "mauve", "green", "lavender"]
+# colcolors = ["red", "peach", "yellow", "teal", "blue", "mauve", "green", "lavender"]
+colcolors = ["text", "text", "text", "text", "text", "mauve", "green", "lavender"]
 
 iconpath = "../public/ezaicons"  # icons will be downloaded to this path
 
@@ -88,7 +89,8 @@ icons = {
 }
 
 for key, value in icons.items():
-    icons[key][1] = adjust_color_lightness(value[1])
+    # icons[key][1] = adjust_color_lightness(value[1])
+    icons[key][1] = "#cdd6f4"
 
 # Download icons and update paths
 for key, value in icons.items():

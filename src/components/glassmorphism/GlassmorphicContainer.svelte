@@ -4,6 +4,7 @@
   import { nanoid } from 'nanoid';
   
   export let color = '#00ffd5';
+  color = "#cdd6f4"
   
   function rgbToHsl(r, g, b) {
     r /= 255, g /= 255, b /= 255;
@@ -64,8 +65,8 @@
 
   // Computed styles for glow effect
   $: overlayStyles = `
-    --glow-color: ${color};
-    --glow-light-color: ${color}40;
+    --glow-color: ${color}50;
+    --glow-light-color: ${color}10;
     --glow-opacity: ${effect.intensity};
     --mouse-x: ${effect.mouseX}px;
     --mouse-y: ${effect.mouseY}px;
