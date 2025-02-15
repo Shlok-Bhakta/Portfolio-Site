@@ -185,7 +185,7 @@ import Tag from "../components/postTag.astro";
       <div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto">
         <!-- Hero Section -->
         <!-- Socials  -->
-        <GlassmorphicContainer client:only color=`${globalColor}`>
+        <GlassmorphicContainer client:only color=`${globalColor}` text="Welcome">
           <div class="p-3 md:p-6 grid grid-cols-1 grid-flow-row">
             <div class="">
               <span class="hidden md:inline">
@@ -210,29 +210,19 @@ import Tag from "../components/postTag.astro";
               <div class="flex flex-col md:flex-row gap-4 ">
                 <pre style=`color: ${globalColor}`
                   class="text-center pt-3 md:text-left md:pt-0 select-none text-[0.7em] md:text-[1em]">
-   :::            ::: :::    
-  :+:            :+:   :+:   
- +:+            +:+     +:+  
-+#+            +#+       +#+ 
- +#+          +#+       +#+  
-  #+#        #+#       #+#   
-   ###      ###      ###    
+
+██╗  ██╗ █████╗  ██╗       ██╗██████╗ ██╗   ██╗
+██║  ██║██╔══██╗ ██║  ██╗  ██║██╔══██╗╚██╗ ██╔╝
+███████║██║  ██║ ╚██╗████╗██╔╝██║  ██║ ╚████╔╝ 
+██╔══██║██║  ██║  ████╔═████║ ██║  ██║  ╚██╔╝  
+██║  ██║╚█████╔╝  ╚██╔╝ ╚██╔╝ ██████╔╝   ██║   
+╚═╝  ╚═╝ ╚════╝    ╚═╝   ╚═╝  ╚═════╝    ╚═╝   
                   </pre>
                 <div class="flex flex-col gap-0 text-sm md:text-[1rem]">
                   <div style=`color: ${globalColor}` class="text-lg md:text-xl">
-                    <span class="text-text">Shlok_Bhakta</span>@<span
-                      class="text-text">portfolio</span
-                    >
+                    Shlok_Bhakta
                   </div>
-                  <div class="text-subtext1">---------------------</div>
-                  <div>
-                    <span style=`color: ${globalColor}`>Greeting:</span>
-
-                    <span class="text-subtext0 "
-                      >&lt;Howdy/&gt;</span
-                    >
-                  </div>
-
+                  <div class="text-subtext1">---------------------</div> 
                   <div> 
                     <span style=`color: ${globalColor}`>Languages:</span>
                     <span class="text-subtext0">JavaScript, Python, Java, C++</span>
@@ -247,7 +237,7 @@ import Tag from "../components/postTag.astro";
                   </div>
                   <div>
                     <span style=`color: ${globalColor}`>Education:</span>
-                    <span class="text-subtext0">Texas A&M University</span>
+                    <span class="text-subtext0">Texas A&M University (2026)</span>
                   </div>
                   <div>
                     <span style=`color: ${globalColor}`>Degree:</span>
@@ -293,14 +283,14 @@ import Tag from "../components/postTag.astro";
                       >
                     </div>
                   </div>
-                  <!-- <div class="mt-2 flex gap-2">
+                  <div class="mt-2 flex gap-2">
                     <span class="text-red">███</span>
                     <span class="text-green">███</span>
                     <span class="text-yellow">███</span>
                     <span class="text-blue">███</span>
                     <span class="text-mauve">███</span>
                     <span class="text-teal">███</span>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -311,7 +301,7 @@ import Tag from "../components/postTag.astro";
         <!-- Socials and Technology  -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           <!-- Skills Section -->
-          <GlassmorphicContainer client:only color=`${globalColor}`>
+          <GlassmorphicContainer client:only color=`${globalColor}` text="Skills & Tech">
             <div class="p-6 space-y-6">
               <div class="text-lg text-text">
                 $ <span class="text-green">eza</span>
@@ -324,7 +314,7 @@ import Tag from "../components/postTag.astro";
           </GlassmorphicContainer>
 
           <!-- About Me  -->
-          <GlassmorphicContainer client:only color=`${globalColor}`>
+          <GlassmorphicContainer client:only color=`${globalColor}` text="About Me">
             <div class="p-6">
               <div>
                 $ <span class="text-green">cat</span>
@@ -358,7 +348,7 @@ import Tag from "../components/postTag.astro";
         <!-- Spacer -->
         <div class="mt-5"></div>
         <!-- Projects & Experience -->
-        <GlassmorphicContainer client:only color=`${globalColor}`>
+        <GlassmorphicContainer client:only color=`${globalColor}` text="Experience">
           <div class="p-6">
             <span class="hidden md:inline">
               $ <span class="text-green">git</span>
@@ -388,13 +378,11 @@ import Tag from "../components/postTag.astro";
                 href="https://www.indeed.com/cmp/Texas-A&M-University/reviews?fjobtitle=Student+Technician"
               >
                 <div
-                  class="timeline-content scale-100 hover:scale-[1.01] transition-all duration-200"
+                  class="timeline-content scale-100 hover:scale-[1.01] transition-all duration-200 pt-5"
                 >
-                  <GlassmorphicContainer client:only color=`${globalColor}`>
+                  <GlassmorphicContainer client:only color=`${globalColor}` text=`<span class="text-text">Teaching Assistant</span>`>
                     <div class="text-text nerdfont">
-                      <span class="text-text">08/2024 - Present</span> | <span
-                        class="text-text">Teaching Assistant</span
-                      >
+                      <span class="text-text">08/2024 - Present</span> |
                       <span class="text-text">[Texas A&M University]</span>
                     </div>
                     <div class="flex flex-row flex-wrap gap-2">
@@ -425,14 +413,12 @@ import Tag from "../components/postTag.astro";
                 href="https://github.com/Shlok-Bhakta/portfolio-site"
               >
                 <div
-                  class="timeline-content scale-100 hover:scale-[1.01] transition-all duration-200"
+                  class="timeline-content scale-100 hover:scale-[1.01] transition-all duration-200 pt-5"
                 >
-                  <GlassmorphicContainer client:only color=`${globalColor}`>
+                  <GlassmorphicContainer client:only color=`${globalColor}` text=`<span class="text-text">Personal Portfolio</span>`>
                     <div class="text-text nerdfont">
-                      <span class="text-text">04/2024</span> | <span
-                        class="text-text">Personal Portfolio</span
-                      >
-                      <span class="text-text">[Self Led]</span>
+                      <span class="text-text">04/2024</span> | 
+                      <span class="text-text">Self Led</span>
                     </div>
                     <div class="flex flex-row flex-wrap gap-2">
                       <Tag col="#FF3E00" tag="Svelte" image="https://api.iconify.design/logos:svelte-icon.svg"/>
@@ -464,12 +450,12 @@ import Tag from "../components/postTag.astro";
               <div
                 class="mt-4 timeline-content scale-100 hover:scale-[1.01] transition-all duration-200"
               >
-                <GlassmorphicContainer client:only color=`${globalColor}`>
-                  <div class="text-text nerdfont">
-                    <span class="text-text">01/2025</span> | <span
+                <GlassmorphicContainer client:only color=`${globalColor}` text=`<span
                       class="text-text">Cabin Connect</span
-                    >
-                    <span class="text-text">[TAMUHACK 25 - Winner]</span>
+                    >`>
+                  <div class="text-text nerdfont">
+                    <span class="text-text">01/2025</span> | 
+                    <span class="text-text">TAMUHACK 25 - Winner</span>
                   </div>
                   <div class="flex flex-row flex-wrap gap-2">
                     <Tag col="#FF3E00" tag="Svelte" image="https://api.iconify.design/logos:svelte-icon.svg"/>
@@ -509,12 +495,10 @@ import Tag from "../components/postTag.astro";
               <div
                 class="timeline-content mt-4 scale-100 hover:scale-[1.01] transition-all duration-200"
               >
-                <GlassmorphicContainer client:only color=`${globalColor}`>
+                <GlassmorphicContainer client:only color=`${globalColor}` text=`<span class="text-text">Panda POS</span>`>
                   <div class="text-text nerdfont">
-                    <span class="text-text">10/2024</span> | <span
-                      class="text-text">Panda POS</span
-                    >
-                    <span class="text-text">[Team Project]</span>
+                    <span class="text-text">10/2024</span> | 
+                    <span class="text-text">Team Project</span>
                   </div>
                   <div class="flex flex-row flex-wrap gap-2">
                     <Tag col="#FF3E00" tag="Svelte" image="https://api.iconify.design/logos:svelte-icon.svg"/>
@@ -543,12 +527,12 @@ import Tag from "../components/postTag.astro";
               <div
                 class="timeline-content mt-4 scale-100 hover:scale-[1.01] transition-all duration-200"
               >
-                <GlassmorphicContainer client:only color=`${globalColor}`>
-                  <div class="text-text nerdfont">
-                    <span class="text-text">10/2024</span> | <span
+                <GlassmorphicContainer client:only color=`${globalColor}` text=`<span
                       class="text-text">SignSense</span
-                    >
-                    <span class="text-text">[Tidal Hack - Fall 2024]</span>
+                    >`>
+                  <div class="text-text nerdfont">
+                    <span class="text-text">10/2024</span> | 
+                    <span class="text-text">Tidal Hack - Fall 2024</span>
                   </div>
                   <div class="flex flex-row flex-wrap gap-2">
                     <Tag col="#FF3E00" tag="Svelte" image="https://api.iconify.design/logos:svelte-icon.svg"/>
@@ -578,12 +562,12 @@ import Tag from "../components/postTag.astro";
               <div
                 class="mt-4 timeline-content scale-100 hover:scale-[1.01] transition-all duration-200"
               >
-                <GlassmorphicContainer client:only color=`${globalColor}`>
-                  <div class="text-text nerdfont">
-                    <span class="text-text">01/2018</span> | <span
+                <GlassmorphicContainer client:only color=`${globalColor}` text=`<span
                       class="text-text">Homelab</span
-                    >
-                    <span class="text-text">[Self Led]</span>
+                    >`>
+                  <div class="text-text nerdfont">
+                    <span class="text-text">01/2018</span> | 
+                    <span class="text-text">Self Led</span>
                   </div>
                   <div class="flex flex-row flex-wrap gap-2">
                     <Tag col="#DD4814" tag="Ubuntu" image="https://api.iconify.design/logos:ubuntu.svg"/>
@@ -610,7 +594,7 @@ import Tag from "../components/postTag.astro";
         <div class="mt-5"></div>
 
         <!-- Footer -->
-        <GlassmorphicContainer client:only color=`${globalColor}`>
+        <GlassmorphicContainer client:only color=`${globalColor}` text="Bye 👋">
           <div class="p-6">
             <div>
               $ <span class="text-green">echo</span>
@@ -621,7 +605,7 @@ import Tag from "../components/postTag.astro";
             </div>
             <div class="mt-8">
               $ <span class="text-green">ln</span>
-              <span class="text-text">-s ../blog.txt <span class="underline text-blue hover:text-blue-400 scale-100 hover:scale-105 transition-all"><a href="/blog">./check_out_my_blog.txt</a></span></span> 
+              <span class="text-text">-s ../blog.txt <span class="underline text-blue hover:text-blue-400 scale-100 hover:scale-105 transition-all"><a href="/blog">./check_out_my_blog</a></span></span> 
             </div>
             <div class="flex items-center mt-4">
               <span class="text-text">$</span>

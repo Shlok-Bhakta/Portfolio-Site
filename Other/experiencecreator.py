@@ -13,7 +13,7 @@ x = x.stdout.decode("utf-8")
 lines = x.split("\n")[:-1]
 processed_lines = []
 # colcolors = ["red", "peach", "yellow", "teal", "blue", "mauve", "green", "lavender"]
-colcolors = ["subtext0", "overlay2", "overlay1", "overlay0", "text", "mauve", "green", "lavender"]
+colcolors = ["red", "peach", "yellow", "teal", "text", "mauve", "green", "lavender"]
 
 iconpath = "../public/ezaicons"  # icons will be downloaded to this path
 
@@ -47,7 +47,7 @@ def hsl_to_hex(h, s, l):
     )
 
 # Get the target lightness from #89dceb
-target_lightness = hex_to_hsl("#89dceb")[2]
+target_lightness = hex_to_hsl("#bdc0ea")[2]
 
 def adjust_color_lightness(hex_color):
     if not hex_color.startswith('#'):
@@ -163,11 +163,11 @@ def process_line(line):
                     icon_url, color, link = icons[clean_content]
                     parts.append(f'<span class="pr-2" style="color: {color}">─</span>')
                     parts.append(f'<a href="{link}" class="inline-flex items-center gap-2 transition-colors duration-200 hover:brightness-125" target="_blank">')
-                    parts.append(f'<span class="text-text">{clean_content}</span>')
+                    parts.append(f'<span style="color: {color}" >{clean_content}</span>')
                     parts.append(f'<img loading="lazy" src="{icon_url}" class="w-4 h-4" alt="{clean_content} icon" />')
                     parts.append('</a>')
                 else:
-                    parts.append(f'<span class="text-{colcolors[current_col-1]} allign-middle">─</span><span class="text-text">{content}</span>')
+                    parts.append(f'<span class="text-{colcolors[current_col-1]} allign-middle">─</span><span class="text-{colcolors[current_col-1]}">{content}</span>')
             break
     
     return "".join(parts)
