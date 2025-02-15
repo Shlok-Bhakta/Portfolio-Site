@@ -4,8 +4,9 @@
   import { nanoid } from 'nanoid';
   
   export let color = '#00ffd5';
-  color = "#cdd6f4"
-  
+  export let text_color = '#cdd6f4';
+  // color = "#cdd6f4"
+  export let text = 'text';
   function rgbToHsl(r, g, b) {
     r /= 255, g /= 255, b /= 255;
 
@@ -65,11 +66,13 @@
 
   // Computed styles for glow effect
   $: overlayStyles = `
-    --glow-color: ${color}50;
+    --glow-color: ${color}9F;
     --glow-light-color: ${color}10;
     --glow-opacity: ${effect.intensity};
     --mouse-x: ${effect.mouseX}px;
     --mouse-y: ${effect.mouseY}px;
+    --text_color: ${text_color};
+    --color: ${color};
   `;
 </script>
 
@@ -83,8 +86,8 @@
 
   .content {
     padding: 1.5rem;
-    border-radius: 0.75rem;
-    border: 1px solid rgba(205, 214, 244, 0.2);
+    /* border-radius: 0.75rem; */
+    border: 1px solid #7f849c;
     background-color: rgba(30, 30, 46, 0.6);
     color: rgb(205, 214, 244);
     /* backdrop-filter: blur(1px);
@@ -105,7 +108,7 @@
     inset: 0;
     pointer-events: none;
     user-select: none;
-    border-radius: 0.75rem;
+    /* border-radius: 0.75rem; */
     opacity: var(--glow-opacity, 0);
     -webkit-mask: radial-gradient(25rem 25rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 1%, transparent 50%);
     mask: radial-gradient(25rem 25rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 1%, transparent 50%);
@@ -118,12 +121,27 @@
     will-change: mask, opacity;
     transform: translateZ(0);
   }
+
+  .upper {
+    color: var(--text_color, 0);
+    border-color: #7f849c;
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* .upper:hover {
+    color: var(--color);
+    border-color: var(--color);
+  } */
 </style>
 
 <div
   class="glassmorphic-container w-full h-full"
   bind:this={cardElement}
 >
+  <div class="absolute -top-3 left-6 z-20 bg-mantle text-xs md:text-[1rem] ">
+    <div style={overlayStyles} class="upper border-2 px-3 py-1">{@html text}</div>
+    <div style={overlayStyles} class="overlay w-full h-full"></div>
+  </div>
   <div class="content w-full h-full">
     <slot></slot>
   </div>

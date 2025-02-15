@@ -13,7 +13,7 @@ x = x.stdout.decode("utf-8")
 lines = x.split("\n")[:-1]
 processed_lines = []
 # colcolors = ["red", "peach", "yellow", "teal", "blue", "mauve", "green", "lavender"]
-colcolors = ["text", "text", "text", "text", "text", "mauve", "green", "lavender"]
+colcolors = ["red", "peach", "yellow", "teal", "text", "mauve", "green", "lavender"]
 
 iconpath = "../public/ezaicons"  # icons will be downloaded to this path
 
@@ -47,7 +47,7 @@ def hsl_to_hex(h, s, l):
     )
 
 # Get the target lightness from #89dceb
-target_lightness = hex_to_hsl("#89dceb")[2]
+target_lightness = hex_to_hsl("#bdc0ea")[2]
 
 def adjust_color_lightness(hex_color):
     if not hex_color.startswith('#'):
@@ -89,8 +89,8 @@ icons = {
 }
 
 for key, value in icons.items():
-    # icons[key][1] = adjust_color_lightness(value[1])
-    icons[key][1] = "#cdd6f4"
+    icons[key][1] = adjust_color_lightness(value[1])
+    # icons[key][1] = "#cdd6f4"
 
 # Download icons and update paths
 for key, value in icons.items():
@@ -127,7 +127,7 @@ def process_line(line):
     i = 0
     if(lines[0] == line):
         j = 1
-        parts.append(f'<span class="text-{colcolors[current_col]} text-3xl">{line}</span>')
+        parts.append(f'<span style="color:' + "{props.color}" + f'" class="text-3xl">{line}</span>')
         i += 999999999
         content = ""
 
@@ -163,11 +163,11 @@ def process_line(line):
                     icon_url, color, link = icons[clean_content]
                     parts.append(f'<span class="pr-2" style="color: {color}">─</span>')
                     parts.append(f'<a href="{link}" class="inline-flex items-center gap-2 transition-colors duration-200 hover:brightness-125" target="_blank">')
-                    parts.append(f'<span style="color: {color}">{clean_content}</span>')
+                    parts.append(f'<span style="color: {color}" >{clean_content}</span>')
                     parts.append(f'<img loading="lazy" src="{icon_url}" class="w-4 h-4" alt="{clean_content} icon" />')
                     parts.append('</a>')
                 else:
-                    parts.append(f'<span class="text-{colcolors[current_col-1]} allign-middle">─</span><span class="text-{colcolors[current_col]}">{content}</span>')
+                    parts.append(f'<span class="text-{colcolors[current_col-1]} allign-middle">─</span><span class="text-{colcolors[current_col-1]}">{content}</span>')
             break
     
     return "".join(parts)
@@ -180,7 +180,10 @@ for line in lines:
 
 ezatreefile = "../src/components/homepage/ezatree.svelte"
 content = "\n".join(processed_lines)
-content = f"""<div class="">
+content = f"""<script>
+    let props = $props();
+</script>
+<div class="">
 {content}
 </div>"""
 open(ezatreefile, "w").write(content)
