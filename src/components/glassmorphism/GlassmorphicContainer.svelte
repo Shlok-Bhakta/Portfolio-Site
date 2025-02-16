@@ -66,7 +66,7 @@
 
   // Computed styles for glow effect
   $: overlayStyles = `
-    --glow-color: ${color}9F;
+    --glow-color: ${color}AF;
     --glow-light-color: ${color}10;
     --glow-opacity: ${effect.intensity};
     --mouse-x: ${effect.mouseX}px;
