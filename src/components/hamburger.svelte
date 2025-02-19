@@ -15,7 +15,7 @@
     <div
       id="dialogbox"
       transition:fade={{ duration: 100 }}
-      class="absolute scale-100 -top-4 -left-4 w-svw h-svh flex items-center justify-center bg-base px-auto py-3 m-3 rounded-md backdrop-blur-md bg-opacity-30"
+      class="absolute scale-100 -top-0 -left-0 w-[100vw] h-svh flex items-center justify-center bg-base px-auto rounded-md backdrop-blur-md bg-opacity-30"
     >
       <div class="flex flex-col space-y-3 items-center">
         <button onclick={toggle} class="flex mx-3 mr-4">
