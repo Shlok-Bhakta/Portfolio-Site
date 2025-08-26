@@ -3,22 +3,65 @@
   import { cardEffects, registerCard, unregisterCard, updateCardPosition } from './GlassmorphicController';
   import { nanoid } from 'nanoid';
   
-  export let color = '#00ffd5';
-  export let text_color = '#cdd6f4';
-  export let text = 'text';
+  let { color = '#00ffd5', text_color = '#cdd6f4', text = 'text', title_offset = '1.5rem' } = $props();
 
-  let cardElement;
+  let cardElement = $state();
+  let titleElement = $state();
   const cardId = nanoid();
-  let effect = { mouseX: 0, mouseY: 0, intensity: 0 };
+  let effect = $state({ mouseX: 0, mouseY: 0, intensity: 0 });
+  let currentGlitchText = $state(text);
+  let isGlitching = $state(false);
+  
+  let glitchText = $derived(isGlitching ? currentGlitchText : text);
+  
+  const glitchChars = '!<>-_\\/[]{}—=+*^?#________';
+  const glitchUpdateInterval = 8; // Update glitch text every 3 frames
+  
+  function startGlitch() {
+    if (isGlitching) return;
+    isGlitching = true;
+    
+    const originalText = text;
+    const textLength = originalText.length;
+    let frame = 0;
+  const totalFrames = 60; // Medium speed - 15 frames at 60fps = ~250ms
+    
+    const animate = () => {
+      if (frame >= totalFrames) {
+        isGlitching = false;
+        return;
+      }
+      
+      // Only update glitch text every n frames
+      if (frame % glitchUpdateInterval === 0) {
+        // Generate glitched text
+        let newText = '';
+        for (let i = 0; i < textLength; i++) {
+          if (Math.random() < 0.4) { // 40% chance to glitch each character
+            newText += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+          } else {
+            newText += originalText[i];
+          }
+        }
+        currentGlitchText = newText;
+      }
+      
+      frame++;
+      requestAnimationFrame(animate);
+    };
+    
+    requestAnimationFrame(animate);
+  }
   
   // Subscribe to card effects
-  $: {
+  $effect(() => {
     if ($cardEffects.has(cardId)) {
       effect = $cardEffects.get(cardId);
     } else {
       effect = { mouseX: 0, mouseY: 0, intensity: 0 };
     }
-  }
+  });
+  
   
   onMount(() => {
     if (!cardElement) return;
@@ -41,7 +84,7 @@
   });
 
   // Computed styles for glow effect  
-  $: overlayStyles = `
+  let overlayStyles = $derived(`
     --glow-color: ${color}CF;
     --glow-light-color: ${color}20;
     --glow-opacity: ${effect.intensity * 1.2};
@@ -49,7 +92,7 @@
     --mouse-y: ${effect.mouseY}px;
     --text_color: ${text_color};
     --color: ${color};
-  `;
+  `);
 </script>
 
 <style>
@@ -98,6 +141,10 @@
     color: var(--text_color, 0);
     border-color: #7f849c;
     transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100vw - 2rem);
   }
 
 </style>
@@ -105,9 +152,19 @@
 <div
   class="glassmorphic-container w-full h-full"
   bind:this={cardElement}
+  onmouseenter={startGlitch}
 >
-  <div class="absolute -top-3 left-6 z-20 bg-mantle text-xs md:text-[1rem] ">
-    <div style={overlayStyles} class="upper border-2 px-3 py-1">{@html text}</div>
+  <div class="absolute -top-3 z-20 bg-mantle text-xs md:text-[1rem]" style="left: {title_offset};">
+    <div 
+      style={overlayStyles} 
+      class="upper border-2 px-3 py-1 select-none" 
+      bind:this={titleElement}
+      role="button"
+      tabindex="0"
+      onkeydown={(e) => e.key === 'Enter' && startGlitch()}
+    >
+      {@html glitchText}
+    </div>
     <div class="overlay w-full h-full" style={overlayStyles}></div>
   </div>
   

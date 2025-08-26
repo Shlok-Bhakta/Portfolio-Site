@@ -1,0 +1,50 @@
+---
+import GlassmorphicContainer from "../glassmorphism/GlassmorphicContainer.svelte";
+import skillsData from "../../data/skills.json";
+
+interface Props {
+  globalColor: string;
+}
+
+const { globalColor } = Astro.props;
+---
+
+<GlassmorphicContainer client:only color={globalColor} text="Skills & Technologies">
+  <div class="p-6">
+    <div class="space-y-8">
+      {Object.entries(skillsData).map(([category, skills]) => (
+        <div>
+          <h3 class="text-lg font-semibold mb-4" style={`color: ${globalColor}`}>
+            {category}
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+{skills.map((skill) => (
+              <a 
+                href={skill.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="group scale-100 hover:scale-[1.08] hover:-translate-y-2 hover:rotate-1 transition-all duration-300 ease-out"
+              >
+                <GlassmorphicContainer 
+                  client:only 
+                  color={skill.color} 
+                  text={skill.name}
+                  title_offset="0.4rem"
+                >
+                  <div class="p-4 flex flex-col items-center justify-center h-20 group-hover:scale-110 transition-transform duration-300 ease-out">
+                    <img 
+                      src={skill.icon} 
+                      alt={`${skill.name} icon`} 
+                      class="w-8 h-8 mb-2"
+                      loading="lazy"
+                    />
+                  </div>
+                </GlassmorphicContainer>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</GlassmorphicContainer>

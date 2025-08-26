@@ -10,25 +10,12 @@ const { globalColor } = Astro.props;
 
 <GlassmorphicContainer client:only color={globalColor} text="Bye 👋">
   <div class="p-6">
-    <div>
-      $ <span class="text-green">echo</span>
-      <span class="text-text">"Thanks for Reading"</span>
-    </div>
-    <div class="text-center text-4xl font-bold text-subtext0 mt-4">
+    <div class="text-center text-4xl font-bold text-subtext0">
       Thanks for Reading!
     </div>
-    <div class="mt-8">
-      $ <span class="text-green">ln</span>
-      <span class="text-text"
-        >-s ../blog.txt <span
-          class="underline text-blue hover:text-blue-400 scale-100 hover:scale-105 transition-all"
-          ><a href="/blog">./check_out_my_blog</a></span
-        ></span
-      >
-    </div>
-    <div class="flex items-center mt-4">
-      <span class="text-text">$</span>
-      <div class="w-3 h-6 bg-pink ml-2 animate-blink"></div>
+    <div class="mt-8 text-center">
+      <span class="underline text-blue hover:text-blue-400 scale-100 hover:scale-105 transition-all"
+        ><a href="/blog">Check out my blog</a></span>
     </div>
   </div>
 </GlassmorphicContainer>

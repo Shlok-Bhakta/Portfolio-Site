@@ -1,0 +1,221 @@
+{
+  "Work Experience": [
+    {
+      "title": "Teaching Assistant",
+      "organization": "Texas A&M University",
+      "date": "08/2024 - Present",
+      "url": "https://www.indeed.com/cmp/Texas-A&M-University/reviews?fjobtitle=Student+Technician",
+      "tags": [
+        {
+          "name": "Java",
+          "color": "#E76F00",
+          "icon": "https://api.iconify.design/logos:java.svg"
+        },
+        {
+          "name": "Bash",
+          "color": "#A6DA95",
+          "icon": "https://api.iconify.design/catppuccin:bash.svg"
+        },
+        {
+          "name": "Public Speaking",
+          "color": "#D7598B",
+          "icon": "https://api.iconify.design/noto-v1:microphone.svg"
+        }
+      ],
+      "description": "I work with students to help them learn the fundamentals of programming and computer science using Java and VSCode."
+    }
+  ],
+  "Personal Projects and Events": [
+    {
+      "title": "Personal Portfolio",
+      "organization": "Self Led",
+      "date": "04/2024",
+      "url": "https://github.com/Shlok-Bhakta/portfolio-site",
+      "tags": [
+        {
+          "name": "Svelte",
+          "color": "#FF3E00",
+          "icon": "https://api.iconify.design/logos:svelte-icon.svg"
+        },
+        {
+          "name": "Astro",
+          "color": "#E3398C",
+          "icon": "https://api.iconify.design/vscode-icons:file-type-astro.svg"
+        },
+        {
+          "name": "Pocketbase",
+          "color": "#99C1F1",
+          "icon": "https://api.iconify.design/simple-icons:pocketbase.svg?color=%2399c1f1"
+        },
+        {
+          "name": "Cloudflare",
+          "color": "#FAAE40",
+          "icon": "https://api.iconify.design/devicon:cloudflare.svg"
+        },
+        {
+          "name": "Docker",
+          "color": "#2396ED",
+          "icon": "https://api.iconify.design/logos:docker-icon.svg"
+        },
+        {
+          "name": "Github Actions",
+          "color": "#2088FF",
+          "icon": "https://api.iconify.design/devicon:githubactions.svg"
+        }
+      ],
+      "description": "I created this website to showcase my skills and projects that I have worked on. I used Astro, Svelte, and Tailwind. Pocketbase is the lightweight backend for blog posts. Deployed to my own servers through Github actions"
+    },
+    {
+      "title": "Cabin Connect",
+      "organization": "TAMUHACK 25 - Winner",
+      "date": "01/2025",
+      "url": "https://devpost.com/software/cabin-connect",
+      "tags": [
+        {
+          "name": "Svelte",
+          "color": "#FF3E00",
+          "icon": "https://api.iconify.design/logos:svelte-icon.svg"
+        },
+        {
+          "name": "Astro",
+          "color": "#E3398C",
+          "icon": "https://api.iconify.design/vscode-icons:file-type-astro.svg"
+        },
+        {
+          "name": "MongoDB Atlas",
+          "color": "#439A45",
+          "icon": "https://api.iconify.design/vscode-icons:file-type-mongo.svg"
+        },
+        {
+          "name": "Cloudflare",
+          "color": "#FAAE40",
+          "icon": "https://api.iconify.design/devicon:cloudflare.svg"
+        },
+        {
+          "name": "Docker",
+          "color": "#2396ED",
+          "icon": "https://api.iconify.design/logos:docker-icon.svg"
+        },
+        {
+          "name": "Google Gemini",
+          "color": "#4F84F4",
+          "icon": "https://api.iconify.design/simple-icons:googlegemini.svg?color=%23dc8add"
+        }
+      ],
+      "description": "Created an in-flight entertainment system letting passengers connect to each other to watch movies and chat with each other",
+      "achievement": "Received a Tech Box for winning the best use of Cloudflare award"
+    },
+    {
+      "title": "Panda POS",
+      "organization": "Team Project",
+      "date": "10/2024",
+      "url": "https://pandapos.shlokbhakta.dev/",
+      "tags": [
+        {
+          "name": "Svelte",
+          "color": "#FF3E00",
+          "icon": "https://api.iconify.design/logos:svelte-icon.svg"
+        },
+        {
+          "name": "Astro",
+          "color": "#E3398C",
+          "icon": "https://api.iconify.design/vscode-icons:file-type-astro.svg"
+        },
+        {
+          "name": "Postgres",
+          "color": "#336791",
+          "icon": "https://api.iconify.design/devicon:postgresql.svg"
+        },
+        {
+          "name": "Cloudflare",
+          "color": "#FAAE40",
+          "icon": "https://api.iconify.design/devicon:cloudflare.svg"
+        },
+        {
+          "name": "Docker",
+          "color": "#2396ED",
+          "icon": "https://api.iconify.design/logos:docker-icon.svg"
+        },
+        {
+          "name": "Github Actions",
+          "color": "#2088FF",
+          "icon": "https://api.iconify.design/devicon:githubactions.svg"
+        }
+      ],
+      "description": "Created a modern point-of-sale system for stores to manage their sales and inventory. Built with Astro.js and Svelte, it helps store owners keep track of everything happening in their shops in real-time. We even made some fancy documentation"
+    },
+    {
+      "title": "SignSense",
+      "organization": "Tidal Hack - Fall 2024",
+      "date": "10/2024",
+      "url": "https://devpost.com/software/sign-sensor",
+      "tags": [
+        {
+          "name": "Svelte",
+          "color": "#FF3E00",
+          "icon": "https://api.iconify.design/logos:svelte-icon.svg"
+        },
+        {
+          "name": "Vite",
+          "color": "#A047CC",
+          "icon": "https://api.iconify.design/vscode-icons:file-type-vite.svg"
+        },
+        {
+          "name": "Cloudflare",
+          "color": "#FAAE40",
+          "icon": "https://api.iconify.design/devicon:cloudflare.svg"
+        },
+        {
+          "name": "Docker",
+          "color": "#2396ED",
+          "icon": "https://api.iconify.design/logos:docker-icon.svg"
+        },
+        {
+          "name": "FastAPI",
+          "color": "#009688",
+          "icon": "https://api.iconify.design/logos:fastapi-icon.svg"
+        }
+      ],
+      "description": "Built a cool web app that helps people learn sign language. You can practice signing letters, and your computer camera will tell you if you're doing it right. Made this with some friends for a hackathon using Svelte and Python."
+    },
+    {
+      "title": "Homelab",
+      "organization": "Self Led",
+      "date": "01/2018",
+      "url": "https://github.com/Shlok-Bhakta/obsidian-notes/tree/main/MyTechDocs/Docker%20%F0%9F%9A%A2/Services%20%F0%9F%94%A7",
+      "tags": [
+        {
+          "name": "Ubuntu",
+          "color": "#DD4814",
+          "icon": "https://api.iconify.design/logos:ubuntu.svg"
+        },
+        {
+          "name": "Proxmox",
+          "color": "#E66100",
+          "icon": "https://api.iconify.design/simple-icons:proxmox.svg?color=%23e66100"
+        },
+        {
+          "name": "Docker",
+          "color": "#2396ED",
+          "icon": "https://api.iconify.design/logos:docker-icon.svg"
+        },
+        {
+          "name": "Cloudflare",
+          "color": "#FAAE40",
+          "icon": "https://api.iconify.design/devicon:cloudflare.svg"
+        },
+        {
+          "name": "Portainer",
+          "color": "#3BBCED",
+          "icon": "https://api.iconify.design/devicon:portainer.svg?color=%23e66100"
+        },
+        {
+          "name": "Docker Compose",
+          "color": "#8BD5CA",
+          "icon": "https://api.iconify.design/catppuccin:docker-compose.svg?color=%23e66100"
+        }
+      ],
+      "description": "Started with an old MacBook and grew into a full server setup. Now I run lots of cool services like Pi-hole for ad-blocking, Jellyfin for my media, and a dashboard to keep track of everything. Recently upgraded to a Dell PowerEdge server I got for a steal on eBay!"
+    }
+  ]
+}

@@ -4,8 +4,8 @@ import Navbar from "../components/navbar.astro";
 import "../styles/global.css";
 import "../styles/homepage.css";
 import HeroSection from "../components/homepage/HeroSection.astro";
-import SkillsSection from "../components/homepage/SkillsSection.astro";
-import AboutSection from "../components/homepage/AboutSection.astro";
+import SkillsGrid from "../components/homepage/SkillsGrid.astro";
+import AboutCompact from "../components/homepage/AboutCompact.astro";
 import ExperienceSection from "../components/homepage/ExperienceSection.astro";
 import FooterSection from "../components/homepage/FooterSection.astro";
 import HomePageScripts from "../components/homepage/HomePageScripts.astro";
@@ -48,17 +48,25 @@ let globalColor = colors[Math.floor(Math.random() * colors.length)];
       <div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto">
         <!-- Hero Section -->
         <HeroSection globalColor={globalColor} />
+        
         <!-- Spacer -->
         <div class="mt-5"></div>
-        <!-- Skills and About sections -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <SkillsSection globalColor={globalColor} />
-          <AboutSection globalColor={globalColor} />
-        </div>
-        <!-- Spacer -->
-        <div class="mt-5"></div>
-        <!-- Projects & Experience -->
+        
+        <!-- Experience Section (moved up) -->
         <ExperienceSection globalColor={globalColor} />
+        
+        <!-- Spacer -->
+        <div class="mt-5"></div>
+        
+        <!-- Skills and About - side by side -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <div class="lg:col-span-2">
+            <SkillsGrid globalColor={globalColor} />
+          </div>
+          <div class="lg:col-span-1">
+            <AboutCompact globalColor={globalColor} />
+          </div>
+        </div>
 
         <!-- Spacer -->
         <div class="mt-5"></div>

@@ -1,0 +1,116 @@
+{
+  "Frontend": [
+    {
+      "icon": "https://api.iconify.design/catppuccin:javascript-react.svg",
+      "color": "#91D7E3",
+      "url": "https://reactjs.org/",
+      "name": "React"
+    },
+    {
+      "icon": "https://api.iconify.design/vscode-icons:file-type-astro.svg",
+      "color": "#E43A96",
+      "url": "https://astro.build/",
+      "name": "Astro"
+    },
+    {
+      "icon": "https://api.iconify.design/devicon:tailwindcss.svg",
+      "color": "#00BCFF",
+      "url": "https://tailwindcss.com/",
+      "name": "Tailwind"
+    },
+    {
+      "icon": "https://api.iconify.design/logos:javascript.svg",
+      "color": "#F7DF1E",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+      "name": "Javascript"
+    },
+    {
+      "icon": "https://api.iconify.design/vscode-icons:file-type-css2.svg",
+      "color": "#1572B6",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+      "name": "CSS"
+    },
+    {
+      "icon": "https://api.iconify.design/vscode-icons:file-type-html.svg",
+      "color": "#F1662A",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+      "name": "HTML"
+    },
+    {
+      "icon": "https://raw.githubusercontent.com/catppuccin/vscode-icons/89edb3d76872e0ec311773a1ca11cfa026088b82/icons/mocha/svelte.svg",
+      "color": "#FAB387",
+      "url": "https://svelte.dev/",
+      "name": "Svelte"
+    }
+  ],
+  "DevOps and Cloud": [
+    {
+      "icon": "https://api.iconify.design/devicon:linux.svg",
+      "color": "#F0C6C6",
+      "url": "https://www.linux.org/",
+      "name": "Linux"
+    },
+    {
+      "icon": "https://api.iconify.design/logos:docker-icon.svg",
+      "color": "#2396ED",
+      "url": "https://www.docker.com/",
+      "name": "Docker"
+    },
+    {
+      "icon": "https://api.iconify.design/devicon:nixos.svg?color=%23dc8add",
+      "color": "#5277C3",
+      "url": "https://nixos.org/",
+      "name": "NixOS"
+    },
+    {
+      "icon": "https://api.iconify.design/devicon:githubactions.svg",
+      "color": "#79B8FF",
+      "url": "https://github.com/features/actions",
+      "name": "GH Actions"
+    }
+  ],
+  "Backend": [
+    {
+      "icon": "https://api.iconify.design/catppuccin:java.svg",
+      "color": "#E16C01",
+      "url": "https://www.java.com/",
+      "name": "Java"
+    },
+    {
+      "icon": "https://api.iconify.design/logos:postgresql.svg",
+      "color": "#336791",
+      "url": "https://www.postgresql.org/",
+      "name": "Postgres"
+    },
+    {
+      "icon": "https://api.iconify.design/logos:cloudflare-icon.svg",
+      "color": "#FBAD41",
+      "url": "https://www.cloudflare.com/",
+      "name": "Cloudflare"
+    },
+    {
+      "icon": "https://api.iconify.design/vscode-icons:file-type-mongo.svg",
+      "color": "#52AB4D",
+      "url": "https://www.mongodb.com/",
+      "name": "MongoDB"
+    },
+    {
+      "icon": "https://api.iconify.design/logos:nodejs-icon.svg",
+      "color": "#539E43",
+      "url": "https://nodejs.org/",
+      "name": "Node.js"
+    },
+    {
+      "icon": "https://api.iconify.design/devicon:mysql.svg",
+      "color": "#00618A",
+      "url": "https://www.mysql.com/",
+      "name": "MySQL"
+    },
+    {
+      "icon": "https://api.iconify.design/logos:python.svg",
+      "color": "#FFE365",
+      "url": "https://www.python.org/",
+      "name": "Python"
+    }
+  ]
+}

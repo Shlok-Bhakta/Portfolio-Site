@@ -1,6 +1,7 @@
 ---
 import GlassmorphicContainer from "../glassmorphism/GlassmorphicContainer.svelte";
 import Tag from "../postTag.astro";
+import experienceData from "../../data/experience.json";
 
 interface Props {
   globalColor: string;
@@ -10,370 +11,48 @@ const { globalColor } = Astro.props;
 ---
 
 <GlassmorphicContainer client:only color={globalColor} text="Experience">
-  <div class="p-6">
-    <span class="hidden md:inline">
-      $ <span class="text-green">git</span>
-      <span class="text-text"
-        >log --pretty=format:<span class="text-yellow"
-          >"%h %ad | %s%d [%an]"</span
-        > --graph --date=short</span
-      >
-    </span>
-    <span class="md:hidden">
-      $ <span class="text-green">git</span>
-      <span class="text-text"> log --branch</span>
-    </span>
-  </div>
-  <div class="grid grid-cols-[min-content_1fr]">
-    <!-- Teaching Assistant -->
-    <div class="pr-4 nerdfont">
-      <div class="branch-lines"></div>
-      <div class="branch-lines"></div>
-    </div>
-    <div class="w-full">
-      <h1 style={`color: ${globalColor}`} class="timeline-content text-2xl">
-        Work Experience
-      </h1>
-      <a
-        target="_blank"
-        href="https://www.indeed.com/cmp/Texas-A&M-University/reviews?fjobtitle=Student+Technician"
-      >
-        <div
-          class="timeline-content scale-100 hover:scale-[1.01] transition-all duration-200 pt-5"
-        >
-          <GlassmorphicContainer
-            client:only
-            color={globalColor}
-            text={`<span class="text-text">Teaching Assistant</span>`}
-          >
-            <div class="text-text nerdfont">
-              <span class="text-text">08/2024 - Present</span> |
-              <span class="text-text">[Texas A&M University]</span>
-            </div>
-            <div class="flex flex-row flex-wrap gap-2">
-              <Tag
-                col="#E76F00"
-                tag="Java"
-                image="https://api.iconify.design/logos:java.svg"
-              />
-              <Tag
-                col="#A6DA95"
-                tag="Bash"
-                image="https://api.iconify.design/catppuccin:bash.svg"
-              />
-              <Tag
-                col="#D7598B"
-                tag="Public Speaking"
-                image="https://api.iconify.design/noto-v1:microphone.svg"
-              />
-            </div>
-            <p class="text-subtext0">
-              I work with students to help them learn the fundamentals of
-              programming and computer science using Java and VSCode.
-            </p>
-          </GlassmorphicContainer>
+  <div>
+    {Object.entries(experienceData).map(([category, experiences]) => (
+      <>
+        <div class="w-full">
+          <h1 style={`color: ${globalColor}`} class="timeline-content text-2xl">
+            {category}
+          </h1>
+          {experiences.map((experience) => (
+            <a target="_blank" href={experience.url}>
+              <div class="timeline-content scale-100 hover:scale-[1.02] hover:-translate-y-1 hover:rotate-[0.25deg] transition-all duration-300 ease-out pt-5">
+                <GlassmorphicContainer
+                  client:only
+                  color={globalColor}
+                  text={`${experience.title}`}
+                >
+                  <div class="text-text nerdfont">
+                    <span class="text-text">{experience.date}</span> |
+                    <span class="text-text">[{experience.organization}]</span>
+                  </div>
+                  <div class="flex flex-row flex-wrap gap-2">
+                    {experience.tags.map((tag) => (
+                      <Tag
+                        col={tag.color}
+                        tag={tag.name}
+                        image={tag.icon}
+                      />
+                    ))}
+                  </div>
+                  <p class="text-subtext0">
+                    {experience.description}
+                  </p>
+                  {(experience as any).achievement && (
+                    <p class="mt-2 text-subtext0">
+                      {(experience as any).achievement}
+                    </p>
+                  )}
+                </GlassmorphicContainer>
+              </div>
+            </a>
+          ))}
         </div>
-      </a>
-    </div>
-
-    <!-- Personal Website -->
-    <div class="pr-4 nerdfont">
-      <div class="branch-lines"></div>
-      <div class="branch-lines"></div>
-    </div>
-    <div class="w-full">
-      <h1 style={`color: ${globalColor}`} class="timeline-content text-2xl">
-        Personal Projects and Events
-      </h1>
-      <a target="_blank" href="https://github.com/Shlok-Bhakta/portfolio-site">
-        <div
-          class="timeline-content scale-100 hover:scale-[1.01] transition-all duration-200 pt-5"
-        >
-          <GlassmorphicContainer
-            client:only
-            color={globalColor}
-            text={`<span class="text-text">Personal Portfolio</span>`}
-          >
-            <div class="text-text nerdfont">
-              <span class="text-text">04/2024</span> |
-              <span class="text-text">Self Led</span>
-            </div>
-            <div class="flex flex-row flex-wrap gap-2">
-              <Tag
-                col="#FF3E00"
-                tag="Svelte"
-                image="https://api.iconify.design/logos:svelte-icon.svg"
-              />
-              <Tag
-                col="#E3398C"
-                tag="Astro"
-                image="https://api.iconify.design/vscode-icons:file-type-astro.svg"
-              />
-              <Tag
-                col="#99C1F1"
-                tag="Pocketbase"
-                image="https://api.iconify.design/simple-icons:pocketbase.svg?color=%2399c1f1"
-              />
-              <Tag
-                col="#FAAE40"
-                tag="Cloudflare"
-                image="https://api.iconify.design/devicon:cloudflare.svg"
-              />
-              <Tag
-                col="#2396ED"
-                tag="Docker"
-                image="https://api.iconify.design/logos:docker-icon.svg"
-              />
-              <Tag
-                col="#2088FF"
-                tag="Github Actions"
-                image="https://api.iconify.design/devicon:githubactions.svg"
-              />
-            </div>
-            <p class="text-subtext0">
-              I created this website to showcase my skills and projects that I
-              have worked on. I used Astro, Svelte, and Tailwind. Pocketbase is
-              the lightweight backend for blog posts. Deployed to my own servers
-              through Github actions
-            </p>
-          </GlassmorphicContainer>
-        </div>
-      </a>
-    </div>
-
-    <!-- Cabin Connect -->
-    <div class="pr-4 nerdfont">
-      <div class="branch-lines"></div>
-    </div>
-    <a target="_blank" href="https://devpost.com/software/cabin-connect">
-      <div
-        class="mt-4 timeline-content scale-100 hover:scale-[1.01] transition-all duration-200"
-      >
-        <GlassmorphicContainer
-          client:only
-          color={globalColor}
-          text={`<span class="text-text">Cabin Connect</span>`}
-        >
-          <div class="text-text nerdfont">
-            <span class="text-text">01/2025</span> |
-            <span class="text-text">TAMUHACK 25 - Winner</span>
-          </div>
-          <div class="flex flex-row flex-wrap gap-2">
-            <Tag
-              col="#FF3E00"
-              tag="Svelte"
-              image="https://api.iconify.design/logos:svelte-icon.svg"
-            />
-            <Tag
-              col="#E3398C"
-              tag="Astro"
-              image="https://api.iconify.design/vscode-icons:file-type-astro.svg"
-            />
-            <Tag
-              col="#439A45"
-              tag="MongoDB Atlas"
-              image="https://api.iconify.design/vscode-icons:file-type-mongo.svg"
-            />
-            <Tag
-              col="#FAAE40"
-              tag="Cloudflare"
-              image="https://api.iconify.design/devicon:cloudflare.svg"
-            />
-            <Tag
-              col="#2396ED"
-              tag="Docker"
-              image="https://api.iconify.design/logos:docker-icon.svg"
-            />
-            <Tag
-              col="#4F84F4"
-              tag="Google Gemini"
-              image="https://api.iconify.design/simple-icons:googlegemini.svg?color=%23dc8add"
-            />
-          </div>
-          <p class="text-subtext0">
-            Created an in-flight entertainment system letting passengers connect
-            to each other to watch movies and chat with each other
-          </p>
-          <p class="mt-2 text-subtext0">
-            Received a Tech Box for winning the best use of Cloudflare award
-          </p>
-        </GlassmorphicContainer>
-      </div>
-    </a>
-
-    <!-- Panda POS -->
-    <div class="pr-4 nerdfont">
-      <div class="branch-lines"></div>
-    </div>
-    <a target="_blank" href="https://pandapos.shlokbhakta.dev/">
-      <div
-        class="timeline-content mt-4 scale-100 hover:scale-[1.01] transition-all duration-200"
-      >
-        <GlassmorphicContainer
-          client:only
-          color={globalColor}
-          text={`<span class="text-text">Panda POS</span>`}
-        >
-          <div class="text-text nerdfont">
-            <span class="text-text">10/2024</span> |
-            <span class="text-text">Team Project</span>
-          </div>
-          <div class="flex flex-row flex-wrap gap-2">
-            <Tag
-              col="#FF3E00"
-              tag="Svelte"
-              image="https://api.iconify.design/logos:svelte-icon.svg"
-            />
-            <Tag
-              col="#E3398C"
-              tag="Astro"
-              image="https://api.iconify.design/vscode-icons:file-type-astro.svg"
-            />
-            <Tag
-              col="#336791"
-              tag="Postgres"
-              image="https://api.iconify.design/devicon:postgresql.svg"
-            />
-            <Tag
-              col="#FAAE40"
-              tag="Cloudflare"
-              image="https://api.iconify.design/devicon:cloudflare.svg"
-            />
-            <Tag
-              col="#2396ED"
-              tag="Docker"
-              image="https://api.iconify.design/logos:docker-icon.svg"
-            />
-            <Tag
-              col="#2088FF"
-              tag="Github Actions"
-              image="https://api.iconify.design/devicon:githubactions.svg"
-            />
-          </div>
-          <p class="text-subtext0">
-            Created a modern point-of-sale system for stores to manage their
-            sales and inventory. Built with Astro.js and Svelte, it helps store
-            owners keep track of everything happening in their shops in
-            real-time. We even made some fancy documentation
-          </p>
-        </GlassmorphicContainer>
-      </div>
-    </a>
-
-    <!-- SignSense -->
-    <div class="pr-4 nerdfont">
-      <div class="branch-lines"></div>
-    </div>
-    <a target="_blank" href="https://devpost.com/software/sign-sensor">
-      <div
-        class="timeline-content mt-4 scale-100 hover:scale-[1.01] transition-all duration-200"
-      >
-        <GlassmorphicContainer
-          client:only
-          color={globalColor}
-          text={`<span class="text-text">SignSense</span>`}
-        >
-          <div class="text-text nerdfont">
-            <span class="text-text">10/2024</span> |
-            <span class="text-text">Tidal Hack - Fall 2024</span>
-          </div>
-          <div class="flex flex-row flex-wrap gap-2">
-            <Tag
-              col="#FF3E00"
-              tag="Svelte"
-              image="https://api.iconify.design/logos:svelte-icon.svg"
-            />
-            <Tag
-              col="#A047CC"
-              tag="Vite"
-              image="https://api.iconify.design/vscode-icons:file-type-vite.svg"
-            />
-            <Tag
-              col="#FAAE40"
-              tag="Cloudflare"
-              image="https://api.iconify.design/devicon:cloudflare.svg"
-            />
-            <Tag
-              col="#2396ED"
-              tag="Docker"
-              image="https://api.iconify.design/logos:docker-icon.svg"
-            />
-            <Tag
-              col="#009688"
-              tag="FastAPI"
-              image="https://api.iconify.design/logos:fastapi-icon.svg"
-            />
-          </div>
-          <p class="text-subtext0">
-            Built a cool web app that helps people learn sign language. You can
-            practice signing letters, and your computer camera will tell you if
-            you're doing it right. Made this with some friends for a hackathon
-            using Svelte and Python.
-          </p>
-        </GlassmorphicContainer>
-      </div>
-    </a>
-
-    <!-- Homelab -->
-    <div class="pr-4 nerdfont">
-      <div class="branch-lines"></div>
-    </div>
-    <a
-      target="_blank"
-      href="https://github.com/Shlok-Bhakta/obsidian-notes/tree/main/MyTechDocs/Docker%20%F0%9F%9A%A2/Services%20%F0%9F%94%A7"
-    >
-      <div
-        class="mt-4 timeline-content scale-100 hover:scale-[1.01] transition-all duration-200"
-      >
-        <GlassmorphicContainer
-          client:only
-          color={globalColor}
-          text={`<span class="text-text">Homelab</span>`}
-        >
-          <div class="text-text nerdfont">
-            <span class="text-text">01/2018</span> |
-            <span class="text-text">Self Led</span>
-          </div>
-          <div class="flex flex-row flex-wrap gap-2">
-            <Tag
-              col="#DD4814"
-              tag="Ubuntu"
-              image="https://api.iconify.design/logos:ubuntu.svg"
-            />
-            <Tag
-              col="#E66100"
-              tag="Proxmox"
-              image="https://api.iconify.design/simple-icons:proxmox.svg?color=%23e66100"
-            />
-            <Tag
-              col="#2396ED"
-              tag="Docker"
-              image="https://api.iconify.design/logos:docker-icon.svg"
-            />
-            <Tag
-              col="#FAAE40"
-              tag="Cloudflare"
-              image="https://api.iconify.design/devicon:cloudflare.svg"
-            />
-            <Tag
-              col="#3BBCED"
-              tag="Portainer"
-              image="https://api.iconify.design/devicon:portainer.svg?color=%23e66100"
-            />
-            <Tag
-              col="#8BD5CA"
-              tag="Docker Compose"
-              image="https://api.iconify.design/catppuccin:docker-compose.svg?color=%23e66100"
-            />
-          </div>
-          <p class="text-subtext0">
-            Started with an old MacBook and grew into a full server setup. Now I
-            run lots of cool services like Pi-hole for ad-blocking, Jellyfin for
-            my media, and a dashboard to keep track of everything. Recently
-            upgraded to a Dell PowerEdge server I got for a steal on eBay!
-          </p>
-        </GlassmorphicContainer>
-      </div>
-    </a>
+      </>
+    ))}
   </div>
 </GlassmorphicContainer>

@@ -1,0 +1,21 @@
+---
+import GlassmorphicContainer from "../glassmorphism/GlassmorphicContainer.svelte";
+
+interface Props {
+  globalColor: string;
+}
+
+const { globalColor } = Astro.props;
+---
+
+<GlassmorphicContainer client:only color={globalColor} text="About">
+  <div class="p-4">
+    <div class="flex items-center space-x-2 text-sm">
+      <span class="text-green">$</span>
+      <span class="text-subtext0">
+        CS major & Cybersecurity minor at Texas A&M (2026) seeking Summer 2025 SWE internships. 
+        Passionate about fullstack development, cloud platforms, and building cool stuff with modern web tech.
+      </span>
+    </div>
+  </div>
+</GlassmorphicContainer>

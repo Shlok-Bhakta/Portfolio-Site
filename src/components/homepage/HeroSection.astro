@@ -10,21 +10,6 @@ const { globalColor } = Astro.props;
 
 <GlassmorphicContainer client:only color={globalColor} text="Welcome">
   <div class="p-3 md:p-6 grid grid-cols-1 grid-flow-row">
-    <div class="">
-      <span class="hidden md:inline">
-        $
-        <span class="text-green">echo</span>
-        <span class="text-text">-e</span>
-        <span class="text-yellow">"</span><span class="text-pink">$(</span><span
-          class="text-green">curl</span>
-        <span class="text-text">-s</span>
-        <span class="text-text">https://shlokbhakta.dev/fetchwelcome</span><span
-          class="text-pink">)</span><span class="text-yellow">"</span>
-      </span>
-      <span class="md:hidden">
-        $ <span class="text-green">neofetch</span>
-      </span>
-    </div>
     <div class="font-mono">
       <div class="flex flex-col md:flex-row flex-wrap gap-0">
         <pre
