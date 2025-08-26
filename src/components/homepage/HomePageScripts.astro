@@ -1,0 +1,104 @@
+---
+interface Props {
+  globalColor: string;
+}
+
+const { globalColor } = Astro.props;
+---
+
+<script define:vars={{ globalColor }} is:inline>
+  // When the user scrolls the page, execute myFunction
+  window.onscroll = function () {
+    myFunction();
+  };
+
+  // Get the navbar
+  var navbar = document.getElementById("navbar");
+
+  // Get the offset position of the navbar
+  var sticky = navbar?.offsetTop;
+
+  // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+  function myFunction() {
+    if (window.scrollY >= sticky) {
+      navbar?.classList.add("sticky");
+    } else {
+      navbar?.classList.remove("sticky");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const elements = document.querySelectorAll(".animate-on-scroll");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    });
+
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
+  });
+
+  function updateBranchLines() {
+    const timelineItems = document.querySelectorAll(".timeline-content");
+    const branchLines = document.querySelectorAll(".branch-lines");
+
+    timelineItems.forEach((item, index) => {
+      const height = item.offsetHeight;
+      const lineSpacing = 20; // Slightly reduced spacing to ensure coverage
+      const totalLines = Math.floor(height / lineSpacing);
+      const linesPerSide = Math.floor((totalLines - 1) / 2); // -1 for the asterisk
+
+      if (branchLines[index]) {
+        const branchLine = branchLines[index];
+        // Clear existing content
+        branchLine.innerHTML = "";
+
+        const linesContainer = document.createElement("div");
+        linesContainer.style.display = "flex";
+        linesContainer.style.flexDirection = "column";
+        linesContainer.style.alignItems = "center";
+        linesContainer.style.justifyContent = "space-between";
+        linesContainer.style.height = "100%";
+        linesContainer.style.gap = "2px"; // Add small gap between lines
+        linesContainer.style.padding = "2px 0"; // Add small padding top and bottom
+
+        // Add top lines
+        for (let i = 0; i < linesPerSide; i++) {
+          const line = document.createElement("div");
+          line.textContent = "|";
+          linesContainer.appendChild(line);
+        }
+
+        // Add the asterisk
+        const asterisk = document.createElement("div");
+        asterisk.style.color = globalColor;
+        asterisk.textContent = "*";
+        linesContainer.appendChild(asterisk);
+
+        // Add bottom lines
+        for (let i = 0; i < linesPerSide; i++) {
+          const line = document.createElement("div");
+          line.textContent = "|";
+          linesContainer.appendChild(line);
+        }
+
+        branchLine.appendChild(linesContainer);
+      }
+    });
+  }
+
+  // Update lines on load and resize
+  window.addEventListener("load", updateBranchLines);
+  window.addEventListener("resize", updateBranchLines);
+
+  // If you have dynamic content that might change heights
+  const observer = new ResizeObserver(updateBranchLines);
+  document.querySelectorAll(".timeline-content").forEach((item) => {
+    observer.observe(item);
+  });
+</script>

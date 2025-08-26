@@ -1,0 +1,122 @@
+---
+import GlassmorphicContainer from "../glassmorphism/GlassmorphicContainer.svelte";
+
+interface Props {
+  globalColor: string;
+}
+
+const { globalColor } = Astro.props;
+---
+
+<GlassmorphicContainer client:only color={globalColor} text="Welcome">
+  <div class="p-3 md:p-6 grid grid-cols-1 grid-flow-row">
+    <div class="">
+      <span class="hidden md:inline">
+        $
+        <span class="text-green">echo</span>
+        <span class="text-text">-e</span>
+        <span class="text-yellow">"</span><span class="text-pink">$(</span><span
+          class="text-green">curl</span>
+        <span class="text-text">-s</span>
+        <span class="text-text">https://shlokbhakta.dev/fetchwelcome</span><span
+          class="text-pink">)</span><span class="text-yellow">"</span>
+      </span>
+      <span class="md:hidden">
+        $ <span class="text-green">neofetch</span>
+      </span>
+    </div>
+    <div class="font-mono">
+      <div class="flex flex-col md:flex-row flex-wrap gap-0">
+        <pre
+          style={`color: ${globalColor}`}
+          class="pl-2 pt-3 md:pt-3 select-none text-[2vw] md:text-[1em] max w-full"
+        >
+██╗  ██╗ █████╗  ██╗       ██╗██████╗ ██╗   ██╗
+██║  ██║██╔══██╗ ██║  ██╗  ██║██╔══██╗╚██╗ ██╔╝
+███████║██║  ██║ ╚██╗████╗██╔╝██║  ██║ ╚████╔╝ 
+██╔══██║██║  ██║  ████╔═████║ ██║  ██║  ╚██╔╝  
+██║  ██║╚█████╔╝  ╚██╔╝ ╚██╔╝ ██████╔╝   ██║   
+╚═╝  ╚═╝ ╚════╝    ╚═╝   ╚═╝  ╚═════╝    ╚═╝   
+        </pre>
+        <div class="flex flex-col gap-0 text-sm md:text-[1rem] overflow-hidden">
+          <div style={`color: ${globalColor}`} class="text-lg md:text-xl">
+            Shlok_Bhakta
+          </div>
+          <div class="text-subtext1">---------------------</div>
+          <div>
+            <span style={`color: ${globalColor}`}>Languages:</span>
+            <span class="text-subtext0">JavaScript, Python, Java, C++</span>
+          </div>
+          <div>
+            <span style={`color: ${globalColor}`}>Profession:</span>
+            <span class="text-subtext0">Full Stack Development</span>
+          </div>
+          <div>
+            <span style={`color: ${globalColor}`}>Location:</span>
+            <span class="text-subtext0">College Station, TX</span>
+          </div>
+          <div>
+            <span style={`color: ${globalColor}`}>Education:</span>
+            <span class="text-subtext0">Texas A&M University (2026)</span>
+          </div>
+          <div>
+            <span style={`color: ${globalColor}`}>Degree:</span>
+            <span class="text-subtext0">B.A. Computer Science</span>
+          </div>
+          <div>
+            <span style={`color: ${globalColor}`}>Minor:</span>
+            <span class="text-subtext0">Cybersecurity Minor</span>
+          </div>
+          <div>
+            <span style={`color: ${globalColor}`}>Locale:</span>
+            <span class="text-subtext0">English (US) - Fluent</span>
+          </div>
+          <div>
+            <span style={`color: ${globalColor}`}>Resume:</span>
+            <a
+              class="text-blue underline hover:text-amber-400 transition-all duration-200 transform hover:-translate-y-0.5 inline-block"
+              target="_blank"
+              href="https://shlokbhakta.dev/resume.pdf">See Resume</a
+            >
+          </div>
+          <div class="mt-0">
+            <span style={`color: ${globalColor}`}>Socials:</span>
+            <div class="flex flex-col gap-1 mt-1 ml-4">
+              <a
+                href="https://github.com/Shlok-Bhakta"
+                class="text-blue underline hover:text-purple-400 transition-all duration-200 hover:-translate-y-0.5"
+                target="_blank"
+                rel="noopener noreferrer">GitHub</a
+              >
+              <a
+                href="https://linkedin.com/in/shlokbhakta"
+                class="text-blue underline hover:text-blue-400 transition-all duration-200 hover:-translate-y-0.5"
+                target="_blank"
+                rel="noopener noreferrer">LinkedIn</a
+              >
+              <a
+                href="https://twitter.com/shlokbhakta"
+                class="text-blue underline hover:text-blue-500 transition-all duration-200 hover:-translate-y-0.5"
+                target="_blank"
+                rel="noopener noreferrer">Twitter</a
+              >
+              <a
+                href="mailto:shlokbhakta1@gmail.com"
+                class="text-blue underline hover:text-red-600 transition-all duration-200 hover:-translate-y-0.5"
+                >Email</a
+              >
+            </div>
+          </div>
+          <div class="mt-2 flex gap-2">
+            <span class="text-red">███</span>
+            <span class="text-green">███</span>
+            <span class="text-yellow">███</span>
+            <span class="text-blue">███</span>
+            <span class="text-mauve">███</span>
+            <span class="text-teal">███</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</GlassmorphicContainer>
