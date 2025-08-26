@@ -5,31 +5,7 @@
   
   export let color = '#00ffd5';
   export let text_color = '#cdd6f4';
-  // color = "#cdd6f4"
   export let text = 'text';
-  function rgbToHsl(r, g, b) {
-    r /= 255, g /= 255, b /= 255;
-
-    var max = Math.max(r, g, b), min = Math.min(r, g, b);
-    var h, s, l = (max + min) / 2;
-
-    if (max == min) {
-      h = s = 0; // achromatic
-    } else {
-      var d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-
-      switch (max) {
-        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-        case g: h = (b - r) / d + 2; break;
-        case b: h = (r - g) / d + 4; break;
-      }
-
-      h /= 6;
-    }
-
-    return [ h, s, l ];
-  }
 
   let cardElement;
   const cardId = nanoid();
@@ -64,11 +40,11 @@
     };
   });
 
-  // Computed styles for glow effect
+  // Computed styles for glow effect  
   $: overlayStyles = `
-    --glow-color: ${color}AF;
-    --glow-light-color: ${color}10;
-    --glow-opacity: ${effect.intensity};
+    --glow-color: ${color}CF;
+    --glow-light-color: ${color}20;
+    --glow-opacity: ${effect.intensity * 1.2};
     --mouse-x: ${effect.mouseX}px;
     --mouse-y: ${effect.mouseY}px;
     --text_color: ${text_color};
@@ -86,12 +62,9 @@
 
   .content {
     padding: 1.5rem;
-    /* border-radius: 0.75rem; */
     border: 1px solid #7f849c;
     background-color: rgba(30, 30, 46, 0.6);
     color: rgb(205, 214, 244);
-    /* backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px); */
     box-shadow: 
       0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -2px rgba(0, 0, 0, 0.1),
@@ -108,15 +81,14 @@
     inset: 0;
     pointer-events: none;
     user-select: none;
-    /* border-radius: 0.75rem; */
     opacity: var(--glow-opacity, 0);
-    -webkit-mask: radial-gradient(25rem 25rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 1%, transparent 50%);
-    mask: radial-gradient(25rem 25rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 1%, transparent 50%);
-    background-color: color-mix(in srgb, var(--glow-light-color, currentColor) 20%, transparent);
+    -webkit-mask: radial-gradient(20rem 20rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 1%, transparent 55%);
+    mask: radial-gradient(20rem 20rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 1%, transparent 55%);
+    background-color: color-mix(in srgb, var(--glow-light-color, currentColor) 25%, transparent);
     border: 2px solid var(--glow-color, currentColor);
     box-shadow: 
-      0 0 4px var(--glow-color, currentColor),
-      0 0 8px color-mix(in srgb, var(--glow-color, currentColor) 50%, transparent),
+      0 0 6px var(--glow-color, currentColor),
+      0 0 12px color-mix(in srgb, var(--glow-color, currentColor) 60%, transparent),
       inset 0 0 12px color-mix(in srgb, var(--glow-color, currentColor) 25%, transparent);
     will-change: mask, opacity;
     transform: translateZ(0);
@@ -128,10 +100,6 @@
     transition: all 0.2s ease-in-out;
   }
 
-  /* .upper:hover {
-    color: var(--color);
-    border-color: var(--color);
-  } */
 </style>
 
 <div
@@ -140,14 +108,12 @@
 >
   <div class="absolute -top-3 left-6 z-20 bg-mantle text-xs md:text-[1rem] ">
     <div style={overlayStyles} class="upper border-2 px-3 py-1">{@html text}</div>
-    <div style={overlayStyles} class="overlay w-full h-full"></div>
+    <div class="overlay w-full h-full" style={overlayStyles}></div>
   </div>
+  
   <div class="content w-full h-full">
     <slot></slot>
   </div>
   
-  <div 
-    class="overlay w-full h-full"
-    style={overlayStyles}
-  ></div>
+  <div class="overlay w-full h-full" style={overlayStyles}></div>
 </div>

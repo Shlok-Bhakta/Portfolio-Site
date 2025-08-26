@@ -26,7 +26,8 @@ export const cardEffects = derived(
   [mousePosition, scrollPosition, cards],
   ([$mousePosition, $scrollPosition, $cards]) => {
     const effects = new Map<string, CardEffect>();
-    const HOVER_DISTANCE = 100;
+    const HOVER_DISTANCE = 150;
+    const HOVER_DISTANCE_SQUARED = HOVER_DISTANCE * HOVER_DISTANCE; // Avoid sqrt when possible
 
     // Adjust mouse position for scroll
     const scrollAdjustedX = $mousePosition.x + $scrollPosition.x;
@@ -43,10 +44,11 @@ export const cardEffects = derived(
       // Calculate distance to nearest point on card using absolute positions
       const dx = Math.max(cardAbsoluteLeft - scrollAdjustedX, 0, scrollAdjustedX - cardAbsoluteRight);
       const dy = Math.max(cardAbsoluteTop - scrollAdjustedY, 0, scrollAdjustedY - cardAbsoluteBottom);
-      const distance = Math.sqrt(dx * dx + dy * dy);
+      const distanceSquared = dx * dx + dy * dy;
       
-      // Only include cards within range
-      if (distance <= HOVER_DISTANCE) {
+      // Only include cards within range (compare squared distances to avoid sqrt)
+      if (distanceSquared <= HOVER_DISTANCE_SQUARED) {
+        const distance = Math.sqrt(distanceSquared);
         const intensity = 1 - (distance / HOVER_DISTANCE);
         effects.set(id, {
           mouseX: scrollAdjustedX - cardAbsoluteLeft,
@@ -62,7 +64,7 @@ export const cardEffects = derived(
 
 // Update mouse position (throttled)
 let lastUpdate = 0;
-const THROTTLE_MS = 1000 / 30; // ~60fps
+const THROTTLE_MS = 1000 / 30; // 30fps
 
 export function updateMousePosition(x: number, y: number) {
   const now = performance.now();
@@ -122,7 +124,7 @@ if (typeof window !== 'undefined') {
       
       // Update all card positions on scroll
       cards.update($cards => {
-        $cards.forEach((card, id) => {
+        $cards.forEach((card) => {
           card.rect = card.element.getBoundingClientRect();
         });
         return $cards;
