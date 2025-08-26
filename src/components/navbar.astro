@@ -1,39 +1,46 @@
 ---
 import "../styles/global.css";
 import Hamburger from "./hamburger.svelte";
+
+export interface Props {
+  globalColor?: string;
+}
+
+const { globalColor = "#00ffd5" } = Astro.props;
 ---
 
-
-<div class="sticky top-0 bg-base py-2">
-  <ul class="flex items-center list-none">
-    <!-- Logo Area -->
-    <li>
-      <a href="/" class="text-4xl mx-3 text-text ml-4 font-display nerdfont">
-        SB~@
+<nav class="sticky top-0 z-50 bg-base/95 backdrop-blur-sm border-b border-overlay0">
+  <div class="flex items-center justify-between px-4 py-2">
+    <!-- Logo -->
+    <a 
+      href="/" 
+      class="text-2xl font-display nerdfont transition-colors duration-200 hover:opacity-80" 
+      style={`color: ${globalColor};`}
+    >
+      SB~@
+    </a>
+    
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-4">
+      <a
+        href="/blog/"
+        class="px-3 py-1 text-sm font-mono text-text border border-overlay0 bg-surface0/50 hover:bg-surface1 transition-all duration-200 hover:border-opacity-80"
+        style={`hover:border-color: ${globalColor}; hover:color: ${globalColor};`}
+      >
+        ./blog
       </a>
-    </li>
-    <!-- a spacer -->
-    <li class="flex-auto"></li>
-    <!-- Hamburger Menu -->
-     <li>
-       <Hamburger client:load />
-     </li>
-    <!-- the other 3 buttons -->
-    <li>
-      <div class="text-lg hidden sm:hidden md:flex">
-        <a
-          href="/blog/"
-          class="bg-surface2 rounded-md py-1 px-3 mx-3 text-text nerdfont"
-        >
-          Blog
-        </a>
-        <a
-          href="/projects/"
-          class="bg-surface2 rounded-md py-1 px-3 mx-3 text-text nerdfont"
-        >
-          Projects
-        </a>
-      </div>
-    </li>
-  </ul>
-</div>
+      <a
+        href="/projects/"
+        class="px-3 py-1 text-sm font-mono text-text border border-overlay0 bg-surface0/50 hover:bg-surface1 transition-all duration-200 hover:border-opacity-80"
+        style={`hover:border-color: ${globalColor}; hover:color: ${globalColor};`}
+      >
+        ./projects
+      </a>
+    </div>
+    
+    <!-- Mobile Hamburger -->
+    <div class="md:hidden">
+      <Hamburger client:load globalColor={globalColor} />
+    </div>
+  </div>
+</nav>

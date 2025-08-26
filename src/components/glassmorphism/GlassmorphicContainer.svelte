@@ -3,7 +3,7 @@
   import { cardEffects, registerCard, unregisterCard, updateCardPosition } from './GlassmorphicController';
   import { nanoid } from 'nanoid';
   
-  let { color = '#00ffd5', text_color = '#cdd6f4', text = 'text', title_offset = '1.5rem' } = $props();
+  let { color = '#00ffd5', text_color = '#cdd6f4', text = '', title_offset = '1.5rem', padding = '1.5rem', borderWidth = '1px', boxShadow = true } = $props();
 
   let cardElement = $state();
   let titleElement = $state();
@@ -92,6 +92,9 @@
     --mouse-y: ${effect.mouseY}px;
     --text_color: ${text_color};
     --color: ${color};
+    --content-padding: ${padding};
+    --border-width: ${borderWidth};
+    --box-shadow: ${boxShadow ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(205, 214, 244, 0.05)' : 'none'};
   `);
 </script>
 
@@ -104,14 +107,11 @@
   }
 
   .content {
-    padding: 1.5rem;
-    border: 1px solid #7f849c;
+    padding: var(--content-padding, 1.5rem);
+    border: var(--border-width, 1px) solid #7f849c;
     background-color: rgba(30, 30, 46, 0.6);
     color: rgb(205, 214, 244);
-    box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -2px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(205, 214, 244, 0.05);
+    box-shadow: var(--box-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(205, 214, 244, 0.05));
     transition: background-color 200ms ease;
   }
 
@@ -152,8 +152,9 @@
 <div
   class="glassmorphic-container w-full h-full"
   bind:this={cardElement}
-  onmouseenter={startGlitch}
+  onmouseenter={text ? startGlitch : undefined}
 >
+  {#if text}
   <div class="absolute -top-3 z-20 bg-mantle text-xs md:text-[1rem]" style="left: {title_offset};">
     <div 
       style={overlayStyles} 
@@ -167,6 +168,7 @@
     </div>
     <div class="overlay w-full h-full" style={overlayStyles}></div>
   </div>
+  {/if}
   
   <div class="content w-full h-full">
     <slot></slot>
