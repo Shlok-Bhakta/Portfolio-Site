@@ -26,7 +26,7 @@ export const cardEffects = derived(
   [mousePosition, scrollPosition, cards],
   ([$mousePosition, $scrollPosition, $cards]) => {
     const effects = new Map<string, CardEffect>();
-    const HOVER_DISTANCE = 150;
+    const HOVER_DISTANCE = 100; // Reduced from 150px
     const HOVER_DISTANCE_SQUARED = HOVER_DISTANCE * HOVER_DISTANCE; // Avoid sqrt when possible
 
     // Adjust mouse position for scroll
@@ -64,7 +64,7 @@ export const cardEffects = derived(
 
 // Update mouse position (throttled)
 let lastUpdate = 0;
-const THROTTLE_MS = 1000 / 30; // 30fps
+const THROTTLE_MS = 1000 / 15; // 15fps - reduced from 30fps
 
 export function updateMousePosition(x: number, y: number) {
   const now = performance.now();

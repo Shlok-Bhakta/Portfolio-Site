@@ -103,20 +103,20 @@
     position: relative;
     z-index: 10;
     transform: translateZ(0);
-    will-change: transform;
+    isolation: isolate;
   }
 
   .content {
     padding: var(--content-padding, 1.5rem);
     border: var(--border-width, 1px) solid #7f849c;
-    background-color: rgba(30, 30, 46, 0.6);
+    background-color: rgba(30, 30, 46, 0.85);
     color: rgb(205, 214, 244);
-    box-shadow: var(--box-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(205, 214, 244, 0.05));
-    transition: background-color 200ms ease;
+    box-shadow: var(--box-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
+    transition: background-color 150ms ease;
   }
 
   .content:hover {
-    background-color: rgba(30, 30, 46, 0.75);
+    background-color: rgba(30, 30, 46, 0.95);
   }
 
   .overlay {
@@ -125,15 +125,12 @@
     pointer-events: none;
     user-select: none;
     opacity: var(--glow-opacity, 0);
-    -webkit-mask: radial-gradient(20rem 20rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 1%, transparent 55%);
-    mask: radial-gradient(20rem 20rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 1%, transparent 55%);
-    background-color: color-mix(in srgb, var(--glow-light-color, currentColor) 25%, transparent);
-    border: 2px solid var(--glow-color, currentColor);
-    box-shadow: 
-      0 0 6px var(--glow-color, currentColor),
-      0 0 12px color-mix(in srgb, var(--glow-color, currentColor) 60%, transparent),
-      inset 0 0 12px color-mix(in srgb, var(--glow-color, currentColor) 25%, transparent);
-    will-change: mask, opacity;
+    -webkit-mask: radial-gradient(15rem 15rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 5%, transparent 50%);
+    mask: radial-gradient(15rem 15rem at var(--mouse-x, 0) var(--mouse-y, 0), #000 5%, transparent 50%);
+    background-color: var(--glow-light-color, currentColor);
+    border: 1px solid var(--glow-color, currentColor);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--glow-color, currentColor) 40%, transparent);
+    will-change: opacity;
     transform: translateZ(0);
   }
 
