@@ -5,7 +5,6 @@ import "../styles/global.css";
 import "../styles/homepage.css";
 import HeroSection from "../components/homepage/HeroSection.astro";
 import SkillsGrid from "../components/homepage/SkillsGrid.astro";
-import AboutCompact from "../components/homepage/AboutCompact.astro";
 import ExperienceSection from "../components/homepage/ExperienceSection.astro";
 import FooterSection from "../components/homepage/FooterSection.astro";
 import HomePageScripts from "../components/homepage/HomePageScripts.astro";
@@ -58,15 +57,8 @@ let globalColor = colors[Math.floor(Math.random() * colors.length)];
         <!-- Spacer -->
         <div class="mt-5"></div>
         
-        <!-- Skills and About - side by side -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <div class="lg:col-span-2">
-            <SkillsGrid globalColor={globalColor} />
-          </div>
-          <div class="lg:col-span-1">
-            <AboutCompact globalColor={globalColor} />
-          </div>
-        </div>
+        <!-- Skills Grid -->
+        <SkillsGrid globalColor={globalColor} />
 
         <!-- Spacer -->
         <div class="mt-5"></div>
