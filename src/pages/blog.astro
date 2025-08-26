@@ -2,15 +2,18 @@
 import "../styles/global.css";
 import Navbar from "../components/navbar.astro";
 import { ClientRouter } from 'astro:transitions';
-
-import "../styles/global.css";
 import PostTag from "../components/postTag.astro";
 import PostCards from "../components/postCard.astro";
+import GlassmorphicContainer from "../components/glassmorphism/GlassmorphicContainer.svelte";
 import PocketBase from "pocketbase";
 const pb = new PocketBase("https://db.shlokbhakta.dev");
 let data = await pb.collection("Tags").getFullList({
   sort: "-created",
 });
+
+// Random color selection from Catppuccin palette
+let colors = ["#f38ba8", "#eba0ac", "#fab387", "#f9e2af", "#89dceb", "#cba6f7"];
+let globalColor = colors[Math.floor(Math.random() * colors.length)];
 
 //pocketbase:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME
 for (let i = 0; i < data.length; i++) {
@@ -58,6 +61,8 @@ for (let i = 0; i < posts.items.length; i++) {
       content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="prefetch" href="/" />
+    <link rel="prefetch" href="/projects" />
     <title>Blog</title>
     <ClientRouter />
   </head>
@@ -65,14 +70,13 @@ for (let i = 0; i < posts.items.length; i++) {
     <div id="navbar" class="z-10 sticky">
       <Navbar />
     </div>
-    <div
-      class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[calc(16px+8vw)] text-center nerdfont"
-    >
-      Blog
-    </div>
-    <div class="flex justify-center">
-      <div class="flex justify-center bg-mantle w-vw max-w-4xl h-auto p-6 m-2 rounded-md">
-        <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2">
+    <!-- Spacer -->
+    <div class="h-[60px]"></div>
+    
+    <!-- Clamps content like homepage -->
+    <div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto">
+      <GlassmorphicContainer client:only color={globalColor} text="Blog" padding="2rem" title_offset="2rem">
+        <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {
             posts.items.map((data) => (
               <li>
@@ -89,7 +93,7 @@ for (let i = 0; i < posts.items.length; i++) {
             ))
           }
         </ol>
-      </div>
+      </GlassmorphicContainer>
     </div>
   </body>
 </html>

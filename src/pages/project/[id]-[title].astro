@@ -5,6 +5,7 @@ import { ClientRouter } from 'astro:transitions';
 import Navbar from "../../components/navbar.astro";
 import CopyButton from "../../components/CopyButtons.svelte";
 import PostCard from "../../components/postCard.astro";
+import GlassmorphicContainer from "../../components/glassmorphism/GlassmorphicContainer.svelte";
 import "../../styles/global.css";
 import "../../styles/blog.css";
 
@@ -25,6 +26,10 @@ const pb = new PocketBase("http://db.shlokbhakta.dev");
 
 const data = await pb.collection("Projects").getOne(id);
 const image = pb.files.getUrl(data, data.Thumbnail);
+
+// Random color selection from Catppuccin palette
+let colors = ["#f38ba8", "#eba0ac", "#fab387", "#f9e2af", "#89dceb", "#cba6f7"];
+let globalColor = colors[Math.floor(Math.random() * colors.length)];
 
 let posts = await pb.collection("Posts").getFullList({
     filter: 'tagName ~ "' + data.ProjectTag + '"',
@@ -71,6 +76,9 @@ for (let i = 0; i < posts.length; i++) {
         </style>
         <script src="../../lib/addcopy.ts" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="prefetch" href="/" />
+        <link rel="prefetch" href="/projects" />
+        <link rel="prefetch" href="/blog" />
         <title>{data.Title}</title>
         <ClientRouter />
     </head>
@@ -79,37 +87,30 @@ for (let i = 0; i < posts.length; i++) {
             <Navbar />
         </div>
 
-        <div class="flex justify-center mt-4">
-            <div class="card w-4/5 lg:w-2/4" style=`border-color: ${data.Color}`>
-                <img
-                    class="aspect-auto w-full rouned-md rounded-xl p-1"
-                    src={image}
-                    alt={data.Title}
-                    transition:name={title}
-                />
-            </div>
-        </div>
-        <div class="flex justify-center">
-            <div class="title text-center text-text nerdfont">
-                {data.Title}
-            </div>
-        </div>
-        <div class="flex justify-center">
-            <article
-                class="flex w-full bg-mantle center flex-col justify-center nerdfont p-3 mx-8 rounded-md"
-            >
-                <Fragment set:html={data.Html} />
-            </article>
-        </div>
-        <div hidden={posts.length == 0}>
-            <div class="title text-center text-text nerdfont">Posts</div>
-            <div class="flex justify-center">
-                <div
-                    class="flex w-[calc(100vw-40px)] bg-mantle center flex-col justify-center max-w-4xl nerdfont p-3 rounded-md text-text"
-                >
-                    <ol
-                        class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2"
-                    >
+        <!-- Spacer -->
+        <div class="h-[60px]"></div>
+        
+        <!-- Clamps content like homepage -->
+        <div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto">
+            <GlassmorphicContainer client:only color={globalColor} text={data.Title} padding="2rem" title_offset="2rem" boxShadow={false}>
+                <div class="flex flex-col items-center gap-8">
+                    <img
+                        class="aspect-auto w-full max-w-3xl rounded-xl shadow-lg"
+                        src={image}
+                        alt={data.Title}
+                        transition:name={title}
+                        loading="eager"
+                        decoding="async"
+                    />
+                    <article class="prose prose-invert prose-lg max-w-none w-full">
+                        <Fragment set:html={data.Html} />
+                    </article>
+                </div>
+            </GlassmorphicContainer>
+            
+            <div hidden={posts.length == 0} class="mt-8">
+                <GlassmorphicContainer client:only color={globalColor} text="Related Posts" padding="2rem" title_offset="2rem">
+                    <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                         {
                             posts.map((data) => (
                                 <li>
@@ -126,7 +127,7 @@ for (let i = 0; i < posts.length; i++) {
                             ))
                         }
                     </ol>
-                </div>
+                </GlassmorphicContainer>
             </div>
         </div>
         <div>

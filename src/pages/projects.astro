@@ -3,6 +3,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Navbar from "../components/navbar.astro";
 import PocketBase from "pocketbase";
 import PostCard from "../components/postCard.astro";
+import GlassmorphicContainer from "../components/glassmorphism/GlassmorphicContainer.svelte";
 import "../styles/global.css";
 import { ClientRouter } from 'astro:transitions';
 const pb = new PocketBase("https://db.shlokbhakta.dev");
@@ -10,6 +11,10 @@ let data = await pb.collection("Projects").getFullList({
   sort: "-created",
   expand: "Tags",
 });
+
+// Random color selection from Catppuccin palette
+let colors = ["#f38ba8", "#eba0ac", "#fab387", "#f9e2af", "#89dceb", "#cba6f7"];
+let globalColor = colors[Math.floor(Math.random() * colors.length)];
 for (let i = 0; i < data.length; i++) {
   data[i].imgurl = pb.files.getUrl(data[i], data[i].Thumbnail);
   // data[i].imgurllq = pb.files.getUrl(data[i], data[i].Thumbnail, {
@@ -39,6 +44,8 @@ for (let i = 0; i < data.length; i++) {
       content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="prefetch" href="/" />
+    <link rel="prefetch" href="/blog" />
     <title>My Projects</title>
     <ClientRouter />
   </head>
@@ -46,34 +53,29 @@ for (let i = 0; i < data.length; i++) {
     <div id="navbar" class="z-10 sticky">
       <Navbar />
     </div>
-    <div>
-      <div
-        class="block bg-gradient-to-r from-green to-sapphire text-transparent bg-clip-text text-[calc(16px+6vw)] text-center nerdfont"
-      >
-        Things I Made!
-      </div>
-      <div class="flex justify-center">
-        <section
-          class="flex justify-center bg-mantle w-vw max-w-4xl h-auto p-6 m-2 rounded-md"
-        >
-          <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2">
-            {
-              data.map((item) => (
-                <li transition:name={item.id}>
-                  <PostCard
-                    title={item.Title}
-                    tags={item.expand?.Tags}
-                    date={item.created}
-                    image={item.imgurl}
-                    link={"/project/" + item.id + "-" + item.Title}
-                    col={item.Color}
-                  />
-                </li>
-              ))
-            }
-          </ol>
-        </section>
-      </div>
+    <!-- Spacer -->
+    <div class="h-[60px]"></div>
+    
+    <!-- Clamps content like homepage -->
+    <div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto">
+      <GlassmorphicContainer client:only color={globalColor} text="Things I Made!" padding="2rem" title_offset="2rem">
+        <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          {
+            data.map((item) => (
+              <li transition:name={item.id}>
+                <PostCard
+                  title={item.Title}
+                  tags={item.expand?.Tags}
+                  date={item.created}
+                  image={item.imgurl}
+                  link={"/project/" + item.id + "-" + item.Title}
+                  col={item.Color}
+                />
+              </li>
+            ))
+          }
+        </ol>
+      </GlassmorphicContainer>
     </div>
   </body>
 </html>

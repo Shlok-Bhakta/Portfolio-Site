@@ -5,31 +5,43 @@ import LazyImage from "./lazyImage.astro";
 const { title, tags, date, image, imagelq, link, col } = Astro.props;
 ---
 
-<a href={link}>
+<a href={link} class="block group" data-astro-prefetch>
   <div
-    class="w-full h-full min-h-72 border-2 rounded-md p-2"
+    class="w-full h-full min-h-80 border-2 p-4 bg-mantle hover:bg-surface0 transition-colors duration-200"
     style=`border-color: ${col};`
   >
-    <!-- <LazyImage hq={image} lq={imagelq} alt={title} /> -->
-    <img
-      src={image}
-      alt={title}
-      class="aspect-auto w-full max-w-96 mx-auto"
-      transition:name={title}
-    />
+    <div class="mb-4">
+      <img
+        src={image}
+        alt={title}
+        class="aspect-video w-full object-cover"
+        transition:name={title}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
 
-
-    <div class="pr-2 text-sm text-text nerdfont">{title}</div>
-    <div class="pr-2 text-sm text-blue nerdfont">{date}</div>
-    <!-- Tags -->
-    <ol class="flex flex-wrap space-x-1">
-      {
-        tags.map((item: { imgurl: any; tagName: any; color: any }) => (
-          <li class="flex">
+    <div class="space-y-3">
+      <h3 class="text-lg font-semibold text-text nerdfont line-clamp-2">
+        {title}
+      </h3>
+      
+      <div class="text-sm text-blue nerdfont">
+        {new Date(date).toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'short', 
+          day: 'numeric' 
+        })}
+      </div>
+      
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-2 mt-3">
+        {
+          tags.map((item: { imgurl: any; tagName: any; color: any }) => (
             <PostTag image={item.imgurl} tag={item.tagName} col={item.color} />
-          </li>
-        ))
-      }
-    </ol>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </a>

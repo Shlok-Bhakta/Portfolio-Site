@@ -1,11 +1,14 @@
 <script>
     import { currentEdit, showImage, imageElement, pb } from "./stores";
     import { PreRendered } from "carta-md";
+    import GlassmorphicContainer from "../glassmorphism/GlassmorphicContainer.svelte";
     import "../../styles/blog.css";
     import { on } from "svelte/events";
     import { onMount } from "svelte";
     import { get } from "svelte/store";
-    let posts = $state(null); 
+    let posts = $state(null);
+    let globalColor = $state("#00ffd5");
+    
     async function getProjects() {
       const data = await pb.collection("Projects").getOne($currentEdit.id); 
       const image = pb.files.getUrl(data, data.Thumbnail);
@@ -31,95 +34,86 @@
 
     }
 
-    onMount(async () => {await getProjects()}); 
+    onMount(async () => {
+        // Random color selection from Catppuccin palette
+        let colors = ["#f38ba8", "#eba0ac", "#fab387", "#f9e2af", "#89dceb", "#cba6f7"];
+        globalColor = colors[Math.floor(Math.random() * colors.length)];
+        await getProjects();
+    });
 
 </script>
 
 
 
-<style>
-  .card {
-      backdrop-filter: blur(5px) saturate(180%);
-      -webkit-backdrop-filter: blur(5px) saturate(180%);
-      background-color: #3132443f;
-      border-radius: 12px;
-      border:  1px solid;
-  }
-</style>
-
 <div class="flex justify-center mt-4">
-  <div class="card w-4/5 lg:w-2/4 p-1" style='border-color: {$currentEdit.color};'>
-    {#if $showImage}
-        <img class="aspect-auto w-full rouned-md" src={$imageElement} alt={$currentEdit.title} />
-    {:else}
-        <img class="aspect-auto w-full rouned-md" src={$currentEdit.thumbnail} alt={$currentEdit.title} />
-    {/if}
-  </div>
-</div>
-<div class="flex justify-center">
-  <div class="title text-center text-text nerdfont">
-    {$currentEdit.title}
-  </div>
-</div>
-<div class="flex justify-center">
-  <article
-  class="flex w-full bg-mantle center flex-col justify-center nerdfont p-3 mx-8 rounded-md"
-  >
-    <PreRendered html={$currentEdit.html} />
-  </article>
+  <GlassmorphicContainer color={globalColor} text={$currentEdit.title} padding="2rem" title_offset="2rem" boxShadow={false}>
+    <div class="flex flex-col items-center gap-6">
+      {#if $showImage}
+        <img class="aspect-auto w-full max-w-3xl" src={$imageElement} alt={$currentEdit.title} />
+      {:else}
+        <img class="aspect-auto w-full max-w-3xl" src={$currentEdit.thumbnail} alt={$currentEdit.title} />
+      {/if}
+      <article class="prose prose-invert max-w-none w-full">
+        <PreRendered html={$currentEdit.html} />
+      </article>
+    </div>
+  </GlassmorphicContainer>
 </div>
 <!-- special posts section on projects page only -->
 {#if $currentEdit.isPost == false && posts != null}
-<div hidden={posts.length == 0}>
-  <div class="title text-center text-text nerdfont">Posts</div>
+<div hidden={posts.length == 0} class="mt-8">
   <div class="flex justify-center">
-      <div
-          class="flex w-[calc(100vw-40px)] bg-mantle center flex-col justify-center max-w-4xl nerdfont p-3 rounded-md text-text"
-      >
-          <ol
-              class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-2"
-          >
-            {#each posts as data}
-              <li>
-                <a href={"/post/" + data.id}>
-                <div
-                  class="w-full h-full min-h-72 border-2 rounded-md p-2"
-                  style="border-color: ${data.Color};"
-                >
+    <GlassmorphicContainer color={globalColor} text="Related Posts" padding="2rem" title_offset="2rem">
+      <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-6xl">
+        {#each posts as data}
+          <li>
+            <a href={"/post/" + data.id}>
+              <div
+                class="w-full h-full min-h-80 border-2 p-4 bg-mantle hover:bg-surface0 transition-colors"
+                style="border-color: {data.Color};"
+              >
+                <div class="mb-4">
                   <img
                     src={data.imgurl}
                     alt={data.Title}
-                    class="aspect-auto w-full max-w-96 mx-auto"
+                    class="aspect-video w-full object-cover"
                   />
-
-
-                  <div class="pr-2 text-sm text-text nerdfont">{data.Title}</div>
-                  <div class="pr-2 text-sm text-blue nerdfont">{data.created}</div>
-                  <!-- Tags -->
-                  <ol class="flex flex-wrap space-x-1">
-            {#each data.expand?.tagName as item}
-
-              <li class="flex">
-                <div
-                  class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px]"
-                  style="border-color: ${item.color};">
-                  <img class="pl-2 aspect-square h-8 w-8" src={item.imgurl} alt={item.tagName + " icon"} />
-                  <div class="pr-2 text-sm text-text nerdfont">{item.tagName}</div>
                 </div>
-              </li>
-            {/each}
-          </ol>
-        </div>
-      </a>
-    </li>
-    {/each}
-          </ol>
-      </div>
+                <div class="space-y-3">
+                  <h3 class="text-lg font-semibold text-text nerdfont line-clamp-2">{data.Title}</h3>
+                  <div class="text-sm text-blue nerdfont">
+                    {new Date(data.created).toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'short', 
+                      day: 'numeric' 
+                    })}
+                  </div>
+                  <!-- Tags -->
+                  <div class="flex flex-wrap gap-2 mt-3">
+                    {#each data.expand?.tagName as item}
+                      <div
+                        class="flex items-center gap-2 px-2 py-1 border bg-surface0 hover:bg-surface1 transition-colors w-fit"
+                        style="border-color: {item.color}60;"
+                      >
+                        <img class="aspect-square h-4 w-4" src={item.imgurl} alt={item.tagName + " icon"} />
+                        <span class="text-xs text-text nerdfont">{item.tagName}</span>
+                      </div>
+                    {/each}
+                  </div>
+                </div>
+              </div>
+            </a>
+          </li>
+        {/each}
+      </ol>
+    </GlassmorphicContainer>
   </div>
 </div>
 {/if}
 
-<div>
-  <img src="/ReadingThanks.svg" class="w-full px-6 pt-12 max:w-4xl" />
+<div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto mt-8">
+  <div class="flex justify-center">
+    <img src="/ReadingThanks.svg" class="w-full max-w-lg opacity-80" />
+  </div>
 </div>
 
