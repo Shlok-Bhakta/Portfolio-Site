@@ -27,7 +27,7 @@
           "icon": "https://api.iconify.design/devicon:postgresql.svg"
         }
       ],
-      "description": "I work with students to help them learn the fundamentals of programming and computer science using Java and VSCode."
+      "description": "Improved the observability stack for the ETL pipeline, utilizing Terraform, Datadog, and AWS to monitor issues and implement potential mitigation strategies."
     },
     {
       "title": "Teaching Assistant",
