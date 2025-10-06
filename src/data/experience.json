@@ -1,6 +1,35 @@
 {
   "Work Experience": [
     {
+      "title": "Software Developer",
+      "organization": "USAA",
+      "date": "05/2025 - 08/2025",
+      "url": "https://www.usaa.com/?akredirect=true",
+      "tags": [
+        {
+          "name": "AWS",
+          "color": "#F79400",
+          "icon": "https://api.iconify.design/mdi:aws.svg?color=%23f79400"
+        },
+        {
+          "name": "Terraform",
+          "color": "#623CE4",
+          "icon": "https://api.iconify.design/vscode-icons:file-type-terraform.svg"
+        },
+        {
+          "name": "Datadog",
+          "color": "#636EFA",
+          "icon": "https://api.iconify.design/devicon:datadog.svg"
+        },
+        {
+          "name": "Postgres",
+          "color": "#336791",
+          "icon": "https://api.iconify.design/devicon:postgresql.svg"
+        }
+      ],
+      "description": "I work with students to help them learn the fundamentals of programming and computer science using Java and VSCode."
+    },
+    {
       "title": "Teaching Assistant",
       "organization": "Texas A&M University",
       "date": "08/2024 - Present",
