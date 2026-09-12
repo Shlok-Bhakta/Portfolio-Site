@@ -1,0 +1,13 @@
+node_modules
+dist
+.git
+.github
+.vscode
+test-results
+playwright-report
+playwright/.cache
+*.log
+server
+.DS_Store
+Other
+nginx

@@ -20,7 +20,15 @@
     import "prismjs/components/prism-yaml";
     import "prismjs/components/prism-javascript";
 
-    import ColorThief from "color-thief-node";
+    import ColorThief from "colorthief";
+
+    const colorThief = new ColorThief();
+    function rgbToHex(rgb: [number, number, number]): string {
+        return (
+            "#" +
+            rgb.map((c) => Math.round(c).toString(16).padStart(2, "0")).join("")
+        );
+    }
 
     let username = $state();
     let password = $state();
@@ -86,7 +94,7 @@
     //     markdown = posts[postIndex].Markdown;
     //     CurrentHTML = posts[postIndex].Html;
     //     tags = posts[postIndex].expand.tagName;
-    //     imglink = pb.files.getUrl(posts[postIndex], posts[postIndex].Thumbnail);
+    //     imglink = pb.files.getURL(posts[postIndex], posts[postIndex].Thumbnail);
     //     currentEditingID = posts[postIndex].id;
     //     color = posts[postIndex].Color;
     //     showImage = false;
@@ -103,7 +111,7 @@
         markdown = aPost.Markdown;
         CurrentHTML = aPost.Html;
         tags = aPost.expand.tagName;
-        imglink = pb.files.getUrl(aPost, aPost.Thumbnail);
+        imglink = pb.files.getURL(aPost, aPost.Thumbnail);
         currentEditingID = ID;
         color = aPost.Color;
         showImage = false;
@@ -146,7 +154,7 @@
         markdown = project.Markdown;
         tags = project.expand.Tags;
         CurrentHTML = project.Html;
-        imglink = pb.files.getUrl(project, project.Thumbnail);
+        imglink = pb.files.getURL(project, project.Thumbnail);
         currentEditingID = ID;
         CurrentProjectTag = project.expand.ProjectTag;
         color = project.Color;
@@ -209,9 +217,9 @@
             reader.addEventListener("load", async function () {
                 image.setAttribute("src", reader.result);
                 // Must wait for image to load in DOM, not just load from FileReader
-                const palette = await ColorThief.getColor(image);
+                const palette = colorThief.getColor(image);
                 console.log(palette);
-                color = "#" + palette[0].toString(16) + palette[1].toString(16) + palette[2].toString(16);
+                color = rgbToHex(palette);
             });
             reader.readAsDataURL(file);
             return;
@@ -322,9 +330,9 @@
             reader.addEventListener("load", async function () {
                 icoImg.setAttribute("src", reader.result);
                 // Must wait for image to load in DOM, not just load from FileReader
-                const palette = await ColorThief.getColor(icoImg);
+                const palette = colorThief.getColor(icoImg);
                 console.log(palette);
-                newTagColor = "#" + palette[0].toString(16) + palette[1].toString(16) + palette[2].toString(16);
+                newTagColor = rgbToHex(palette);
             });
             reader.readAsDataURL(file);
             return;
@@ -419,7 +427,7 @@
                                 <li class="">
                                     <button onclick={() => {deleteTag(tag)}}>
                                         <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {tag.color}">
-                                            <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl(tag, tag.Icon)} alt={tag.tagName} />
+                                            <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getURL(tag, tag.Icon)} alt={tag.tagName} />
                                             <div class="pr-2 text-sm text-text nerdfont">{tag.tagName}</div>
                                         </div>
                                     </button>
@@ -440,7 +448,7 @@
                             {#if CurrentProjectTag != null}
                                 <div>
                                     <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {CurrentProjectTag.color}">
-                                        <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl(CurrentProjectTag, CurrentProjectTag.Icon)} alt={CurrentProjectTag.tagName} />
+                                        <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getURL(CurrentProjectTag, CurrentProjectTag.Icon)} alt={CurrentProjectTag.tagName} />
                                         <div class="pr-2 text-sm text-text nerdfont">{CurrentProjectTag.tagName}</div>
                                     </div>
                                 </div>
@@ -461,7 +469,7 @@
                                     <li>
                                         <button onclick={() => {updateTags(tagItem)}}>
                                             <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {tagItem.color}">
-                                                <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl(tagItem, tagItem.Icon)} alt={tagItem.tagName} />
+                                                <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getURL(tagItem, tagItem.Icon)} alt={tagItem.tagName} />
                                                 <div class="pr-2 text-sm text-text nerdfont">{tagItem.tagName}</div>
                                             </div>
                                         </button>

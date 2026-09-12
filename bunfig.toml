@@ -1,0 +1,6 @@
+[install]
+# Use the isolated install cache (default). Frozen lockfile in CI.
+frozenLockfile = false
+
+[test]
+# Bun test runner defaults are fine; keep coverage off for speed.

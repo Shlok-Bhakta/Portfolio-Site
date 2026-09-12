@@ -1,26 +1,98 @@
+@import "tailwindcss";
+
+/*
+  Tailwind v4 theme — Catppuccin Mocha palette using the same unprefixed
+  utility names the site used with @catppuccin/tailwindcss v0.x
+  (bg-crust, bg-mantle, bg-base, text-text, text-subtext0/1, surface0/1/2,
+  overlay0/1/2, red, peach, yellow, green, teal, sky, blue, mauve, pink, ...).
+  Values are the official Catppuccin Mocha hex codes, so the UI is unchanged.
+*/
+@theme {
+  --color-rosewater: #f5e0dc;
+  --color-flamingo: #f2cdcd;
+  --color-pink: #f5c2e7;
+  --color-mauve: #cba6f7;
+  --color-red: #f38ba8;
+  --color-maroon: #eba0ac;
+  --color-peach: #fab387;
+  --color-yellow: #f9e2af;
+  --color-green: #a6e3a1;
+  --color-teal: #94e2d5;
+  --color-sky: #89dceb;
+  --color-sapphire: #74c7ec;
+  --color-blue: #89b4fa;
+  --color-lavender: #b4befe;
+  --color-text: #cdd6f4;
+  --color-subtext1: #bac2de;
+  --color-subtext0: #a6adc8;
+  --color-overlay2: #9399b2;
+  --color-overlay1: #7f849c;
+  --color-overlay0: #6c7086;
+  --color-surface2: #585b70;
+  --color-surface1: #45475a;
+  --color-surface0: #313244;
+  --color-base: #1e1e2e;
+  --color-mantle: #181825;
+  --color-crust: #11111b;
+
+  --font-display: "CaskaydiaCoveNF", "Arial", "Monaco", "Andale Mono", monospace;
+
+  --animate-border-beam: border-beam calc(var(--duration) * 1s) infinite linear;
+  --animate-meteor: meteor 5s linear infinite;
+
+  @keyframes border-beam {
+    100% {
+      offset-distance: 100%;
+    }
+  }
+  @keyframes meteor {
+    0% {
+      transform: rotate(215deg) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(215deg) translateX(-1800px);
+      opacity: 0;
+    }
+  }
+}
+
+/* v3 compatibility: preserve v3 default border color (was gray-200). */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 /*
   The CSS in this style tag is based off of Bear Blog's default CSS.
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
- @font-face {
-   font-family: "CaskaydiaCoveNF";
-   src: url("/fonts/CaskCov.woff2");
-   font-display: swap;
- }
- 
- /* Fallback font that closely matches CaskaydiaCoveNF */
- .nerdfont { 
-   font-family: "CaskaydiaCoveNF", "Arial", "Monaco", "Andale Mono", monospace;
- }
-/* .nerdfont {
+@font-face {
   font-family: "CaskaydiaCoveNF";
+  src: url("/fonts/CaskCov.woff2");
+  font-display: swap;
 }
 
-.nerdfont {
-  font-family: "Arial";
-} */
+/* Fallback font that closely matches CaskaydiaCoveNF.
+   Registered as a utility so it can also be used inside `@apply`
+   (e.g. blog.css) under Tailwind v4. */
+@utility nerdfont {
+  font-family: "CaskaydiaCoveNF", "Arial", "Monaco", "Andale Mono", monospace;
+}
 
 /* Make a tiling background for the page */
 .tilebg {

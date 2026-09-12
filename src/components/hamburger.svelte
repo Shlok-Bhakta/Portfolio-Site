@@ -32,7 +32,7 @@
     onclick={toggle}
   >
     <div 
-      class="bg-crust/95 backdrop-blur-sm border border-overlay0 shadow-2xl w-full max-w-md mx-auto mt-20 overflow-hidden"
+      class="bg-crust/95 backdrop-blur-xs border border-overlay0 shadow-2xl w-full max-w-md mx-auto mt-20 overflow-hidden"
       onclick={(e) => e.stopPropagation()}
     >
       <!-- Header with close button -->

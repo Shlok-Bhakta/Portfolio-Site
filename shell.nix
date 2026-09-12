@@ -7,7 +7,7 @@ pkgs.mkShell
   # https://www.nixhub.io/
   name = "Personal Site";
   nativeBuildInputs = with pkgs; [
-    nodejs_20
+    bun
   ];
   shellHook = ''
     zsh

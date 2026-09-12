@@ -1,3 +1,5 @@
+@reference "../../styles/global.css";
+
 @font-face {
 	font-family: "CaskaydiaCoveNF";
 	src: url("/fonts/CaskCov.woff2");

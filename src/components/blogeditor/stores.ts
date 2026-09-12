@@ -126,7 +126,6 @@ function constructUpdateProjectPayload(data: currentData): any {
     if (data.thumbnail == null) throw new Error("Thumbnail is null");
     if (data.projectTag == null) throw new Error("ProjectTag is null");
     if (data.thumbnail instanceof File){
-        console.log("AAAAAAAAAA: "+ data.projectTag.id)
         return {
             Title: data.title,
             Tags: uploadTags,

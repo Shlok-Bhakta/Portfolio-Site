@@ -8,10 +8,14 @@ This is Shlok Bhakta's personal portfolio website built with Astro.js, Svelte, a
 
 ## Development Commands
 
-- `npm run dev` or `npm start` - Start development server
-- `npm run build` - Build for production (includes type checking with `astro check`)  
-- `npm run preview` - Preview production build locally
-- `npm run astro` - Run Astro CLI commands
+- `bun run dev` or `bun start` - Start development server
+- `bun run build` - Build for production (includes type checking with `astro check`)
+- `bun run bundle` - Bundle the SSR server into `dist/server/bundle.mjs` (what ships in Docker)
+- `bun run preview` - Preview production build locally
+- `bun run check` - Typecheck the project (Astro + Svelte + tests)
+- `bun test tests/unit tests/pocketbase` (or `bun run test`) - Unit + mocked PocketBase interaction tests
+- `bunx playwright test` (or `bun run test:e2e`) - Browser UI tests (run `bun run build && bun run bundle` first)
+- `bun run astro` - Run Astro CLI commands
 
 ## Architecture & Tech Stack
 
@@ -65,8 +69,8 @@ This is Shlok Bhakta's personal portfolio website built with Astro.js, Svelte, a
 ## Deployment
 
 The site is containerized and deployed via GitHub Actions:
-- Dockerfile builds static assets
-- Nginx serves the built site
+- Multi-stage `Dockerfile` builds with Bun, bundles the SSR server to a single file, and ships it on `oven/bun:distroless` (no nginx, no node_modules at runtime)
+- Serves on port 4321 via `serve.mjs`
 - Available at `ghcr.io/shlok-bhakta/portfolio-site:latest`
 
 ## File Structure Notes

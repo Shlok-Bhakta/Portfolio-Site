@@ -9,7 +9,7 @@ export interface Props {
 const { globalColor = "#00ffd5" } = Astro.props;
 ---
 
-<nav class="sticky top-0 z-50 bg-base/95 backdrop-blur-sm border-b border-overlay0">
+<nav class="sticky top-0 z-50 bg-base/95 backdrop-blur-xs border-b border-overlay0">
   <div class="flex items-center justify-between px-4 py-2">
     <!-- Logo -->
     <a 
@@ -24,14 +24,14 @@ const { globalColor = "#00ffd5" } = Astro.props;
     <div class="hidden md:flex items-center gap-4">
       <a
         href="/blog/"
-        class="px-3 py-1 text-sm font-mono text-text border border-overlay0 bg-surface0/50 hover:bg-surface1 transition-all duration-200 hover:border-opacity-80"
+        class="px-3 py-1 text-sm font-mono text-text border border-overlay0 bg-surface0/50 hover:bg-surface1 transition-all duration-200 hover:border-overlay0/80"
         style={`hover:border-color: ${globalColor}; hover:color: ${globalColor};`}
       >
         ./blog
       </a>
       <a
         href="/projects/"
-        class="px-3 py-1 text-sm font-mono text-text border border-overlay0 bg-surface0/50 hover:bg-surface1 transition-all duration-200 hover:border-opacity-80"
+        class="px-3 py-1 text-sm font-mono text-text border border-overlay0 bg-surface0/50 hover:bg-surface1 transition-all duration-200 hover:border-overlay0/80"
         style={`hover:border-color: ${globalColor}; hover:color: ${globalColor};`}
       >
         ./projects

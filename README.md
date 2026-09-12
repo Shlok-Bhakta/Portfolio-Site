@@ -12,7 +12,7 @@ You can host it with docker! All the files are statically generated so ell the c
 
 single command
 ```bash
-docker run -d -p 8080:8080 ghcr.io/shlok-bhakta/portfolio-site:latest
+docker run -d -p 8080:4321 ghcr.io/shlok-bhakta/portfolio-site:latest
 ```
 
 [docker-compose](https://docs.docker.com/compose/)
@@ -23,7 +23,7 @@ services:
     image: ghcr.io/shlok-bhakta/portfolio-site:latest
     restart: unless-stopped
     ports:
-      - 8080:8080 # change to whatever
+      - 8080:4321 # change to whatever
 ```
 
 Full service frontend and back
@@ -34,7 +34,7 @@ services:
     image: ghcr.io/shlok-bhakta/portfolio-site:latest
     restart: unless-stopped
     ports:
-      - 23454:8080
+      - 23454:4321
   pb:
     image: ghcr.io/muchobien/pocketbase:latest
     hostname: pocketbase
