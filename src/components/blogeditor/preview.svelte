@@ -11,7 +11,7 @@
     
     async function getProjects() {
       const data = await pb.collection("Projects").getOne($currentEdit.id); 
-      const image = pb.files.getUrl(data, data.Thumbnail);
+      const image = pb.files.getURL(data, data.Thumbnail);
   
       posts = await pb.collection("Posts").getFullList({
           filter: 'tagName ~ "' + data.ProjectTag + '"',
@@ -20,12 +20,12 @@
       });
   
       for (let i = 0; i < posts.length; i++) {
-          posts[i].imgurl = pb.files.getUrl(posts[i], posts[i].Thumbnail);
-          posts[i].imgurllq = pb.files.getUrl(posts[i], posts[i].Thumbnail, {
+          posts[i].imgurl = pb.files.getURL(posts[i], posts[i].Thumbnail);
+          posts[i].imgurllq = pb.files.getURL(posts[i], posts[i].Thumbnail, {
               thumb: "16x9",
           });
           for (let j = 0; j < posts[i].expand?.tagName.length; j++) {
-              posts[i].expand.tagName[j].imgurl = pb.files.getUrl(
+              posts[i].expand.tagName[j].imgurl = pb.files.getURL(
                   posts[i].expand?.tagName[j],
                   posts[i].expand?.tagName[j].Icon,
               );

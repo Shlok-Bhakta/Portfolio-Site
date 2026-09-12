@@ -16,12 +16,12 @@ let data = await pb.collection("Projects").getFullList({
 let colors = ["#f38ba8", "#eba0ac", "#fab387", "#f9e2af", "#89dceb", "#cba6f7"];
 let globalColor = colors[Math.floor(Math.random() * colors.length)];
 for (let i = 0; i < data.length; i++) {
-  data[i].imgurl = pb.files.getUrl(data[i], data[i].Thumbnail);
-  // data[i].imgurllq = pb.files.getUrl(data[i], data[i].Thumbnail, {
+  data[i].imgurl = pb.files.getURL(data[i], data[i].Thumbnail);
+  // data[i].imgurllq = pb.files.getURL(data[i], data[i].Thumbnail, {
   //   thumb: "16x9",
   // });
   for (let j = 0; j < data[i].expand?.Tags.length; j++) {
-    data[i].expand!.Tags[j].imgurl = pb.files.getUrl(
+    data[i].expand!.Tags[j].imgurl = pb.files.getURL(
       data[i].expand?.Tags[j],
       data[i].expand?.Tags[j].Icon,
     );

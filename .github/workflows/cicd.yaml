@@ -4,44 +4,96 @@ on:
   push:
     branches:
       - main
+  pull_request:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  docker:
+  unit:
+    name: typecheck + unit + PocketBase tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo 
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: '20'
-          cache: 'npm'
-          
+          bun-version: latest
+
       - name: Install dependencies
-        run: npm ci
-        
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck (astro check)
+        run: bun run check
+
+      - name: Unit + PocketBase interaction tests
+        run: bun test tests/unit tests/pocketbase
+
+  e2e:
+    name: browser UI tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Install Playwright chromium
+        run: bunx playwright install --with-deps chromium
+
       - name: Build
-        run: npm run astro build
-        
+        run: bun run build
+
+      - name: Bundle server
+        run: bun run bundle
+
+      - name: Playwright UI tests
+        run: bunx playwright test
+        env:
+          CI: "true"
+
+  docker:
+    name: build + publish container
+    needs: [unit, e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Get next version
         uses: reecetech/version-increment@2024.4.3
         id: version
         with:
-          scheme: calver 
+          scheme: calver
           increment: patch
-          
-      - name: Login to github
+
+      - name: Login to GitHub Container Registry
+        if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.PAT_TOKEN }}
-          
+
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: true
+          file: ./Dockerfile
+          push: ${{ github.ref == 'refs/heads/main' }}
           tags: |
             ghcr.io/shlok-bhakta/portfolio-site:latest
             ghcr.io/shlok-bhakta/portfolio-site:${{ steps.version.outputs.version }}

@@ -23,7 +23,7 @@
             projectTag: null,
             markdown: data.Markdown,
             html: data.Html,
-            thumbnail: pb.files.getUrl(data, data.Thumbnail),
+            thumbnail: pb.files.getURL(data, data.Thumbnail),
             color: data.Color,
         }
         $currentEdit = current;
@@ -67,7 +67,7 @@
                             <div class="text-blue">
                                 {post.created}
                             </div>
-                            <img src={pb.files.getUrl(post, post.Thumbnail)} alt={post.Title + "'s Thumbnail"} class="w-11/12 mx-auto aspect-auto rounded-md" />
+                            <img src={pb.files.getURL(post, post.Thumbnail)} alt={post.Title + "'s Thumbnail"} class="w-11/12 mx-auto aspect-auto rounded-md" />
                             <div class="flex flex-wrap flex-row gap-1">
                                 {#each post.expand.tagName as tag}
                                     <div class="text-blue bg-surface0 rounded-md px-2 py-1 w-fit">

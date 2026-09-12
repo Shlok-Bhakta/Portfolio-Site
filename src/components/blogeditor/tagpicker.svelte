@@ -96,7 +96,7 @@
                 <li class="">
                     <button onclick={() => {deleteTag(tag)}}>
                         <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {tag.color}">
-                            <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl(tag, tag.Icon)} alt={tag.tagName} />
+                            <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getURL(tag, tag.Icon)} alt={tag.tagName} />
                             <div class="pr-2 text-sm text-text nerdfont">{tag.tagName}</div>
                         </div>
                     </button>
@@ -119,7 +119,7 @@
             {#if $currentEdit.projectTag != null}
                 <div>
                     <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {$currentEdit.projectTag.color}">
-                        <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl($currentEdit.projectTag, $currentEdit.projectTag.Icon)} alt={$currentEdit.projectTag.tagName} /> 
+                        <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getURL($currentEdit.projectTag, $currentEdit.projectTag.Icon)} alt={$currentEdit.projectTag.tagName} /> 
                         <div class="pr-2 text-sm text-text nerdfont">{$currentEdit.projectTag.tagName}</div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                 <li>
                     <button onclick={() => {updateTags(tagItem)}}>
                         <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {tagItem.color}">
-                            <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getUrl(tagItem, tagItem.Icon)} alt={tagItem.tagName} />
+                            <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getURL(tagItem, tagItem.Icon)} alt={tagItem.tagName} />
                             <div class="pr-2 text-sm text-text nerdfont">{tagItem.tagName}</div>
                         </div>
                     </button>
