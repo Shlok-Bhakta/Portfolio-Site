@@ -1,108 +1,117 @@
-@reference "../../styles/global.css";
+/* Carta markdown editor, themed to match the site. */
 
-@font-face {
-	font-family: "CaskaydiaCoveNF";
-	src: url("/fonts/CaskCov.woff2");
-}
-/* Set your monospace font (Required to have the editor working correctly!) */
+/* Monospace font (required for the editor to line up correctly) */
 .carta-font-code {
 	font-family: "CaskaydiaCoveNF", monospace;
-	font-size: 1.1rem;
+	font-size: 1rem;
 }
 
 .carta-theme__default.carta-editor {
-	@apply border-2 border-text rounded-md bg-mantle;
+	overflow: hidden;
+	border: 1px solid var(--line-bright);
+	border-radius: 16px;
+	background: var(--ink-raised);
 }
 
 .carta-theme__default .carta-editor ::selection {
-	@apply bg-base;
-}
-
-.carta-theme__default .carta-toolbar {
-	@apply border-b-2 border-peach;
-}
-
-.carta-theme__default .carta-wrapper {
-	@apply px-4
-}
-
-.carta-theme__default .carta-container > * {
-	@apply my-4
-}
-
-/* Text settings */
-.carta-theme__default .carta-input {
-	@apply caret-text;
-}
-
-.carta-theme__default .carta-input ::placeholder {
-	@apply text-text;
-	/* color: var(--text-color); */
+	color: var(--ink);
+	background: var(--accent);
 }
 
 /* Toolbar */
 .carta-theme__default .carta-toolbar {
-	@apply px-3
+	height: auto;
+	padding: 0.4rem 1rem;
+	border-bottom: 1px solid var(--line);
+	background: var(--ink);
 }
 
 .carta-theme__default .carta-toolbar-left {
-	@apply flex items-end
+	display: flex;
+	align-items: flex-end;
+	gap: 1rem;
+}
+
+.carta-theme__default .carta-toolbar-left button {
+	padding: 0.4rem 0;
+	border: 0;
+	border-bottom: 2px solid transparent;
+	color: var(--muted);
+	background: none;
+	font-family: var(--font-mono);
+	font-size: 0.8rem;
+}
+
+.carta-theme__default .carta-toolbar-left button.carta-active {
+	color: var(--paper);
+	border-bottom-color: var(--accent);
 }
 
 .carta-theme__default button {
-	@apply text-red
+	color: var(--muted-bright);
+}
+
+.carta-theme__default .carta-wrapper {
+	padding-inline: 1rem;
+}
+
+.carta-theme__default .carta-container > * {
+	margin-block: 1rem;
 }
 
 /* Markdown input and renderer */
 .carta-theme__default .carta-input,
 .carta-theme__default .carta-renderer {
-	@apply h-[600px] overflow-y-scroll text-text
+	height: 600px;
+	overflow-y: scroll;
+	color: var(--paper);
+}
+
+.carta-theme__default .carta-input {
+	caret-color: var(--accent);
+}
+
+.carta-theme__default .carta-input ::placeholder {
+	color: var(--faint);
+}
+
+.carta-input > pre {
+	background: var(--ink-raised);
 }
 
 /* Icons */
 .carta-theme__default .carta-icon,
 .carta-theme__default .carta-icon-full {
-	@apply border-0 bg-transparent
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
 }
 
 .carta-theme__default .carta-icon-full {
-	@apply p-4
+	padding: 0.6rem 0.9rem;
 }
 
 .carta-theme__default .carta-icon-full span {
-	@apply ml-2
+	margin-left: 0.5rem;
 }
 
 .carta-theme__default .carta-icon:hover,
 .carta-theme__default .carta-icon-full:hover {
-	@apply bg-base 
-}
-
-.carta-input > pre {
-	@apply bg-surface0
+	background: var(--color-surface0);
 }
 
 .carta-theme__default .carta-icons-menu {
-	@apply p-2 border-2 border-lavender rounded-md min-w-[180px]
+	min-width: 180px;
+	padding: 0.4rem;
+	border: 1px solid var(--line-bright);
+	border-radius: 12px;
+	background: var(--ink-raised);
 }
 
 .carta-theme__default .carta-icons-menu .carta-icon-full {
-	@apply mt-1
+	margin-top: 0.25rem;
 }
 
 .carta-theme__default .carta-icons-menu .carta-icon-full:first-child {
-	@apply mt-0
-}
-
-/* Buttons */
-.carta-theme__default .carta-toolbar-left button {
-	@apply bg-none border-0 pb-1 border-b-2 border-red mr-3
-}
-
-.carta-theme__default .carta-toolbar-left button:last-child {
-	@apply mr-0
-}
-
-.carta-theme__default .carta-toolbar-left button.carta-active {
-	@apply border-b-2 border-green
+	margin-top: 0;
 }

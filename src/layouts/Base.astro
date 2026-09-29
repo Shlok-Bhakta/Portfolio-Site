@@ -1,0 +1,84 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "@fontsource-variable/inter";
+import "@fontsource/instrument-serif/400.css";
+import "@fontsource/instrument-serif/400-italic.css";
+import Navbar from "../components/navbar.astro";
+import Footer from "../components/footer.astro";
+import { ACCENTS, ACCENT_COOKIE, pickAccent } from "../lib/accent";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  currentPath?: string;
+  footer?: boolean;
+  noindex?: boolean;
+}
+
+const { title, description, currentPath, footer = true, noindex = false } = Astro.props;
+const accent = pickAccent(Astro.cookies.get(ACCENT_COOKIE)?.value);
+---
+
+<!doctype html>
+<html lang="en" data-accent={accent} style={`--accent: ${ACCENTS[accent]}`}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shlok Bhakta" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0b0a10" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <noscript><style>.reveal { opacity: 1; transform: none; }</style></noscript>
+    <slot name="head" />
+    <ClientRouter />
+  </head>
+  <body>
+    <Navbar currentPath={currentPath} />
+    <slot />
+    {footer && <Footer />}
+
+    <script>
+      import { ACCENTS, ACCENT_COOKIE, isAccentName, nextAccent, type AccentName } from "../lib/accent";
+
+      const root = document.documentElement;
+
+      function saveAccent(name: AccentName) {
+        document.cookie = `${ACCENT_COOKIE}=${name}; path=/; SameSite=Lax`;
+      }
+
+      function setAccent(name: AccentName) {
+        root.dataset.accent = name;
+        root.style.setProperty("--accent", ACCENTS[name]);
+        saveAccent(name);
+        window.dispatchEvent(new CustomEvent("accentchange", { detail: ACCENTS[name] }));
+      }
+
+      document.addEventListener("astro:page-load", () => {
+        const current = root.dataset.accent;
+        if (isAccentName(current)) saveAccent(current);
+
+        document.querySelectorAll("[data-accent-swatch]").forEach((swatch) => {
+          swatch.addEventListener("click", () => setAccent(nextAccent(root.dataset.accent ?? "")));
+        });
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add("in");
+              observer.unobserve(entry.target);
+            }
+          },
+          { threshold: 0.12 },
+        );
+        document.querySelectorAll<HTMLElement>(".reveal:not(.in)").forEach((element, index) => {
+          element.style.transitionDelay = `${(index % 3) * 80}ms`;
+          observer.observe(element);
+        });
+      });
+    </script>
+  </body>
+</html>

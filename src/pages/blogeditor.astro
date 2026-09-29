@@ -1,27 +1,17 @@
 ---
-import Navbar from "../components/navbar.astro";
+import Base from "../layouts/Base.astro";
 import BlogEditor from "../components/blogeditor/home.svelte";
-import "../styles/global.css";
 ---
 
-<html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charset="UTF-8" />
-        <meta name="author" content="Shlok Bhakta" />
-        <meta
-            name="keywords"
-            content="HTML, CSS, JavaScript, Hire, Blog, Personal Site"
-        />
-        
-        <meta name="description" content="You are't supposed to be here!" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <title>Catppuccin - Shouldnt be here!</title>
-    </head>
-    <body class="mocha bg-crust tilebg">
-        <div class="relative z-10">
-            <Navbar />
-        </div>
-        <BlogEditor client:only />
-    </body>
-</html>
+<Base title="Editor | Shlok Bhakta" description="You aren't supposed to be here!" footer={false} noindex>
+  <main class="cms page-frame">
+    <BlogEditor client:only="svelte" />
+  </main>
+</Base>
+
+<style>
+  .cms {
+    min-height: 100vh;
+    padding-block: 7.5rem 4rem;
+  }
+</style>

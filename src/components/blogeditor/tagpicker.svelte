@@ -88,98 +88,197 @@
     $inspect($currentEdit.tags) 
 </script>
 
-<div class="text-text nerdfont">
-    Tags:
-    <ol class="flex flex-wrap space-x-1">
+<div class="tags">
+    <span class="tags-label">tags</span>
+    <ol class="chip-row">
         {#if $currentEdit.tags != null}
             {#each $currentEdit.tags as tag}
-                <li class="">
-                    <button onclick={() => {deleteTag(tag)}}>
-                        <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {tag.color}">
-                            <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getURL(tag, tag.Icon)} alt={tag.tagName} />
-                            <div class="pr-2 text-sm text-text nerdfont">{tag.tagName}</div>
-                        </div>
+                <li>
+                    <button class="chip" title="remove tag" onclick={() => {deleteTag(tag)}} style="--chip: {tag.color}">
+                        <img src={pb.files.getURL(tag, tag.Icon)} alt="" />
+                        {tag.tagName} <span class="x" aria-hidden="true">×</span>
                     </button>
                 </li>
             {/each}
         {/if}
         <li>
-            <button
-                class="p-2 bg-mantle rounded-md"
-                onclick={() => {
-                    changeShow();
-                    editTags();
-                }}>
-        +</button>
+            <button class="chip add" onclick={() => { changeShow(); editTags(); }}>+ tag</button>
         </li>
     </ol>
     {#if $currentEdit.isPost == false}
-        <div>
-            ProjectTag:
-            {#if $currentEdit.projectTag != null}
-                <div>
-                    <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {$currentEdit.projectTag.color}">
-                        <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getURL($currentEdit.projectTag, $currentEdit.projectTag.Icon)} alt={$currentEdit.projectTag.tagName} /> 
-                        <div class="pr-2 text-sm text-text nerdfont">{$currentEdit.projectTag.tagName}</div>
-                    </div>
-                </div>
+        <span class="tags-label">project tag</span>
+        <div class="chip-row">
+            {#if $currentEdit.projectTag != null && $currentEdit.projectTag.tagName}
+                <span class="chip" style="--chip: {$currentEdit.projectTag.color}">
+                    <img src={pb.files.getURL($currentEdit.projectTag, $currentEdit.projectTag.Icon)} alt="" />
+                    {$currentEdit.projectTag.tagName}
+                </span>
             {/if}
-            <button
-                class="p-4 bg-mantle rounded-md m-3"
-                onclick={() => {
-                    changeShow();
-                    editProjTag();
-                }}>+</button
-            >
+            <button class="chip add" onclick={() => { changeShow(); editProjTag(); }}>{$currentEdit.projectTag?.tagName ? "change" : "+ project tag"}</button>
         </div>
     {/if}
-
 </div>
-<dialog open={showdialog}>
-    <ul class="flex flex-wrap list-none bg-base rounded-md">
+
+<dialog open={showdialog} class="tag-dialog">
+    <div class="dialog-head">
+        <span class="tags-label">{isProjTag ? "pick a project tag" : "pick tags"}</span>
+        <button class="chip add" onclick={changeShow}>done</button>
+    </div>
+    <ul class="chip-row">
         {#if $allTags != null}
             {#each $allTags as tagItem}
                 <li>
-                    <button onclick={() => {updateTags(tagItem)}}>
-                        <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {tagItem.color}">
-                            <img class="pl-2 aspect-square h-8 w-8" src={pb.files.getURL(tagItem, tagItem.Icon)} alt={tagItem.tagName} />
-                            <div class="pr-2 text-sm text-text nerdfont">{tagItem.tagName}</div>
-                        </div>
+                    <button class="chip" onclick={() => {updateTags(tagItem)}} style="--chip: {tagItem.color}">
+                        <img src={pb.files.getURL(tagItem, tagItem.Icon)} alt="" />
+                        {tagItem.tagName}
                     </button>
                 </li>
             {/each}
             <li>
-                <button class="p-4 py-1 bg-mantle rounded-md" onclick={toggleTagMaker}>+</button>
+                <button class="chip add" onclick={toggleTagMaker}>{newTag.newFlag ? "cancel" : "+ new tag"}</button>
             </li>
         {/if}
     </ul>
     {#if newTag.newFlag == true}
-        <div class="bg-overlay0 nerdfont">
-            <div>
-                tagName:
+        <div class="new-tag">
+            <label>
+                <span class="tags-label">name</span>
                 <input type="text" bind:value={newTag.name} />
-            </div>
-            <div>
-                tagIcon:
+            </label>
+            <label>
+                <span class="tags-label">icon</span>
                 <input type="file" bind:this={newTag.icon} onchange={handleNewTagIcon} />
-                {#if showIcoImg}
-                    <img class="aspect-square w-8" src={newTag.iconData} alt={newTag.name} />
-                {/if}
-            </div>
-            <div>
-                tagColor:
-                <input type="text" bind:value={newTag.color} />
-                <button class="bg-base border-2 p-1 rounded-md" style="border-color: {newTag.color}; color: {newTag.color}" onclick={() => {newTag.color = getRandomPastelColor()}}>Pick Color</button>            </div>
-            <div>
-                submit:
-                <button onclick={newTagUpload} class="bg-subtext1 border-2 border-green">Submit</button>
-            </div>
+            </label>
+            <label>
+                <span class="tags-label">color</span>
+                <span class="color-row">
+                    <input type="text" bind:value={newTag.color} />
+                    <button class="chip" style="--chip: {newTag.color}; color: {newTag.color}" onclick={() => {newTag.color = getRandomPastelColor()}}>random</button>
+                </span>
+            </label>
             {#if showIcoImg}
-                <div class="flex flex-row items-center space-x-2 rounded-full bg-surface0 border-[1px] w-fit" style="border-color: {newTag.color}">
-                    <img class="pl-2 aspect-square h-8 w-8" src={newTag.iconData} alt={newTag.name} />
-                    <div class="pr-2 text-sm text-text nerdfont">{newTag.name}</div>
-                </div>
+                <span class="chip" style="--chip: {newTag.color}">
+                    <img src={newTag.iconData} alt="" />
+                    {newTag.name}
+                </span>
             {/if}
+            <button onclick={newTagUpload} class="pill solid">create tag</button>
         </div>
     {/if}
 </dialog>
+
+<style>
+    .tags {
+        display: grid;
+        gap: 0.6rem;
+    }
+
+    .tags-label {
+        color: var(--muted);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+    }
+
+    .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.3rem 0.75rem 0.3rem 0.4rem;
+        border: 1px solid color-mix(in srgb, var(--chip, var(--line-bright)) 50%, transparent);
+        border-radius: 999px;
+        color: var(--paper);
+        background: color-mix(in srgb, var(--chip, transparent) 10%, transparent);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+    }
+
+    .chip img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .chip .x {
+        color: var(--muted);
+    }
+
+    .chip.add {
+        padding-left: 0.75rem;
+        color: var(--muted-bright);
+        border-style: dashed;
+        border-color: var(--line-bright);
+    }
+
+    .chip.add:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+    }
+
+    .tag-dialog {
+        position: fixed;
+        inset: 50% auto auto 50%;
+        z-index: 200;
+        width: min(92vw, 640px);
+        max-height: 80vh;
+        overflow: auto;
+        margin: 0;
+        padding: 1.4rem;
+        border: 1px solid var(--line-bright);
+        border-radius: 18px;
+        color: var(--paper);
+        background: var(--ink-raised);
+        box-shadow: 0 30px 80px -20px #000;
+        transform: translate(-50%, -50%);
+    }
+
+    .dialog-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .new-tag {
+        display: grid;
+        gap: 0.9rem;
+        margin-top: 1.4rem;
+        padding-top: 1.2rem;
+        border-top: 1px solid var(--line);
+    }
+
+    .new-tag label {
+        display: grid;
+        gap: 0.4rem;
+    }
+
+    .new-tag input {
+        padding: 0.6rem 0.8rem;
+        border: 1px solid var(--line-bright);
+        border-radius: 10px;
+        color: var(--paper);
+        background: var(--ink);
+        font: inherit;
+    }
+
+    .color-row {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .color-row input {
+        flex: 1;
+    }
+
+    .new-tag .pill {
+        justify-self: start;
+        cursor: pointer;
+    }
+</style>

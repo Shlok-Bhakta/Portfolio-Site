@@ -1,47 +1,145 @@
 ---
-import "../styles/global.css";
-import PostTag from "./postTag.astro";
-import LazyImage from "./lazyImage.astro";
-const { title, tags, date, image, imagelq, link, col } = Astro.props;
+interface Tag {
+  tagName?: string;
+  name?: string;
+}
+
+interface Props {
+  title: string;
+  tags?: Tag[];
+  date: string;
+  image: string;
+  link: string;
+  index?: number;
+}
+
+const { title, tags = [], date, image, link, index } = Astro.props;
+const formattedDate = new Date(date)
+  .toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+  .toLowerCase();
+const tagNames = tags.map((tag) => tag.tagName ?? tag.name).filter(Boolean).join(" · ").toLowerCase();
 ---
 
-<a href={link} class="block group" data-astro-prefetch>
-  <div
-    class="w-full h-full min-h-80 border-2 p-4 bg-mantle hover:bg-surface0 transition-colors duration-200"
-    style=`border-color: ${col};`
-  >
-    <div class="mb-4">
-      <img
-        src={image}
-        alt={title}
-        class="aspect-video w-full object-cover"
-        transition:name={title}
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-
-    <div class="space-y-3">
-      <h3 class="text-lg font-semibold text-text nerdfont line-clamp-2">
-        {title}
-      </h3>
-      
-      <div class="text-sm text-blue nerdfont">
-        {new Date(date).toLocaleDateString('en-US', { 
-          year: 'numeric', 
-          month: 'short', 
-          day: 'numeric' 
-        })}
-      </div>
-      
-      <!-- Tags -->
-      <div class="flex flex-wrap gap-2 mt-3">
-        {
-          tags.map((item: { imgurl: any; tagName: any; color: any }) => (
-            <PostTag image={item.imgurl} tag={item.tagName} col={item.color} />
-          ))
-        }
-      </div>
-    </div>
+<a href={link} class="entry" data-astro-prefetch>
+  <div class="entry-image-wrap">
+    <img src={image} alt="" class="entry-image" transition:name={title} loading="lazy" decoding="async" />
   </div>
+  <div class="entry-copy">
+    <h2>{title}</h2>
+    <p class="entry-meta">
+      {index !== undefined && <span class="entry-index">{String(index + 1).padStart(3, "0")}</span>}
+      <time datetime={date}>{formattedDate}</time>
+      {tagNames && <span class="entry-tags">{tagNames}</span>}
+    </p>
+  </div>
+  <span class="entry-arrow" aria-hidden="true">→</span>
 </a>
+
+<style>
+  .entry {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(160px, 240px) 1fr auto;
+    gap: clamp(1.25rem, 3.5vw, 3rem);
+    align-items: center;
+    padding: 1.25rem 1rem;
+    overflow: hidden;
+    color: inherit;
+    isolation: isolate;
+    transition: color 350ms var(--ease);
+  }
+
+  .entry::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 450ms var(--ease);
+  }
+
+  .entry:hover {
+    color: var(--ink);
+  }
+
+  .entry:hover::before {
+    transform: scaleY(1);
+  }
+
+  .entry-image-wrap {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--ink-raised);
+  }
+
+  .entry-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: grayscale(0.6) contrast(1.05);
+    transition: filter 300ms ease, transform 500ms var(--ease);
+  }
+
+  .entry:hover .entry-image {
+    filter: none;
+    transform: scale(1.04);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+  }
+
+  .entry-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1rem;
+    margin: 0.8rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    opacity: 0.55;
+  }
+
+  .entry-arrow {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    transition: transform 300ms var(--ease), border-color 300ms;
+  }
+
+  .entry:hover .entry-arrow {
+    border-color: currentColor;
+    transform: rotate(-45deg);
+  }
+
+  @media (max-width: 680px) {
+    .entry {
+      grid-template-columns: 104px 1fr;
+      gap: 1rem;
+      padding-inline: 0.5rem;
+    }
+
+    .entry-arrow,
+    .entry-tags {
+      display: none;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    .entry-meta {
+      margin-top: 0.45rem;
+    }
+  }
+</style>

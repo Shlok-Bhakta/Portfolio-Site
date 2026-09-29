@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
 /*
-  Tailwind v4 theme — Catppuccin Mocha palette using the same unprefixed
-  utility names the site used with @catppuccin/tailwindcss v0.x
-  (bg-crust, bg-mantle, bg-base, text-text, text-subtext0/1, surface0/1/2,
-  overlay0/1/2, red, peach, yellow, green, teal, sky, blue, mauve, pink, ...).
-  Values are the official Catppuccin Mocha hex codes, so the UI is unchanged.
+  Tailwind v4 theme. The utility names are the Catppuccin ones the site has
+  always used (bg-crust, bg-mantle, text-text, surface0, ..., red, peach,
+  mauve), so older Tailwind markup keeps working. The neutrals are retuned
+  to the binary-fluid palette below; the accent hues are still Catppuccin Mocha.
 */
 @theme {
   --color-rosewater: #f5e0dc;
@@ -22,42 +21,20 @@
   --color-sapphire: #74c7ec;
   --color-blue: #89b4fa;
   --color-lavender: #b4befe;
-  --color-text: #cdd6f4;
-  --color-subtext1: #bac2de;
-  --color-subtext0: #a6adc8;
-  --color-overlay2: #9399b2;
-  --color-overlay1: #7f849c;
-  --color-overlay0: #6c7086;
-  --color-surface2: #585b70;
-  --color-surface1: #45475a;
-  --color-surface0: #313244;
-  --color-base: #1e1e2e;
-  --color-mantle: #181825;
-  --color-crust: #11111b;
+  --color-text: #eceaf3;
+  --color-subtext1: #b9b5c6;
+  --color-subtext0: #8b8799;
+  --color-overlay2: #77728a;
+  --color-overlay1: #625d74;
+  --color-overlay0: #4a4658;
+  --color-surface2: #3a3548;
+  --color-surface1: #2a2635;
+  --color-surface0: #1d1a26;
+  --color-base: #15131c;
+  --color-mantle: #100e16;
+  --color-crust: #0b0a10;
 
   --font-display: "CaskaydiaCoveNF", "Arial", "Monaco", "Andale Mono", monospace;
-
-  --animate-border-beam: border-beam calc(var(--duration) * 1s) infinite linear;
-  --animate-meteor: meteor 5s linear infinite;
-
-  @keyframes border-beam {
-    100% {
-      offset-distance: 100%;
-    }
-  }
-  @keyframes meteor {
-    0% {
-      transform: rotate(215deg) translateX(0);
-      opacity: 1;
-    }
-    70% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(215deg) translateX(-1800px);
-      opacity: 0;
-    }
-  }
 }
 
 /* v3 compatibility: preserve v3 default border color (was gray-200). */
@@ -75,26 +52,283 @@
   }
 }
 
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
-
 @font-face {
   font-family: "CaskaydiaCoveNF";
   src: url("/fonts/CaskCov.woff2");
   font-display: swap;
 }
 
-/* Fallback font that closely matches CaskaydiaCoveNF.
-   Registered as a utility so it can also be used inside `@apply`
-   (e.g. blog.css) under Tailwind v4. */
+/* Registered as a utility so it can also be used inside `@apply`. */
 @utility nerdfont {
   font-family: "CaskaydiaCoveNF", "Arial", "Monaco", "Andale Mono", monospace;
 }
 
-/* Make a tiling background for the page */
-.tilebg {
-  background-image: url("/TileBG.webp");
+/* ---------- design tokens ---------- */
+:root {
+  --ink: #0b0a10;
+  --ink-raised: #111018;
+  --paper: #eceaf3;
+  --muted-bright: #b9b5c6;
+  --muted: #8b8799;
+  --faint: #4a4658;
+  --line: rgb(236 234 243 / 0.09);
+  --line-bright: rgb(236 234 243 / 0.14);
+  /* overridden per visit by the Base layout (see src/lib/accent.ts) */
+  --accent: #cba6f7;
+  --font-sans: "Inter Variable", Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-mono: "CaskaydiaCoveNF", "SFMono-Regular", Consolas, monospace;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  color-scheme: dark;
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--ink);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--paper);
+  background: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+::selection {
+  color: var(--ink);
+  background: var(--accent);
+}
+
+:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.page-frame {
+  width: min(100% - 3rem, 1200px);
+  margin-inline: auto;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* serif italic accent type */
+.it {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- nav ---------- */
+.site-nav-wrap {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-bottom: 1rem;
+  background: linear-gradient(to bottom, var(--ink) 20%, rgb(11 10 16 / 0.75) 60%, transparent);
+  pointer-events: none;
+}
+
+.site-nav {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  pointer-events: auto;
+}
+
+.site-mark {
+  font-weight: 700;
+}
+
+.site-mark span {
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.2rem);
+}
+
+.nav-links a {
+  color: var(--muted-bright);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--paper);
+}
+
+.nav-links a.active::before {
+  content: "~/";
+  color: var(--accent);
+}
+
+/* ---------- shared bits ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.62rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgb(11 10 16 / 0.55);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  transition: background 200ms, color 200ms, border-color 200ms, transform 200ms var(--ease);
+}
+
+.pill:hover {
+  color: var(--ink);
+  background: var(--paper);
+  border-color: var(--paper);
+  transform: translateY(-2px);
+}
+
+.pill.solid {
+  color: var(--ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.pill.solid:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+}
+
+.pill .k {
+  opacity: 0.5;
+}
+
+/* big serif italic page / section title with a mono count */
+.display-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(3.6rem, 11vw, 9.5rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 0.8;
+}
+
+.display-title sup {
+  position: relative;
+  top: 0.6rem;
+  margin-left: 0.6rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-style: normal;
+  letter-spacing: 0;
+  vertical-align: top;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 900ms ease, transform 900ms var(--ease);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- footer ---------- */
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.6rem 2.2rem;
+  border-top: 1px solid var(--line);
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.site-footer .secret {
+  color: var(--ink);
+}
+
+.site-footer .secret:hover {
+  color: var(--faint);
+}
+
+.accent-swatch {
+  width: 9px;
+  height: 9px;
+  margin-left: 0.4rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .page-frame {
+    width: min(100% - 2rem, 1200px);
+  }
+
+  .nav-links a.optional {
+    display: none;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }

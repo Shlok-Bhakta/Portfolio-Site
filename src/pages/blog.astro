@@ -1,99 +1,43 @@
 ---
-import "../styles/global.css";
-import Navbar from "../components/navbar.astro";
-import { ClientRouter } from 'astro:transitions';
-import PostTag from "../components/postTag.astro";
-import PostCards from "../components/postCard.astro";
-import GlassmorphicContainer from "../components/glassmorphism/GlassmorphicContainer.svelte";
 import PocketBase from "pocketbase";
+import Base from "../layouts/Base.astro";
+import PostCard from "../components/postCard.astro";
+import "../styles/collection.css";
+
 const pb = new PocketBase("https://db.shlokbhakta.dev");
-let data = await pb.collection("Tags").getFullList({
+const posts = await pb.collection("Posts").getList(1, 30, {
+  expand: "tagName",
   sort: "-created",
 });
 
-// Random color selection from Catppuccin palette
-let colors = ["#f38ba8", "#eba0ac", "#fab387", "#f9e2af", "#89dceb", "#cba6f7"];
-let globalColor = colors[Math.floor(Math.random() * colors.length)];
-
-//pocketbase:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME
-for (let i = 0; i < data.length; i++) {
-  data[i].imgurl = pb.files.getURL(data[i], data[i].Icon, { thumb: "32x32" });
-}
-
-let posts = await pb
-  .collection("Posts")
-  .getList(1, 30, { expand: "tagName", sort: "-created" });
-// let posts = await pb.collection('Posts').getFullList({expand: "tagName", sort: '-created' })
-for (let i = 0; i < posts.items.length; i++) {
-  posts.items[i].imgurl = pb.files.getURL(
-    posts.items[i],
-    posts.items[i].Thumbnail,
-    { thumb: "16x9" },
-  );
-  posts.items[i].imgurlhq = pb.files.getURL(
-    posts.items[i],
-    posts.items[i].Thumbnail,
-  );
-  for (let j = 0; j < posts.items[i].expand?.tagName.length; j++) {
-    posts.items[i].expand!.tagName[j].imgurl = pb.files.getURL(
-      posts.items[i].expand?.tagName[j],
-      posts.items[i].expand?.tagName[j].Icon,
-      {
-        thumb: "32x32",
-      },
-    );
-  }
+for (const post of posts.items) {
+  post.imageUrl = pb.files.getURL(post, post.Thumbnail);
 }
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="UTF-8" />
-    <meta name="author" content="Shlok Bhakta" />
-    <meta
-      name="keywords"
-      content="HTML, CSS, JavaScript, Hire, Blog, Personal Site, "
-    />
-    <meta
-      name="description"
-      content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
-    />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="prefetch" href="/" />
-    <link rel="prefetch" href="/projects" />
-    <title>Blog</title>
-    <ClientRouter />
-  </head>
-  <body class="mocha bg-crust tilebg">
-    <div id="navbar" class="z-10 sticky">
-      <Navbar />
-    </div>
-    <!-- Spacer -->
-    <div class="h-[60px]"></div>
-    
-    <!-- Clamps content like homepage -->
-    <div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto">
-      <GlassmorphicContainer client:only color={globalColor} text="Blog" padding="2rem" title_offset="2rem">
-        <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {
-            posts.items.map((data) => (
-              <li>
-                <PostCards
-                  title={data.Title}
-                  tags={data.expand?.tagName}
-                  date={data.created.slice(0, 10)}
-                  image={data.imgurlhq}
-                  link={"/post/" + data.id}
-                  imagelq={data.imgurl}
-                  col={data.Color}
-                />
-              </li>
-            ))
-          }
-        </ol>
-      </GlassmorphicContainer>
-    </div>
-  </body>
-</html>
+<Base
+  title="Notes | Shlok Bhakta"
+  description="Field notes from Shlok Bhakta about software, infrastructure, experiments, and lessons learned."
+  currentPath="/blog/"
+>
+  <main class="collection-main page-frame">
+    <header class="collection-header">
+      <p class="collection-prompt mono"><b>~</b> $ ls -t ~/notes</p>
+      <h1 class="display-title">Notes<sup>{String(posts.totalItems).padStart(2, "0")}</sup></h1>
+    </header>
+    <ol class="collection-list">
+      {posts.items.map((post, index) => (
+        <li class="reveal">
+          <PostCard
+            title={post.Title}
+            tags={post.expand?.tagName}
+            date={post.created}
+            image={post.imageUrl}
+            link={`/post/${post.id}`}
+            index={index}
+          />
+        </li>
+      ))}
+    </ol>
+  </main>
+</Base>

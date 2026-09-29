@@ -245,65 +245,129 @@
     }
 </script>
 
-
 {#if carta != null}
+    <div class="editor-actions">
+        <button class="pill solid" onclick={push}>update / upload ↑</button>
+        <button class="pill" onclick={newhtml}>generate preview</button>
+        <span class="spacer"></span>
+        <button class="pill" onclick={newPost}>+ new post</button>
+        <button class="pill" onclick={newProject}>+ new project</button>
+    </div>
+
     <MarkdownEditor {carta} bind:value={$currentEdit.markdown} mode="tabs" />
-    <button class="text-3xl text-text text-center w-full" onclick={push}
-        >Update/Upload</button
-    >
 
-    <button class="text-3xl text-text text-center w-full" onclick={newhtml}
-        >Generate Preview!</button
-    >
-
-    <div
-        class="bg-crust border-2 border-blue rounded-md p-4 flex flex-col text-text gap-4"
-    >
-        <div class="options text-center w-full text-4xl nerdfont">Options</div>
-        <div class="flex flex-row gap-4">
+    <section class="options" aria-label="Options">
+        <h2 class="display-title">Options</h2>
+        <div class="option-grid">
             <!-- Pick a Title -->
-            <div class="border-2 border-surface0 p-2 rounded-md">
-                <button class="bg-base border-2 p-1 rounded-md" style="border-color: {$currentEdit.title}; color: {$currentEdit.title}" onclick={() => {$currentEdit.title = "Title Here!"}}>Pick Title</button>
-                <input
-                    class="bg-base"
-                    type="text"
-                    bind:value={$currentEdit.title}
-                />
+            <div class="option">
+                <span class="option-label">title</span>
+                <input type="text" bind:value={$currentEdit.title} />
+                <button class="option-btn" onclick={() => {$currentEdit.title = "Title Here!"}}>reset</button>
             </div>
-            <!-- thumbnail upload fucntion -->
-            <div class="border-2 border-surface0 p-2 rounded-md">
-                Image Upload
-                <input
-                    class="bg-base"
-                    type="file"
-                    bind:this={$imgInput}
-                    onchange={newImage}
-                />
+            <!-- thumbnail upload function -->
+            <div class="option">
+                <span class="option-label">thumbnail</span>
+                <input type="file" bind:this={$imgInput} onchange={newImage} />
             </div>
             <!-- Color Picker -->
-            <div class="border-2 border-surface0 p-2 rounded-md">
-                <button class="bg-base border-2 p-1 rounded-md" style="border-color: {$currentEdit.color}; color: {$currentEdit.color}" onclick={() => {$currentEdit.color = getRandomPastelColor()}}>Pick Color</button>
-                <input
-                    class="bg-base"
-                    type="text"
-                    bind:value={$currentEdit.color}
-                />
+            <div class="option">
+                <span class="option-label">color</span>
+                <input type="text" bind:value={$currentEdit.color} style="border-color: {$currentEdit.color}" />
+                <button class="option-btn" style="color: {$currentEdit.color}" onclick={() => {$currentEdit.color = getRandomPastelColor()}}>random</button>
             </div>
             <!-- Tag Picker -->
-             <div class="w-full z-50">
-                 <TagPicker />
-             </div>
+            <div class="option option-wide">
+                <TagPicker />
+            </div>
         </div>
-    </div>
-    
+    </section>
+
     <Preview />
+{:else}
+    <div class="editor-actions">
+        <button class="pill" onclick={newPost}>+ new post</button>
+        <button class="pill" onclick={newProject}>+ new project</button>
+    </div>
 {/if}
-<div class="grid grid-cols-2 gap-4">
-    <button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newPost}
-        >New Post</button
-    >
-    <button class="w-full rounded-md bg-overlay2 hover:bg-green" onclick={newProject}
-        >New Project</button
-    >
-</div>
-<!-- <div bind:this={container}></div> -->
+
+<style>
+    .editor-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .editor-actions .spacer {
+        flex: 1;
+    }
+
+    .editor-actions button {
+        cursor: pointer;
+    }
+
+    .options {
+        margin: 3rem 0 5rem;
+    }
+
+    .options h2 {
+        margin-bottom: 1.5rem;
+        font-size: clamp(2.6rem, 6vw, 4rem);
+    }
+
+    .option-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1rem;
+    }
+
+    .option {
+        display: grid;
+        gap: 0.6rem;
+        align-content: start;
+        padding: 1.1rem;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--ink-raised);
+    }
+
+    .option-wide {
+        grid-column: 1 / -1;
+    }
+
+    .option-label {
+        color: var(--muted);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+    }
+
+    .option input {
+        padding: 0.65rem 0.8rem;
+        border: 1px solid var(--line-bright);
+        border-radius: 10px;
+        color: var(--paper);
+        background: var(--ink);
+        font: inherit;
+        outline: none;
+    }
+
+    .option input:focus {
+        border-color: var(--accent);
+    }
+
+    .option-btn {
+        justify-self: start;
+        padding: 0.4rem 0.8rem;
+        border: 1px solid var(--line-bright);
+        border-radius: 999px;
+        color: var(--muted-bright);
+        background: transparent;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+    }
+
+    .option-btn:hover {
+        border-color: var(--accent);
+    }
+</style>

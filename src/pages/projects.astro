@@ -1,81 +1,43 @@
 ---
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import Navbar from "../components/navbar.astro";
 import PocketBase from "pocketbase";
+import Base from "../layouts/Base.astro";
 import PostCard from "../components/postCard.astro";
-import GlassmorphicContainer from "../components/glassmorphism/GlassmorphicContainer.svelte";
-import "../styles/global.css";
-import { ClientRouter } from 'astro:transitions';
+import "../styles/collection.css";
+
 const pb = new PocketBase("https://db.shlokbhakta.dev");
-let data = await pb.collection("Projects").getFullList({
+const projects = await pb.collection("Projects").getFullList({
   sort: "-created",
   expand: "Tags",
 });
 
-// Random color selection from Catppuccin palette
-let colors = ["#f38ba8", "#eba0ac", "#fab387", "#f9e2af", "#89dceb", "#cba6f7"];
-let globalColor = colors[Math.floor(Math.random() * colors.length)];
-for (let i = 0; i < data.length; i++) {
-  data[i].imgurl = pb.files.getURL(data[i], data[i].Thumbnail);
-  // data[i].imgurllq = pb.files.getURL(data[i], data[i].Thumbnail, {
-  //   thumb: "16x9",
-  // });
-  for (let j = 0; j < data[i].expand?.Tags.length; j++) {
-    data[i].expand!.Tags[j].imgurl = pb.files.getURL(
-      data[i].expand?.Tags[j],
-      data[i].expand?.Tags[j].Icon,
-    );
-  }
+for (const project of projects) {
+  project.imageUrl = pb.files.getURL(project, project.Thumbnail);
 }
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="UTF-8" />
-    <meta name="author" content="Shlok Bhakta" />
-    <meta
-      name="keywords"
-      content="HTML, CSS, JavaScript, Hire, Blog, Personal Site, "
-    />
-    <meta
-      name="description"
-      content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
-    />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="prefetch" href="/" />
-    <link rel="prefetch" href="/blog" />
-    <title>My Projects</title>
-    <ClientRouter />
-  </head>
-  <body class="mocha bg-crust tilebg">
-    <div id="navbar" class="z-10 sticky">
-      <Navbar />
-    </div>
-    <!-- Spacer -->
-    <div class="h-[60px]"></div>
-    
-    <!-- Clamps content like homepage -->
-    <div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto">
-      <GlassmorphicContainer client:only color={globalColor} text="Things I Made!" padding="2rem" title_offset="2rem">
-        <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {
-            data.map((item) => (
-              <li transition:name={item.id}>
-                <PostCard
-                  title={item.Title}
-                  tags={item.expand?.Tags}
-                  date={item.created}
-                  image={item.imgurl}
-                  link={"/project/" + item.id + "-" + item.Title}
-                  col={item.Color}
-                />
-              </li>
-            ))
-          }
-        </ol>
-      </GlassmorphicContainer>
-    </div>
-  </body>
-</html>
+<Base
+  title="Projects | Shlok Bhakta"
+  description="Projects built by Shlok Bhakta, spanning web products, hackathons, infrastructure, and self-hosting."
+  currentPath="/projects/"
+>
+  <main class="collection-main page-frame">
+    <header class="collection-header">
+      <p class="collection-prompt mono"><b>~</b> $ ls -t ~/projects</p>
+      <h1 class="display-title">Projects<sup>{String(projects.length).padStart(2, "0")}</sup></h1>
+    </header>
+    <ol class="collection-list">
+      {projects.map((project, index) => (
+        <li class="reveal" transition:name={project.id}>
+          <PostCard
+            title={project.Title}
+            tags={project.expand?.Tags}
+            date={project.created}
+            image={project.imageUrl}
+            link={`/project/${project.id}-${project.Title}`}
+            index={index}
+          />
+        </li>
+      ))}
+    </ol>
+  </main>
+</Base>
