@@ -1,43 +1,485 @@
-/* Homepage specific styles */
-
-/* Page content */
-.content {
-  padding: 25px;
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: crosshair;
 }
 
-/* The sticky class is added to the navbar with JS when it reaches its scroll position */
-.sticky {
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 12% 90%, var(--ink) 10%, transparent 70%),
+    linear-gradient(to top, var(--ink), transparent 25%);
+}
+
+.hero-inner {
+  position: absolute;
+  right: 0;
+  bottom: clamp(3rem, 9vh, 6rem);
+  left: 0;
+  pointer-events: none;
+}
+
+.hero-inner a {
+  pointer-events: auto;
+}
+
+.whoami {
+  margin: 0 0 1.4rem;
+  color: var(--faint);
+  font-size: 0.8rem;
+}
+
+.whoami b {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(3.6rem, 12.5vw, 11.5rem);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 0.84;
+}
+
+.hero h1 .dot {
+  color: var(--accent);
+}
+
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 2.4rem;
+}
+
+.stir {
+  position: absolute;
+  right: clamp(1.5rem, 4vw, 3rem);
+  bottom: clamp(3rem, 9vh, 6rem);
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  writing-mode: vertical-rl;
+}
+
+/* ---------- marquee ---------- */
+.marquee {
+  overflow: hidden;
+  padding: 1.3rem 0;
+  border-block: 1px solid var(--line);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 60s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-run {
+  display: flex;
+}
+
+.marquee-run span {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding-right: 1.6rem;
+  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.marquee-run span.dim {
+  color: var(--faint);
+}
+
+.marquee-run span.it {
+  font-size: clamp(1.9rem, 3.9vw, 3rem);
+  font-weight: 400;
+}
+
+.marquee-run i {
+  color: var(--accent);
+  font-size: 0.6em;
+  font-style: normal;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- sections ---------- */
+.block {
+  padding-top: clamp(6rem, 13vw, 11rem);
+  scroll-margin-top: 1rem;
+}
+
+.section-title {
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+/* experience: big rows with an accent wipe */
+.jobs {
+  border-top: 1px solid var(--line);
+}
+
+.job {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  padding: clamp(1.4rem, 3vw, 2.2rem) 1rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  isolation: isolate;
+  transition: color 350ms var(--ease);
+}
+
+.job::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 450ms var(--ease);
+}
+
+.job:hover {
+  color: var(--ink);
+}
+
+.job:hover::before {
+  transform: scaleY(1);
+}
+
+.job .company {
+  font-size: clamp(2rem, 5.6vw, 4.4rem);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.job .role {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+  font-style: italic;
+}
+
+.job .when {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+/* hackathons: textured trophy tiles */
+.hacks {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 1.25rem;
+}
+
+.hack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: clamp(320px, 38vw, 460px);
+  padding: 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #100e16;
+  isolation: isolate;
+  transition: transform 400ms var(--ease), border-color 300ms;
+}
+
+.hack::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  z-index: -1;
+  background-image: var(--texture);
+  background-size: 220px 220px;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse at 70% 30%, #000 0%, transparent 75%);
+  transition: opacity 400ms, transform 1.2s var(--ease);
+}
+
+.hack:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+  transform: translateY(-6px);
+}
+
+.hack:hover::before {
+  opacity: 0.9;
+  transform: translate(-20px, 20px);
+}
+
+.hack.win {
+  background:
+    radial-gradient(ellipse at 80% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+    #100e16;
+}
+
+.hack-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.hack-top b {
+  color: var(--paper);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.hack h3 {
+  max-width: 7ch;
+  margin: 0;
+  font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+
+.hack-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+
+.award {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.hack .arrow {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition: all 300ms var(--ease);
+}
+
+.hack:hover .arrow {
+  color: var(--ink);
+  background: var(--paper);
+  transform: rotate(-45deg);
+}
+
+/* projects: giant index that fills in on hover */
+.projects {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.project {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(0.9rem, 2vw, 1.4rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.project .numeral {
+  flex: none;
+  width: 3rem;
+  color: var(--faint);
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-style: italic;
+  transition: color 300ms;
+}
+
+.project-title {
+  font-size: clamp(2.4rem, 7.6vw, 6.4rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+  color: transparent;
+  background: linear-gradient(90deg, var(--paper) 50%, #2c2937 50%) right / 200% 100% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: background-position 700ms var(--ease);
+}
+
+.project:hover .project-title {
+  background-position: left;
+}
+
+.project:hover .numeral {
+  color: var(--accent);
+}
+
+.project .year {
+  margin-left: auto;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.archive-link {
+  display: inline-block;
+  margin-top: 1.6rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.archive-link:hover {
+  color: var(--accent);
+}
+
+.cursor-chip {
   position: fixed;
   top: 0;
-  width: 100%;
-}
-
-/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
-.sticky + .content {
-  padding-top: 60px;
-}
-
-.animate-on-scroll {
+  left: 0;
+  z-index: 30;
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
+  color: var(--ink);
+  background: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
   opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out,
-    background 0.3s ease,
-    transform 0.3s ease;
+  transform: translate(-50%, -50%) scale(0.6);
+  transition: opacity 200ms, transform 250ms var(--ease);
 }
 
-.animate-on-scroll.visible {
+.cursor-chip.on {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(14px, 14px) scale(1);
 }
 
-.animate-blink {
-  animation: blink 1s step-end infinite;
+/* ---------- closing ---------- */
+.closing {
+  padding-block: clamp(7rem, 16vw, 13rem) clamp(4rem, 8vw, 6rem);
+  text-align: center;
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0;
+.closing h2 {
+  margin: 0;
+  font-size: clamp(4rem, 15vw, 13rem);
+  font-weight: 600;
+  letter-spacing: -0.07em;
+  line-height: 0.85;
+}
+
+.closing h2 a {
+  transition: color 300ms;
+}
+
+.closing h2 a:hover {
+  color: var(--accent);
+}
+
+.closing h2 .it {
+  padding-right: 0.05em;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.closing .hero-links {
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+@media (max-width: 760px) {
+  .stir {
+    display: none;
+  }
+
+  .job {
+    grid-template-columns: 1fr auto;
+    gap: 0.3rem 1rem;
+    padding-inline: 0.5rem;
+  }
+
+  .job .role {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  .job .when {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+  }
+
+  .hacks {
+    grid-template-columns: 1fr;
+  }
+
+  .hack {
+    min-height: 250px;
+    padding: 1.2rem;
+  }
+
+  .award {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.66rem;
+  }
+
+  .project .year {
+    display: none;
+  }
+
+  .project .numeral {
+    width: 1.8rem;
+  }
+}
+
+@media (hover: none) {
+  .cursor-chip {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
   }
 }

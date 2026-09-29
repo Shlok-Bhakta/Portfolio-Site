@@ -1,97 +1,36 @@
 ---
 import PocketBase from "pocketbase";
-import { ClientRouter } from 'astro:transitions';
-
-import Navbar from "../../components/navbar.astro";
-import GlassmorphicContainer from "../../components/glassmorphism/GlassmorphicContainer.svelte";
-import "../../styles/global.css";
+import Base from "../../layouts/Base.astro";
 import "../../styles/blog.css";
 
-export async function getStaticPaths() {
-    let paths = [];
-    const pb = new PocketBase("http://db.shlokbhakta.dev");
-    const data = await pb.collection("posts").getFullList({
-        sort: "-created",
-    });
-    for (let i = 0; i < data.length; i++) {
-        paths[i] = { params: { id: data[i].id } };
-    }
-    return paths;
-}
 const { id } = Astro.params;
-
-const pb = new PocketBase("http://db.shlokbhakta.dev");
-
-const data = await pb.collection("posts").getOne(id);
-const image = pb.files.getURL(data, data.Thumbnail);
-
-// Random color selection from Catppuccin palette
-let colors = ["#f38ba8", "#eba0ac", "#fab387", "#f9e2af", "#89dceb", "#cba6f7"];
-let globalColor = colors[Math.floor(Math.random() * colors.length)];
+const pb = new PocketBase("https://db.shlokbhakta.dev");
+const post = await pb.collection("Posts").getOne(id!);
+const image = pb.files.getURL(post, post.Thumbnail);
+const published = new Date(post.created)
+  .toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+  .toLowerCase();
 ---
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charset="UTF-8" />
-        <meta name="author" content="Shlok Bhakta" />
-        <meta
-            name="keywords"
-            content="HTML, CSS, JavaScript, Hire, Blog, Personal Site, "
-        />
-        <meta
-            name="description"
-            content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
-        />
-        <style>
-            .card {
-                backdrop-filter: blur(5px) saturate(180%);
-                -webkit-backdrop-filter: blur(5px) saturate(180%);
-                background-color: #3132443f;
-                border-radius: 12px;
-                border: 1px solid;
-            }
-        </style>
-        <script src="../../lib/addcopy.ts" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="prefetch" href="/" />
-        <link rel="prefetch" href="/blog" />
-        <link rel="prefetch" href="/projects" />
-        <title>{data.Title}</title>
-        <ClientRouter />
-    </head>
-    <body class="mocha bg-crust tilebg">
-        <div id="navbar" class="z-10 sticky">
-            <Navbar />
-        </div>
-        <!-- Spacer -->
-        <div class="h-[60px]"></div>
-        
-        <!-- Clamps content like homepage -->
-        <div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto">
-            <GlassmorphicContainer client:only color={globalColor} text={data.Title} padding="2rem" title_offset="2rem" boxShadow={false}>
-                <div class="flex flex-col items-center gap-8">
-                    <img
-                        class="aspect-auto w-full max-w-3xl rounded-xl shadow-lg"
-                        src={image}
-                        alt={data.Title}
-                        transition:name={data.title}
-                        loading="eager"
-                        decoding="async"
-                    />
-                    <article class="prose prose-invert prose-lg max-w-none w-full">
-                        <Fragment set:html={data.Html} />
-                    </article>
-                    <div class="w-full pt-8">
-                        <img
-                            src="/ReadingThanks.svg"
-                            alt="Thanks For Reading!"
-                            class="w-full max-w-lg mx-auto opacity-80"
-                        />
-                    </div>
-                </div>
-            </GlassmorphicContainer>
-        </div>
-    </body>
-</html>
+<Base title={`${post.Title} | Shlok Bhakta`} description={`A field note by Shlok Bhakta: ${post.Title}`} currentPath="/blog/">
+  <main class="article-main page-frame">
+    <header class="article-header">
+      <a class="article-back" href="/blog/"><span aria-hidden="true">←</span> cd ~/notes</a>
+      <p class="article-meta">{published}</p>
+      <h1>{post.Title}</h1>
+    </header>
+    <figure class="article-hero">
+      <img src={image} alt="" transition:name={post.Title} loading="eager" decoding="async" />
+    </figure>
+    <article class="article-body">
+      <Fragment set:html={post.Html} />
+    </article>
+    <footer class="article-footer">
+      <p>Thanks for <span class="it">reading</span></p>
+      <a class="pill" href="/blog/">more notes →</a>
+    </footer>
+  </main>
+  <script>
+    import "../../lib/addcopy";
+  </script>
+</Base>

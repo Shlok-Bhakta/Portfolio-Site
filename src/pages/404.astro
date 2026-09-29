@@ -1,31 +1,83 @@
 ---
-import Navbar from "../components/navbar.astro";
-import "../styles/global.css";
+import Base from "../layouts/Base.astro";
+import BinaryFluid from "../components/homepage/BinaryFluid.astro";
+
+const path = Astro.url.pathname;
 ---
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charset="UTF-8" />
-        <meta name="author" content="Shlok Bhakta" />
-        <meta name="keywords" content="404 Error" />
-        <meta
-            name="description"
-            content="you seem to be on a page that doesnt exist, good luck finding it!"
-        />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <title>404 oops...</title>
-    </head>
-    <body class="mocha bg-crust tilebg">
-        <div id="navbar" class="z-10 sticky">
-            <Navbar />
-        </div>
-        <div class="grid items-center nerdfont w-full h-full absolute">
-            <div class="text-center">
-                <div class="text-5xl text-text">Nothing to see here!</div>
-                <div class="text-7xl text-red">404 Page not found</div>
-            </div>
-        </div>
-    </body>
-</html>
+<Base title="404 | Shlok Bhakta" description="This page doesn't exist. Good luck finding it!" footer={false} noindex>
+  <main class="lost" data-fluid-stage>
+    <BinaryFluid />
+    <div class="page-frame lost-inner">
+      <p class="lost-cmd mono"><b>~</b> $ cd {path}<br /><span>cd: no such file or directory</span></p>
+      <h1>404<span class="dot">.</span></h1>
+      <p class="lost-note">Nothing to see <span class="it">here</span>.</p>
+      <a class="pill solid" href="/">← back home</a>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .lost {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    isolation: isolate;
+    cursor: crosshair;
+  }
+
+  .lost::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(ellipse 70% 60% at 15% 85%, var(--ink) 15%, transparent 70%);
+  }
+
+  .lost-inner {
+    padding-bottom: clamp(3rem, 10vh, 6rem);
+  }
+
+  .lost-cmd {
+    margin: 0 0 1.4rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+
+  .lost-cmd b {
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .lost-cmd span {
+    color: var(--faint);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(6rem, 24vw, 18rem);
+    font-weight: 600;
+    letter-spacing: -0.07em;
+    line-height: 0.8;
+  }
+
+  h1 .dot {
+    color: var(--accent);
+  }
+
+  .lost-note {
+    margin: 1.2rem 0 2rem;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+  }
+
+  .lost-note .it {
+    color: var(--accent);
+  }
+</style>

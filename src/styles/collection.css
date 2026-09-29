@@ -1,0 +1,30 @@
+.collection-main {
+  min-height: 100vh;
+  padding-block: clamp(8rem, 16vw, 12rem) clamp(5rem, 10vw, 8rem);
+}
+
+.collection-header {
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.collection-prompt {
+  margin: 0 0 1.6rem;
+  color: var(--faint);
+  font-size: 0.8rem;
+}
+
+.collection-prompt b {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.collection-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.collection-list li {
+  border-bottom: 1px solid var(--line);
+}

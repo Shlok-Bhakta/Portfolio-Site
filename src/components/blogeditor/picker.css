@@ -1,0 +1,117 @@
+/* Shared by postpicker.svelte and projectpicker.svelte */
+.picker-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.picker-head h2 {
+  font-size: clamp(2.8rem, 7vw, 4.5rem);
+}
+
+.picker-head .pill {
+  cursor: pointer;
+}
+
+.picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.picker-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--ink-raised);
+  transition: border-color 200ms, transform 300ms var(--ease);
+}
+
+.picker-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  transform: translateY(-3px);
+}
+
+.picker-open {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0 0 1rem;
+  border: 0;
+  color: inherit;
+  background: none;
+  font: inherit;
+  text-align: left;
+}
+
+.picker-open img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--ink);
+}
+
+.picker-title,
+.picker-date,
+.picker-tags,
+.picker-excerpt {
+  padding-inline: 1rem;
+}
+
+.picker-title {
+  margin-top: 0.4rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.picker-title::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background: var(--dot, var(--accent));
+  vertical-align: 0.15em;
+}
+
+.picker-date,
+.picker-tags {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.picker-excerpt {
+  color: var(--faint);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.picker-delete {
+  margin: 0 1rem 1rem;
+  padding: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  transition: color 160ms, background 160ms, border-color 160ms;
+}
+
+.picker-delete:hover {
+  color: var(--ink);
+  background: var(--color-red);
+  border-color: var(--color-red);
+}

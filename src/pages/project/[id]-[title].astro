@@ -1,136 +1,58 @@
 ---
 import PocketBase from "pocketbase";
-import { ClientRouter } from 'astro:transitions';
-
-import Navbar from "../../components/navbar.astro";
+import Base from "../../layouts/Base.astro";
 import PostCard from "../../components/postCard.astro";
-import GlassmorphicContainer from "../../components/glassmorphism/GlassmorphicContainer.svelte";
-import "../../styles/global.css";
 import "../../styles/blog.css";
 
-export async function getStaticPaths() {
-    let paths: any[] = [];
-    const pb = new PocketBase("http://db.shlokbhakta.dev");
-    const data = await pb.collection("Projects").getFullList({
-        sort: "-created",
-    });
-    for (let i = 0; i < data.length; i++) {
-        paths[i] = { params: { id: data[i].id, title: data[i].Title } };
-    }
-    return paths;
-}
-const { id, title } = Astro.params;
-
-const pb = new PocketBase("http://db.shlokbhakta.dev");
-
-const data = await pb.collection("Projects").getOne(id);
-const image = pb.files.getURL(data, data.Thumbnail);
-
-// Random color selection from Catppuccin palette
-let colors = ["#f38ba8", "#eba0ac", "#fab387", "#f9e2af", "#89dceb", "#cba6f7"];
-let globalColor = colors[Math.floor(Math.random() * colors.length)];
-
-let posts = await pb.collection("Posts").getFullList({
-    filter: 'tagName ~ "' + data.ProjectTag + '"',
-    expand: "tagName",
-    sort: "-created",
+const { id } = Astro.params;
+const pb = new PocketBase("https://db.shlokbhakta.dev");
+const project = await pb.collection("Projects").getOne(id!);
+const image = pb.files.getURL(project, project.Thumbnail);
+const relatedPosts = await pb.collection("Posts").getFullList({
+  filter: `tagName ~ "${project.ProjectTag}"`,
+  expand: "tagName",
+  sort: "-created",
 });
 
-for (let i = 0; i < posts.length; i++) {
-    posts[i].imgurl = pb.files.getURL(posts[i], posts[i].Thumbnail);
-    posts[i].imgurllq = pb.files.getURL(posts[i], posts[i].Thumbnail, {
-        thumb: "16x9",
-    });
-    for (let j = 0; j < posts[i].expand?.tagName.length; j++) {
-        posts[i].expand!.tagName[j].imgurl = pb.files.getURL(
-            posts[i].expand?.tagName[j],
-            posts[i].expand?.tagName[j].Icon,
-        );
-    }
+for (const post of relatedPosts) {
+  post.imageUrl = pb.files.getURL(post, post.Thumbnail);
 }
 ---
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charset="UTF-8" />
-        <meta name="author" content="Shlok Bhakta" />
-        <meta
-            name="keywords"
-            content="HTML, CSS, JavaScript, Hire, Blog, Personal Site, "
-        />
-        <meta
-            name="description"
-            content="This is Shlok Bhakta. I am a developer who is studying at Texas A&M University who is adept at many things all the way from CI/CD to backend code to web dev. Come check out what I do!"
-        />
-        <style>
-            .card {
-                backdrop-filter: blur(5px) saturate(180%);
-                -webkit-backdrop-filter: blur(5px) saturate(180%);
-                background-color: #3132443f;
-                border-radius: 12px;
-                border: 1px solid;
-            }
-        </style>
-        <script src="../../lib/addcopy.ts" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="prefetch" href="/" />
-        <link rel="prefetch" href="/projects" />
-        <link rel="prefetch" href="/blog" />
-        <title>{data.Title}</title>
-        <ClientRouter />
-    </head>
-    <body class="mocha bg-crust tilebg">
-        <div class="z-10 sticky">
-            <Navbar />
-        </div>
+<Base title={`${project.Title} | Shlok Bhakta`} description={`${project.Title}, a project by Shlok Bhakta.`} currentPath="/projects/">
+  <main class="article-main page-frame">
+    <header class="article-header">
+      <a class="article-back" href="/projects/"><span aria-hidden="true">←</span> cd ~/projects</a>
+      <p class="article-meta">project</p>
+      <h1>{project.Title}</h1>
+    </header>
+    <figure class="article-hero">
+      <img src={image} alt="" transition:name={project.Title} loading="eager" decoding="async" />
+    </figure>
+    <article class="article-body">
+      <Fragment set:html={project.Html} />
+    </article>
 
-        <!-- Spacer -->
-        <div class="h-[60px]"></div>
-        
-        <!-- Clamps content like homepage -->
-        <div class="md:w-4/5 max-w-6xl w-full px-4 md:px-0 mx-auto">
-            <GlassmorphicContainer client:only color={globalColor} text={data.Title} padding="2rem" title_offset="2rem" boxShadow={false}>
-                <div class="flex flex-col items-center gap-8">
-                    <img
-                        class="aspect-auto w-full max-w-3xl rounded-xl shadow-lg"
-                        src={image}
-                        alt={data.Title}
-                        transition:name={title}
-                        loading="eager"
-                        decoding="async"
-                    />
-                    <article class="prose prose-invert prose-lg max-w-none w-full">
-                        <Fragment set:html={data.Html} />
-                    </article>
-                </div>
-            </GlassmorphicContainer>
-            
-            <div hidden={posts.length == 0} class="mt-8">
-                <GlassmorphicContainer client:only color={globalColor} text="Related Posts" padding="2rem" title_offset="2rem">
-                    <ol class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-                        {
-                            posts.map((data) => (
-                                <li>
-                                    <PostCard
-                                        title={data.Title}
-                                        tags={data.expand?.tagName}
-                                        date={data.created}
-                                        image={data.imgurl}
-                                        link={"/post/" + data.id}
-                                        imagelq={data.imgurllq}
-                                        col={data.Color}
-                                    />
-                                </li>
-                            ))
-                        }
-                    </ol>
-                </GlassmorphicContainer>
-            </div>
-        </div>
-        <div>
-            <img src="/ReadingThanks.svg" class="w-full px-6 pt-12 max:w-4xl" />
-        </div>
-    </body>
-</html>
+    {relatedPosts.length > 0 && (
+      <section class="related-posts" aria-labelledby="related-title">
+        <h2 class="display-title" id="related-title">Related<sup>{String(relatedPosts.length).padStart(2, "0")}</sup></h2>
+        <ol>
+          {relatedPosts.map((post) => (
+            <li>
+              <PostCard
+                title={post.Title}
+                tags={post.expand?.tagName}
+                date={post.created}
+                image={post.imageUrl}
+                link={`/post/${post.id}`}
+              />
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+  </main>
+  <script>
+    import "../../lib/addcopy";
+  </script>
+</Base>

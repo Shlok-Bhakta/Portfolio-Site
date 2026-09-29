@@ -1,4 +1,5 @@
 <script lang="ts">
+    import "./picker.css";
     import {projects, currentEdit, pb, showImage} from "./stores";
     import type {currentData} from "./stores";
     async function getProjects() {
@@ -32,19 +33,19 @@
 
     async function deleteProj(iddel: any) {
         let deleteButton: any = document.getElementById("delPR-" + iddel);
-        console.log(deleteButton.getAttribute("confirmed"));
-        if (deleteButton.getAttribute("confirmed") == "ST-A") {
+        console.log(deleteButton.getAttribute("data-confirmed"));
+        if (deleteButton.getAttribute("data-confirmed") == "ST-A") {
             deleteButton.innerHTML = "Are you sure?";
-            deleteButton.setAttribute("confirmed", "ST-B");
-        } else if (deleteButton.getAttribute("confirmed") == "ST-B") {
+            deleteButton.setAttribute("data-confirmed", "ST-B");
+        } else if (deleteButton.getAttribute("data-confirmed") == "ST-B") {
             deleteButton.innerHTML = "Are you SUPER sure?";
-            deleteButton.setAttribute("confirmed", "ST-C");
+            deleteButton.setAttribute("data-confirmed", "ST-C");
         } else {
             await pb.collection("Projects").delete(iddel);
             await getProjects();
             getProject("0");
             deleteButton.innerHTML = "Delete Project";
-            deleteButton.setAttribute("confirmed", "ST-A");
+            deleteButton.setAttribute("data-confirmed", "ST-A");
         }
     }
 
@@ -57,37 +58,23 @@
     });
 </script>
 
-
-<button class="pb-2 nerdfont text-center w-full text-text text-7xl" onclick={getProjects}>Projects</button>
-<div class="h-auto w-full bg-mantle text-text text-5xl">
-    {#if $projects != null}
-        <div>
-            <ol id="postList" class="w-full grid grid-cols-5 gap-2 nerdfont">
-                {#each $projects as post}
-                    <li class="text-text text-sm w-full text text-center bg-base mx-4 rounded-md py-2 items-center">
-                        <button onclick={() => {getProject(post.id)}}>
-                            <div class="" style="color:{post.Color};"> 
-                                {post.Title}
-                            </div>
-                            <div class="text-blue">
-                                {post.created}
-                            </div>
-                            <img src={pb.files.getURL(post, post.Thumbnail)} alt={post.Title + "'s Thumbnail"} class="w-11/12 mx-auto aspect-auto rounded-md" />
-                            <div class="flex flex-wrap flex-row gap-1">
-                                {#each post.expand.tagName as tag}
-                                    <div class="text-blue bg-surface0 rounded-md px-2 py-1 w-fit">
-                                        {tag.tagName}
-                                    </div>
-                                {/each}
-                            </div>
-                            <div class="text-text">
-                                {post.Markdown.substring(0, 100)}
-                            </div>
-                        </button>
-                        <button id="delPR-{post.id}" class="bg-overlay1 hover:bg-red w-11/12 rounded-md" onclick={async () => {await deleteProj(post.id)}} data-confirmed="false"> Delete Project </button>
-                    </li>
-                {/each}
-            </ol>
-        </div>
-    {/if}
+<div class="picker-head">
+    <h2 class="display-title">Projects{#if $projects}<sup>{String($projects.length).padStart(2, "0")}</sup>{/if}</h2>
+    <button class="pill" onclick={getProjects}>refresh ↻</button>
 </div>
+{#if $projects != null}
+    <ol id="postList" class="picker-grid">
+        {#each $projects as post}
+            <li class="picker-card">
+                <button class="picker-open" onclick={() => {getProject(post.id)}}>
+                    <img src={pb.files.getURL(post, post.Thumbnail)} alt={post.Title + "'s Thumbnail"} />
+                    <span class="picker-title" style="--dot: {post.Color}">{post.Title}</span>
+                    <span class="picker-date">{new Date(post.created).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }).toLowerCase()}</span>
+                    <span class="picker-tags">{(post.expand?.Tags ?? []).map((tag: any) => tag.tagName).join(" · ")}</span>
+                    <span class="picker-excerpt">{post.Markdown.substring(0, 100)}</span>
+                </button>
+                <button id="delPR-{post.id}" class="picker-delete" onclick={async () => {await deleteProj(post.id)}} data-confirmed="ST-A">Delete Project</button>
+            </li>
+        {/each}
+    </ol>
+{/if}

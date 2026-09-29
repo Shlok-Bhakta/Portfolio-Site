@@ -33,43 +33,36 @@ This is Shlok Bhakta's personal portfolio website built with Astro.js, Svelte, a
 - `@catppuccin/tailwindcss` - Color theme integration
 
 **Component Structure**:
+- `/src/layouts/Base.astro` - Shared page shell: fonts, meta, nav, footer, per-visit accent color, scroll reveals
 - `/src/components/` - Reusable UI components
-  - `glassmorphism/` - Glassmorphic container components
-  - `homepage/` - Homepage-specific components (ezatree.svelte)
-  - `navbar.astro` - Main navigation
+  - `homepage/BinaryFluid.astro` - Canvas "binary fluid" (stable-fluids grid carrying 0/1 glyphs); used on the homepage hero and 404
+  - `blogeditor/` - Svelte CMS for posts/projects (Carta editor, pickers, preview)
+  - `navbar.astro`, `footer.astro`, `postCard.astro`
+- `/src/lib/accent.ts` - Catppuccin accent palette; one is picked per visit and kept in an `accent` cookie
 - `/src/pages/` - Astro page routes
-- `/src/styles/` - Global CSS and component styles
+- `/src/styles/` - `global.css` (tokens + shared chrome), `homepage.css`, `collection.css`, `blog.css` (article + CMS preview)
 
 **Routing**:
-- `/` - Homepage with terminal-themed portfolio
+- `/` - Homepage: binary-fluid hero, experience, hackathons, personal projects (from `src/data/experience.json`)
 - `/blog` - Blog listing page
-- `/projects` - Projects showcase
+- `/projects` - Projects archive
 - `/post/[id]` - Dynamic blog post pages
 - `/project/[id]-[title]` - Dynamic project pages
 - `/blogeditor` - Blog editing interface (requires authentication)
 
-## Key Features
+## Design System
 
-**Terminal Theme**: Homepage designed as an interactive terminal interface with:
-- Neofetch-style personal info display
-- `eza -T` command simulation for skills tree
-- Git log format for experience timeline
-- Dynamic Catppuccin color theming
-
-**Blog System**: 
-- Markdown-based blog posts with syntax highlighting
-- Blog editor interface with live preview
-- PocketBase integration for post management
-
-**Interactive Elements**:
-- Glassmorphic containers with hover effects  
-- Responsive navigation with hamburger menu
-- Scroll-triggered animations
+Minimal dark layout with a terminal flavour:
+- Colors: near-black `--ink` background, `--paper` text, one Catppuccin `--accent` per visit (footer dot cycles it)
+- Type: Inter Variable (headings/body), Instrument Serif italic (display titles, accents), CaskaydiaCove mono (labels, prompts)
+- Keep subtext to a minimum: big titles, short mono meta, no paragraphs of description on listing pages
+- Shared classes in `global.css`: `.pill`, `.display-title` (serif italic title with a mono `<sup>` count), `.it`, `.reveal`
+- Tailwind's Catppuccin utility names still exist (neutrals retuned to the palette above); avoid naming custom classes after Tailwind utilities (e.g. `outline`)
 
 ## Deployment
 
 The site is containerized and deployed via GitHub Actions:
-- Multi-stage `Dockerfile` builds with Bun, bundles the SSR server to a single file, and ships it on `oven/bun:distroless` (no nginx, no node_modules at runtime)
+- Multi-stage `Dockerfile` builds with Bun, bundles the SSR server for Node, and ships it on `node:22-alpine` (no nginx or node_modules at runtime)
 - Serves on port 4321 via `serve.mjs`
 - Available at `ghcr.io/shlok-bhakta/portfolio-site:latest`
 
@@ -80,28 +73,3 @@ The site is containerized and deployed via GitHub Actions:
 - `Other/` directory contains technology icons organized by category
 - `public/fonts/` contains custom fonts including pixel.ttf
 - `bin/` directory likely contains build/deployment scripts
-
-## Code Cleanup & Refactoring Notes
-
-**Recent Refactoring (2025-01-26)**:
-- **Removed unused code**: Eliminated commented-out Meteors component and its imports
-- **Component extraction**: Broke down the large `index.astro` (600+ lines) into modular components:
-  - `HeroSection.astro` - Terminal-style personal info display
-  - `SkillsSection.astro` - Skills tree with eza command simulation
-  - `AboutSection.astro` - About me section with professional objectives
-  - `ExperienceSection.astro` - Work experience and project timeline
-  - `FooterSection.astro` - Footer with thank you message
-  - `HomePageScripts.astro` - All JavaScript functionality (sticky navbar, scroll animations, branch line generation)
-- **Style organization**: Moved inline CSS to dedicated `homepage.css` file
-- **Improved maintainability**: Each section is now self-contained and reusable
-- **No visual changes**: All refactoring maintained exact same appearance and functionality
-
-**Glassmorphic Component Optimizations**:
-- **Removed dead code**: Eliminated unused `rgbToHsl()` function (24 lines)  
-- **Cleaned up CSS**: Removed commented-out styles and redundant border-radius rules
-- **Simplified DOM structure**: Removed redundant overlay element, kept only functional one
-- **Performance improvements**: 
-  - Fixed throttling rate (30fps → 60fps) to match comments
-  - Added squared distance comparison to avoid unnecessary sqrt calculations
-  - Removed unused `id` parameter in forEach callback
-- **Reduced bundle size**: Cleaner code means less JavaScript to parse/execute

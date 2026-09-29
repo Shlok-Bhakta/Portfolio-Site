@@ -132,7 +132,8 @@
         }
       ],
       "description": "Created an in-flight entertainment system letting passengers connect to each other to watch movies and chat with each other",
-      "achievement": "Received a Tech Box for winning the best use of Cloudflare award"
+      "achievement": "Received a Tech Box for winning the best use of Cloudflare award",
+      "award": "Best use of Cloudflare"
     },
     {
       "title": "Panda POS",

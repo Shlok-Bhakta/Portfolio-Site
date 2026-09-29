@@ -3,8 +3,9 @@ import { expect, test } from "@playwright/test";
 test("unknown route renders the 404 page", async ({ page }) => {
   const res = await page.goto("/definitely-not-a-real-page");
   expect(res?.status()).toBe(404);
-  await expect(page.getByText("Nothing to see here!")).toBeVisible();
-  await expect(page.getByText("404 Page not found")).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /404/ })).toBeVisible();
+  await expect(page.getByText("no such file or directory")).toBeVisible();
+  await expect(page.getByRole("link", { name: /back home/ })).toHaveAttribute("href", "/");
 });
 
 test("API route /api/mdtohtml answers with JSON", async ({ request }) => {
@@ -41,6 +42,8 @@ test("static assets are served", async ({ request }) => {
 
 test("blog editor page loads its shell", async ({ page }) => {
   await page.goto("/blogeditor");
-  await expect(page).toHaveTitle(/Shouldnt be here/);
-  await expect(page.getByRole("link", { name: "SB~@" })).toBeVisible();
+  await expect(page).toHaveTitle(/Editor/);
+  await expect(
+    page.getByRole("link", { name: "Shlok Bhakta, home" }),
+  ).toBeVisible();
 });
